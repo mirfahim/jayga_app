@@ -15,6 +15,14 @@ abstract class Routes {
   static const BROWSEJOB = _Paths.BROWSEJOB;
   static const CONTRACTORLISTVIEW = _Paths.CONTRACTORLISTVIEW;
   static const CREATEWORKORDER = _Paths.CREATEWORKORDER;
+  static const SAVEDSCREEN = _Paths.SAVEDSCREEN;
+  static const MYBOOKING = _Paths.MYBOOKING;
+  static const PROFILE = _Paths.PROFILE;
+  static const OTPPAGE = _Paths.OTPPAGE;
+
+
+
+
 
 }
 
@@ -24,6 +32,11 @@ abstract class _Paths {
   static const POSTPROJECT = '/post_project';
   static const CREATEESTIMATION = '/estimation';
   static const BASE = '/base';
+  static const SAVEDSCREEN = '/saved';
+  static const MYBOOKING = '/mybooking';
+  static const PROFILE = '/profile';
+  static const OTPPAGE = '/otp';
+
   static const LOGIN = '/login';
   static const CONTRACTORLISTVIEW = '/contractorlistview';
   static const LEADMARKET = '/leadmarket';

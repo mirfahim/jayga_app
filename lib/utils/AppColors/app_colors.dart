@@ -8,12 +8,14 @@ class AppColors {
   static Color backgroundColor = Color(0xffffffff);
   static Color textColorWhite = Color(0xffffffff);
   static Color textColorGrey = Colors.grey;
-  static Color textColorGreen=Color(0xff2ECC71);
+
   static Color textColorBlack=Colors.black;
   static Color textColorRed=Colors.red;
   static Color containerColor=Color(0xffFAFAFA);
   static Color colorBlue=Colors.blue;
   static  Color appBackGroundBrn =HexColor("#FDF0C3");
+  static  Color textColorGreen = HexColor("#139175");
+  static  Color buttonColorYellow = HexColor("#FFCE4E");
 
 }
 class HexColor extends Color {

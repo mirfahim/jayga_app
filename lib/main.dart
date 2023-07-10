@@ -20,7 +20,7 @@ void main() async {
   runApp(
       GetMaterialApp(
         debugShowCheckedModeBanner: false,
-        title: "Fixera",
+        title: "Jayga",
         initialRoute: AppPages.INITIAL,
         getPages: AppPages.routes,
       )

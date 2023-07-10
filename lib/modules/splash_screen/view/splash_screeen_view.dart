@@ -49,3 +49,4 @@ class SplashscreenView extends GetView<SplashscreenController> {
     );
   }
 }
+//
