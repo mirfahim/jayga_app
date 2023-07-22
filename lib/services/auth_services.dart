@@ -27,7 +27,7 @@ class AuthService extends GetxService {
     //  getDeviceToken();
 
     // getUsed();
-    getCurrentUser();
+    //getCurrentUser();
     super.onInit();
   }
 

@@ -9,6 +9,7 @@ class HomeController extends GetxController {
   var JobData = TextEditingController().obs;
   var passController = TextEditingController().obs;
   final visible = 0.obs;
+  final seeListView = false.obs;
   @override
   void onInit() {
     super.onInit();

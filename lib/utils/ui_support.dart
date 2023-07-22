@@ -483,7 +483,7 @@ class Ui {
         return DecoratedBox(
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(50),
-            color: AppColors.primaryColor,
+            color: AppColors.textColorGreen,
           ),
         );
       },

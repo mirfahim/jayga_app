@@ -1,5 +1,8 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:pin_code_fields/pin_code_fields.dart';
 
 
 
@@ -8,11 +11,18 @@ class AuthController extends GetxController {
 
   var JobData = TextEditingController().obs;
   var passController = TextEditingController().obs;
+  var dateController = TextEditingController().obs;
+  var pinCodeController = TextEditingController().obs;
+
+  final formKey = GlobalKey<FormState>();
   final visible = 0.obs;
+  StreamController<ErrorAnimationType>? pinErrorController;
   @override
   void onInit() {
+    pinErrorController = StreamController<ErrorAnimationType>();
     super.onInit();
   }
+
 
   @override
   void onReady() {

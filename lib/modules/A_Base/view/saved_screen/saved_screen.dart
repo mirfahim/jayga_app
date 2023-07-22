@@ -51,9 +51,7 @@ class SavedView extends GetView<HomeController> {
               SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                height: 20,
-              ),
+
               Text(
                 "As you search, tap the heart icon to save your favourite places and experiences to this list.",
                 style: TextStyle(

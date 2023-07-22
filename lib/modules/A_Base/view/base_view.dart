@@ -116,7 +116,7 @@ class BaseView extends GetView<BaseController> {
                             style: TextStyle(
                                 fontSize: 10,
                                 color: controller.currentIndex.value == 1
-                                    ? AppColors.primaryColor
+                                    ? AppColors.textColorGreen
                                     : Colors.grey,
                                 fontWeight: FontWeight.normal),
                           ),

@@ -14,177 +14,193 @@ class LoginView extends GetView<AuthController> {
     return Scaffold(
       backgroundColor: AppColors.appBackGroundBrn,
       body: Obx(() {
-        return Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              alignment: Alignment.center,
-              // color: AppColors.backgroundColor,
-              child: Image.asset(
-                'assets/images/jayga_logo.png',
-                height: 100,
+        return SingleChildScrollView(
+          child: Column(
+            children: [
+              SizedBox(
+                height: 40,
               ),
-            ),
-            SizedBox(
-              height: 20,
-            ),
-            Text(
-              "Login/Register",
-              style: TextStyle(
-                  fontSize: 40,
-                  color: Colors.black,
-                  fontWeight: FontWeight.bold),
-            ),
-            Text(
-              "Continue with Mobile/Email",
-              style: TextStyle(
-                  fontSize: 20,
-                  color: AppColors.textColorGreen,
-                  fontWeight: FontWeight.bold),
-            ),
-            Padding(
-              padding: const EdgeInsets.all(16.0),
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    TextFormField(
-                      maxLines: 1,
-                      controller: controller.JobData.value,
-                      decoration: new InputDecoration(
-                        labelText: 'Phone Number/Email',
-                        suffixIcon: Icon(
-                          Icons.email_outlined,
-                        ),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.all(
-                            Radius.circular(10.0),
-                          ),
-                        ),
-                      ),
-                      validator: (value) {
-                        if (value!.trim().isEmpty)
-                          return "Email is Required";
-                        else if (!GetUtils.isEmail(value.trim()))
-                          return "Please enter valid email";
-                        else
-                          return null;
-                      },
-                    ),
-                    SizedBox(height: 20),
-                    SizedBox(
-                      height: 25,
-                    ),
-                  ],
+              Container(
+                alignment: Alignment.center,
+                // color: AppColors.backgroundColor,
+                child: Image.asset(
+                  'assets/images/jayga_logo.png',
+                  height: 100,
                 ),
               ),
-            ),
-            InkWell(
-              onTap: () {
-                Get.toNamed(Routes.BASE);
-                //controller.visible.value++;
-                // controller.loginController();
-              },
-              child: AnimatedContainer(
-                duration: Duration(seconds: 2),
-                height: controller.visible.value == 1 ? 50 : 60,
-                width: controller.visible.value == 1
-                    ? MediaQuery.of(context).size.width * .5
-                    : MediaQuery.of(context).size.width * .9,
-                decoration: BoxDecoration(
+              SizedBox(
+                height: 20,
+              ),
+              Text(
+                "Login/Register",
+                style: TextStyle(
+                    fontSize: 40,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),
+              ),
+              Text(
+                "Continue with Mobile/Email",
+                style: TextStyle(
+                    fontSize: 20,
                     color: AppColors.textColorGreen,
-                    borderRadius: BorderRadius.circular(
-                        controller.visible.value == 1 ? 60 : 40)),
-                alignment: Alignment.center,
-                child: controller.visible.value == 1
-                    ? Center(child: CircularProgressIndicator())
-                    : Text(
-                        "Continue",
-                        style: TextStyle(
-                          color: AppColors.backgroundColor,
-                          fontSize: 12,
+                    fontWeight: FontWeight.normal),
+              ),
+              SizedBox(height: 20,),
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+
+                  child: TextFormField(
+
+                    maxLines: 1,
+                    controller: controller.JobData.value,
+                    decoration: new InputDecoration(
+                      filled: true,
+                      fillColor: AppColors.jaygaWhite,
+                      focusColor: Colors.white,
+                      labelText: 'Phone Number/Email',
+                      // suffixIcon: Icon(
+                      //   Icons.email_outlined,
+                      // ),
+                      border: OutlineInputBorder(
+                        borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                        borderRadius: BorderRadius.all(
+                          Radius.circular(10.0),
                         ),
                       ),
+                    ),
+                    validator: (value) {
+                      if (value!.trim().isEmpty)
+                        return "Email is Required";
+                      else if (!GetUtils.isEmail(value.trim()))
+                        return "Please enter valid email";
+                      else
+                        return null;
+                    },
+                  ),
+
               ),
-            ),
-            Divider(),
-            InkWell(
-              onTap: () {
-                Get.toNamed(Routes.OTPPAGE);
-                //controller.visible.value++;
-                // controller.loginController();
-              },
-              child: AnimatedContainer(
-                duration: Duration(seconds: 2),
-                height: controller.visible.value == 1 ? 50 : 60,
-                width: controller.visible.value == 1
-                    ? MediaQuery.of(context).size.width * .5
-                    : MediaQuery.of(context).size.width * .9,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                        controller.visible.value == 1 ? 10 : 10)),
-                alignment: Alignment.center,
-                child: controller.visible.value == 1
-                    ? Center(child: CircularProgressIndicator())
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assets/icons/gmail.png',
+              SizedBox(height: 20,),
+              InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.OTPPAGE);
+                  //controller.visible.value++;
+                  // controller.loginController();
+                },
+                child: AnimatedContainer(
+                  duration: Duration(seconds: 2),
+                  height: controller.visible.value == 1 ? 50 : 60,
+                  width: controller.visible.value == 1
+                      ? MediaQuery.of(context).size.width * .5
+                      : MediaQuery.of(context).size.width * .9,
+                  decoration: BoxDecoration(
+                      color: AppColors.buttonColorYellow,
+                      borderRadius: BorderRadius.circular(
+                          controller.visible.value == 1 ? 60 : 10)),
+                  alignment: Alignment.center,
+                  child: controller.visible.value == 1
+                      ? Center(child: CircularProgressIndicator())
+                      : Text(
+                          "Continue",
+                          style: TextStyle(
+                            color: AppColors.backgroundColor,
+                            fontWeight: FontWeight.bold,
+                            fontSize: 18,
                           ),
-                          Text(
-                            "Sign In With Gmail",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 12,
+                        ),
+                ),
+              ),
+              Divider(),
+              InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.REGISTER);
+                  //controller.visible.value++;
+                  // controller.loginController();
+                },
+                child: AnimatedContainer(
+                  duration: Duration(seconds: 2),
+                  height: controller.visible.value == 1 ? 50 : 60,
+                  width: controller.visible.value == 1
+                      ? MediaQuery.of(context).size.width * .5
+                      : MediaQuery.of(context).size.width * .9,
+                  decoration: BoxDecoration(
+                      color: AppColors.jaygaWhite,
+                      borderRadius: BorderRadius.circular(
+                          controller.visible.value == 1 ? 10 : 10)),
+                  alignment: Alignment.center,
+                  child: controller.visible.value == 1
+                      ? Center(child: CircularProgressIndicator())
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 100,
+                              child: Image.asset(
+                                'assets/icons/gmail.png',
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
-              ),
-            ),
-            SizedBox(
-              height: 10,
-            ),
-            InkWell(
-              onTap: () {
-                Get.toNamed(Routes.OTPPAGE);
-                //controller.visible.value++;
-                // controller.loginController();
-              },
-              child: AnimatedContainer(
-                duration: Duration(seconds: 2),
-                height: controller.visible.value == 1 ? 50 : 60,
-                width: controller.visible.value == 1
-                    ? MediaQuery.of(context).size.width * .5
-                    : MediaQuery.of(context).size.width * .9,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(
-                        controller.visible.value == 1 ? 10 : 10)),
-                alignment: Alignment.center,
-                child: controller.visible.value == 1
-                    ? Center(child: CircularProgressIndicator())
-                    : Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Image.asset(
-                            'assets/icons/gmail.png',
-                          ),
-                          Text(
-                            "Sign In With Facebook",
-                            style: TextStyle(
-                              color: Colors.black,
-                              fontSize: 12,
+                            SizedBox(width: 20,),
+                            Container(
+                              width: 200,
+                              child: Text(
+                                "Sign In With Gmail",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                ),
+                              ),
                             ),
-                          ),
-                        ],
-                      ),
+                          ],
+                        ),
+                ),
               ),
-            ),
-          ],
+              SizedBox(
+                height: 10,
+              ),
+              InkWell(
+                onTap: () {
+                  Get.toNamed(Routes.OTPPAGE);
+                  //controller.visible.value++;
+                  // controller.loginController();
+                },
+                child: AnimatedContainer(
+                  duration: Duration(seconds: 2),
+                  height: controller.visible.value == 1 ? 50 : 60,
+                  width: controller.visible.value == 1
+                      ? MediaQuery.of(context).size.width * .5
+                      : MediaQuery.of(context).size.width * .9,
+                  decoration: BoxDecoration(
+                      color: AppColors.jaygaWhite,
+                      borderRadius: BorderRadius.circular(
+                          controller.visible.value == 1 ? 10 : 10)),
+                  alignment: Alignment.center,
+                  child: controller.visible.value == 1
+                      ? Center(child: CircularProgressIndicator())
+                      : Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Container(
+                              width: 100,
+                              child: Image.asset(
+                                'assets/icons/fb.png',
+                              ),
+                            ),
+                            SizedBox(width: 20,),
+                            Container(
+                              width: 200,
+                              child: Text(
+                                "Sign In With Facebook",
+                                style: TextStyle(
+                                  color: Colors.black,
+                                  fontSize: 12,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                ),
+              ),
+            ],
+          ),
         );
       }),
     );

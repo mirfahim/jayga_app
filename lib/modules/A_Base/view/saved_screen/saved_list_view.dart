@@ -5,8 +5,8 @@ import 'package:jayga/modules/auth/controller/auth_controller.dart';
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
 
-class MyBookingView extends GetView<HomeController> {
-  const MyBookingView({Key? key}) : super(key: key);
+class SavedListView extends GetView<HomeController> {
+  const SavedListView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +26,7 @@ class MyBookingView extends GetView<HomeController> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "My Bookings",
+                    "Saved",
                     style: TextStyle(
                         fontSize: 40,
                         color: Colors.black,
@@ -42,7 +42,7 @@ class MyBookingView extends GetView<HomeController> {
                 height: 20,
               ),
               Text(
-                "No trips booked... yet!",
+                "Create your saved list",
                 style: TextStyle(
                     fontSize: 20,
                     color: Colors.black54,
@@ -51,11 +51,9 @@ class MyBookingView extends GetView<HomeController> {
               SizedBox(
                 height: 20,
               ),
-              SizedBox(
-                height: 20,
-              ),
+
               Text(
-                "Time to dust off your bags and start planning your next adventure.",
+                "As you search, tap the heart icon to save your favourite places and experiences to this list.",
                 style: TextStyle(
                     fontSize: 14,
                     color: Colors.grey,

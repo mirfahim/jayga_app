@@ -13,7 +13,7 @@ class SplashscreenView extends GetView<SplashscreenController> {
     Size size = MediaQuery.of(context).size;
     Get.find<SplashscreenController>();
     return Scaffold(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: AppColors.appBackGroundBrn,
       body: SizedBox(
         height: size.height,
         width: size.width,
@@ -23,8 +23,8 @@ class SplashscreenView extends GetView<SplashscreenController> {
             // width: size.width * .35,
             Center(
               child: SizedBox(
-                height: size.width * .35,
-                width: size.width * .35,
+                height: size.width * .50,
+                width: size.width * .50,
                 child: Image.asset("assets/images/jayga_logo.png"),
               ),
             ),

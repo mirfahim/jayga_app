@@ -19,6 +19,9 @@ abstract class Routes {
   static const MYBOOKING = _Paths.MYBOOKING;
   static const PROFILE = _Paths.PROFILE;
   static const OTPPAGE = _Paths.OTPPAGE;
+  static const REGISTER = _Paths.REGISTER;
+  static const LANDING = _Paths.LANDING;
+  static const BOOKINGDETAILS = _Paths.BOOKINGDETAILS;
 
 
 
@@ -36,7 +39,9 @@ abstract class _Paths {
   static const MYBOOKING = '/mybooking';
   static const PROFILE = '/profile';
   static const OTPPAGE = '/otp';
-
+  static const LANDING = '/landing';
+  static const BOOKINGDETAILS = '/booking_details';
+  static const REGISTER = '/register';
   static const LOGIN = '/login';
   static const CONTRACTORLISTVIEW = '/contractorlistview';
   static const LEADMARKET = '/leadmarket';

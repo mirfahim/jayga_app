@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class AppColors {
-  static Color primaryColor = Color(0xffA0C828);
+
   static Color searchBoxColor = Color(0xffA0C828);
   static Color bottomNavColor = Color(0xff838383);
   static Color secondaryColor = Color(0xff0E153D);
@@ -16,6 +16,8 @@ class AppColors {
   static  Color appBackGroundBrn =HexColor("#FDF0C3");
   static  Color textColorGreen = HexColor("#139175");
   static  Color buttonColorYellow = HexColor("#FFCE4E");
+  static  Color jaygaWhite = HexColor("#FFFCF3");
+  static  Color jaygaShadowBrwn = HexColor("#FEF5DD");
 
 }
 class HexColor extends Color {

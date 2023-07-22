@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:jayga/modules/A_Base/view/my_booking/my_booking_screen.dart';
+import 'package:jayga/modules/A_Base/view/my_booking_history/my_booking_screen.dart';
 import 'package:jayga/modules/A_Base/view/profile/profile_screen.dart';
 import 'package:jayga/modules/A_Base/view/saved_screen/saved_screen.dart';
 
@@ -11,7 +11,7 @@ import '../../home/view/home_page_view.dart';
 
 class BaseController extends GetxController {
   //TODO: Implement BaseController
-
+  final landingPage = 1.obs;
   final currentIndex = 0.obs;
   final categoryDataLoaded = false.obs;
 
