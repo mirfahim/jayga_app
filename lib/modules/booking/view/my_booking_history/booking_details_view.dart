@@ -5,8 +5,8 @@ import 'package:jayga/modules/auth/controller/auth_controller.dart';
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
 
-class MyBookingDetailsView extends GetView<HomeController> {
-  const MyBookingDetailsView({Key? key}) : super(key: key);
+class MyBookingHistoryDetailsView extends GetView<HomeController> {
+  const MyBookingHistoryDetailsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

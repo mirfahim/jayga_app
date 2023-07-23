@@ -52,7 +52,7 @@ class ProfileView extends GetView<HomeController> {
                   child: ListTile(
                     title: Text("Setup your own place"),
                     subtitle:
-                        Text("It’s simple to get set up and start earning."),
+                    Text("It’s simple to get set up and start earning."),
                     trailing: Container(
                       height: 50,
                       width: 50,
@@ -194,7 +194,7 @@ class ProfileView extends GetView<HomeController> {
                         trailing: Icon(Icons.navigate_next),
                       ),
                     ),
-                 SizedBox(height: 30,),
+                    SizedBox(height: 30,),
                     GestureDetector(
                       onTap: () {
                         Get.toNamed(Routes.LOGIN);

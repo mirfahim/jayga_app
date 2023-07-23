@@ -21,7 +21,9 @@ abstract class Routes {
   static const OTPPAGE = _Paths.OTPPAGE;
   static const REGISTER = _Paths.REGISTER;
   static const LANDING = _Paths.LANDING;
-  static const BOOKINGDETAILS = _Paths.BOOKINGDETAILS;
+  static const MAKEBOOKINGDETAILS = _Paths.MAKEBOOKINGDETAILS;
+  static const BOOKINGDETAILSHISTORY = _Paths.BOOKINGDETAILSHISTORY;
+  static const CONFIEMANDPAY = _Paths.CONFIRMANDPAY;
 
 
 
@@ -36,16 +38,18 @@ abstract class _Paths {
   static const CREATEESTIMATION = '/estimation';
   static const BASE = '/base';
   static const SAVEDSCREEN = '/saved';
+  static const CONFIRMANDPAY = '/confirmandpay';
   static const MYBOOKING = '/mybooking';
   static const PROFILE = '/profile';
   static const OTPPAGE = '/otp';
   static const LANDING = '/landing';
-  static const BOOKINGDETAILS = '/booking_details';
+  static const BOOKINGDETAILSHISTORY = '/booking_details_history';
   static const REGISTER = '/register';
   static const LOGIN = '/login';
   static const CONTRACTORLISTVIEW = '/contractorlistview';
   static const LEADMARKET = '/leadmarket';
   static const CREATEWORKORDER = '/createworkorder';
+  static const MAKEBOOKINGDETAILS = '/makebookingdetails';
 
   static const CHANGEPASS = '/changepass';
   static const MENUPAGE = '/menuPage';

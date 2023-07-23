@@ -7,8 +7,8 @@ import 'package:jayga/utils/AppColors/app_colors.dart';
 
 import '../../../../routes/app_pages.dart';
 
-class MyBookingListView extends GetView<HomeController> {
-  const MyBookingListView({Key? key}) : super(key: key);
+class MyBookingListHISTORY extends GetView<HomeController> {
+  const MyBookingListHISTORY({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +25,7 @@ class MyBookingListView extends GetView<HomeController> {
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: (){
-                      Get.toNamed(Routes.BOOKINGDETAILS);
+                      Get.toNamed(Routes.BOOKINGDETAILSHISTORY);
                     },
                     child: Stack(
 

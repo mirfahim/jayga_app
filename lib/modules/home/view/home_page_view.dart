@@ -5,6 +5,8 @@ import 'package:jayga/modules/auth/controller/auth_controller.dart';
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
 
+import '../../../routes/app_pages.dart';
+
 class HomePageView extends GetView<HomeController> {
   const HomePageView({Key? key}) : super(key: key);
 
@@ -157,51 +159,56 @@ class HomePageView extends GetView<HomeController> {
                       itemBuilder: (BuildContext context, index) {
                         return Padding(
                           padding: const EdgeInsets.all(8.0),
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Container(
-                                // color: AppColors.backgroundColor,
-                                child: Image.asset(
-                                  'assets/images/demo_room1.png',
-                                  // height: MediaQuery.of(context).size.height *.5,
-                                  // width: MediaQuery.of(context).size.width *.9,
-                                ),
-                              ),
-                              SizedBox(height: 10,),
-                              Card(
-                                color: AppColors.appBackGroundBrn,
-                                child: Padding(
-                                  padding: const EdgeInsets.all(8.0),
-                                  child: Column(
-                                    crossAxisAlignment: CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text("Uttara, Dhaka", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
-                                          Text("5.0", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                                        ],
-                                      ),
-                                      Text("Elegant and modern space for rent. Free from 24-31 Jul."),
-                                      SizedBox(height: 10,),
-                                      Row(
-
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        crossAxisAlignment: CrossAxisAlignment.start,
-                                        children: [
-                                          Text("1 Bedroom + Patio + BT", style: TextStyle(fontWeight: FontWeight.normal, color: Colors.black87, fontSize: 16),),
-                                          Text("৳749 total", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
-                                        ],
-                                      ),
-                                    ],
+                          child: InkWell(
+                            onTap: (){
+                              Get.toNamed(Routes.MAKEBOOKINGDETAILS);
+                            },
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.center,
+                              children: [
+                                Container(
+                                  // color: AppColors.backgroundColor,
+                                  child: Image.asset(
+                                    'assets/images/demo_room1.png',
+                                    // height: MediaQuery.of(context).size.height *.5,
+                                    // width: MediaQuery.of(context).size.width *.9,
                                   ),
                                 ),
-                              ),
+                                SizedBox(height: 10,),
+                                Card(
+                                  color: AppColors.appBackGroundBrn,
+                                  child: Padding(
+                                    padding: const EdgeInsets.all(8.0),
+                                    child: Column(
+                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      children: [
+                                        Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("Uttara, Dhaka", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18),),
+                                            Text("5.0", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                                          ],
+                                        ),
+                                        Text("Elegant and modern space for rent. Free from 24-31 Jul."),
+                                        SizedBox(height: 10,),
+                                        Row(
+
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                          children: [
+                                            Text("1 Bedroom + Patio + BT", style: TextStyle(fontWeight: FontWeight.normal, color: Colors.black87, fontSize: 16),),
+                                            Text("৳749 total", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16)),
+                                          ],
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ),
 
 
-                            ],
+                              ],
+                            ),
                           ),
                         );
                       },

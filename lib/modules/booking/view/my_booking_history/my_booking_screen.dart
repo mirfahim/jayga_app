@@ -1,8 +1,9 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:jayga/modules/A_Base/view/my_booking_history/my_booking_list_view.dart';
+
 import 'package:jayga/modules/auth/controller/auth_controller.dart';
+import 'package:jayga/modules/booking/view/my_booking_history/my_booking_list_view.dart';
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
 
@@ -89,7 +90,7 @@ class MyBookingView extends GetView<HomeController> {
                   ),
                 ],
               ),
-              ) : MyBookingListView()
+              ) : MyBookingListHISTORY()
 
 
             ],
