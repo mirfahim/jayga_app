@@ -24,6 +24,9 @@ abstract class Routes {
   static const MAKEBOOKINGDETAILS = _Paths.MAKEBOOKINGDETAILS;
   static const BOOKINGDETAILSHISTORY = _Paths.BOOKINGDETAILSHISTORY;
   static const CONFIEMANDPAY = _Paths.CONFIRMANDPAY;
+  static const CREATEOWNJAYGA = _Paths.CREATEOWNJAYGA;
+  static const CREATEJAYGAFORM = _Paths.CREATEJAYGAFORM;
+
 
 
 
@@ -50,10 +53,11 @@ abstract class _Paths {
   static const LEADMARKET = '/leadmarket';
   static const CREATEWORKORDER = '/createworkorder';
   static const MAKEBOOKINGDETAILS = '/makebookingdetails';
-
+  static const CREATEOWNJAYGA = '/create-own-jayga';
   static const CHANGEPASS = '/changepass';
   static const MENUPAGE = '/menuPage';
   static const SPLASHSCREEN = '/splashscreen';
   static const BROWSEJOB = '/browsejob';
+  static const CREATEJAYGAFORM = '/create-jayga-form';
 
 }

@@ -52,7 +52,7 @@ class LoginView extends GetView<AuthController> {
                   child: TextFormField(
 
                     maxLines: 1,
-                    controller: controller.JobData.value,
+                    controller: controller.email.value,
                     decoration: new InputDecoration(
                       filled: true,
                       fillColor: AppColors.jaygaWhite,
@@ -82,6 +82,7 @@ class LoginView extends GetView<AuthController> {
               SizedBox(height: 20,),
               InkWell(
                 onTap: () {
+                  controller.sendOTP(context);
                   Get.toNamed(Routes.OTPPAGE);
                   //controller.visible.value++;
                   // controller.loginController();
@@ -112,6 +113,7 @@ class LoginView extends GetView<AuthController> {
               Divider(),
               InkWell(
                 onTap: () {
+
                   Get.toNamed(Routes.REGISTER);
                   //controller.visible.value++;
                   // controller.loginController();

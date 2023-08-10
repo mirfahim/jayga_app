@@ -15,6 +15,7 @@ class AppColors {
   static Color colorBlue=Colors.blue;
   static  Color appBackGroundBrn =HexColor("#FDF0C3");
   static  Color textColorGreen = HexColor("#139175");
+  static  Color jaygaTextFldColor = HexColor("#D9F2ED");
   static  Color buttonColorYellow = HexColor("#FFCE4E");
   static  Color jaygaWhite = HexColor("#FFFCF3");
   static  Color jaygaShadowBrwn = HexColor("#FEF5DD");

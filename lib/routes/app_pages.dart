@@ -13,12 +13,15 @@ import 'package:jayga/modules/booking/view/booking_details.dart';
 import 'package:jayga/modules/booking/view/confirmANDpay.dart';
 import 'package:jayga/modules/home/binding/home_binding.dart';
 import 'package:jayga/modules/home/view/home_page_view.dart';
+import 'package:jayga/modules/host_setup/binding/host_binding.dart';
+import 'package:jayga/modules/host_setup/view/create_own_jayga.dart';
 import 'package:jayga/modules/splash_screen/binding/splash_binding.dart';
 import 'package:jayga/modules/A_Base/view/landing_page.dart';
 import 'package:jayga/modules/splash_screen/view/splash_screeen_view.dart';
 
 import '../modules/booking/view/my_booking_history/booking_details_view.dart';
 import '../modules/booking/view/my_booking_history/my_booking_screen.dart';
+import '../modules/host_setup/view/create_jayga_form_view.dart';
 
 
 
@@ -55,6 +58,16 @@ class AppPages {
       name: _Paths.SAVEDSCREEN,
       page: () =>  SavedView(),
       binding: BaseBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATEJAYGAFORM,
+      page: () =>  CreateJaygaFormView(),
+      binding: HostBinding(),
+    ),
+    GetPage(
+      name: _Paths.CREATEOWNJAYGA,
+      page: () =>  CreateOwnJaygaView(),
+      binding: HostBinding(),
     ),
 
     GetPage(

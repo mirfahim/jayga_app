@@ -7,6 +7,8 @@ import 'package:jayga/modules/booking/view/all_alemnities.dart';
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
 
+import '../../../routes/app_pages.dart';
+
 class MakeBookingDetailsView extends GetView<BookingController> {
   const MakeBookingDetailsView({Key? key}) : super(key: key);
 
@@ -834,7 +836,34 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                     borderRadius: BorderRadius.circular(50)),
                                 alignment: Alignment.center,
                                 child:  Text(
-                                  "Get Support",
+                                  "Get Saupport",
+                                  style: TextStyle(
+                                    color: AppColors.backgroundColor,
+                                    fontSize: 12,
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ),
+
+                          SizedBox(height: 10,),
+                          InkWell(
+                            onTap: () {
+                               Get.toNamed(Routes.CONFIEMANDPAY);
+                              //controller.visible.value++;
+                              // controller.loginController();
+                            },
+                            child: Center(
+                              child: AnimatedContainer(
+                                duration: Duration(seconds: 2),
+                                height: 40,
+                                width:  MediaQuery.of(context).size.width -100,
+                                decoration: BoxDecoration(
+                                    color: AppColors.textColorGreen,
+                                    borderRadius: BorderRadius.circular(50)),
+                                alignment: Alignment.center,
+                                child:  Text(
+                                  "Book Now",
                                   style: TextStyle(
                                     color: AppColors.backgroundColor,
                                     fontSize: 12,

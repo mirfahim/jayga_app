@@ -41,25 +41,30 @@ class ProfileView extends GetView<HomeController> {
                 trailing: Icon(Icons.navigate_next),
               ),
               Divider(),
-              Container(
-                height: 100,
-                decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.circular(20)),
-                child: SizedBox(
-                  height: 60,
-                  width: MediaQuery.of(context).size.width,
-                  child: ListTile(
-                    title: Text("Setup your own place"),
-                    subtitle:
-                    Text("It’s simple to get set up and start earning."),
-                    trailing: Container(
-                      height: 50,
-                      width: 50,
-                      child: Image.asset(
-                        'assets/images/jayga_logo.png',
-                        height: 50,
-                        width: 50,
+              InkWell(
+                onTap: (){
+                  Get.toNamed(Routes.CREATEOWNJAYGA);
+                },
+                child: Container(
+                  height: 100,
+                  decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(20)),
+                  child: SizedBox(
+                    height: 60,
+                    width: MediaQuery.of(context).size.width,
+                    child: ListTile(
+                      title: Text("Setup your own place"),
+                      subtitle:
+                      Text("It’s simple to get set up and start earning."),
+                      trailing: Container(
+                        height: 70,
+                        width: 70,
+                        child: Image.asset(
+                          'assets/images/jayga_logo.png',
+                          height: 70,
+                          width: 70,
+                        ),
                       ),
                     ),
                   ),
