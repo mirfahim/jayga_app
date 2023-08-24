@@ -6,6 +6,8 @@ import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/routes/app_pages.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
 
+import '../../../../services/auth_services.dart';
+
 class ProfileView extends GetView<HomeController> {
   const ProfileView({Key? key}) : super(key: key);
   @override
@@ -202,7 +204,8 @@ class ProfileView extends GetView<HomeController> {
                     SizedBox(height: 30,),
                     GestureDetector(
                       onTap: () {
-                        Get.toNamed(Routes.LOGIN);
+                        Get.find<AuthService>().removeCurrentUser();
+                        Get.toNamed(Routes.SPLASHSCREEN);
                       },
                       child: Text(
                         "Log out",

@@ -4,6 +4,7 @@ import 'package:flutter/services.dart';
 import 'package:jayga/modules/A_Base/controller/base_controller.dart';
 import 'package:jayga/modules/auth/controller/auth_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
+import 'package:jayga/utils/ui_support.dart';
 import 'package:pin_code_fields/pin_code_fields.dart';
 import '../../../routes/app_pages.dart';
 
@@ -84,7 +85,7 @@ class OTPView extends GetView<AuthController> {
                           animationType: AnimationType.fade,
                           validator: (v) {
                             if (v!.length < 3) {
-                              return "I'm from validator";
+                              return "Enter Valid OTP";
                             } else {
                               return null;
                             }
@@ -136,20 +137,28 @@ class OTPView extends GetView<AuthController> {
                     SizedBox(height: 30,),
                     InkWell(
                       onTap: () {
-                        Get.toNamed(Routes.REGISTER);
+
+                        if(controller.otpNum.value.toString() == controller.pinCodeController.value.text){
+                          controller.loginController();
+                        } else {
+                          Get.showSnackbar(Ui.errorSnackBar(
+                              message:"OTP did not match", title: 'Error'.tr));
+                        }
+
+                       // Get.toNamed(Routes.REGISTER);
                         //controller.visible.value++;
                         // controller.loginController();
                       },
                       child: AnimatedContainer(
                         duration: Duration(seconds: 2),
-                        height: controller.visible.value == 1 ? 50 : 60,
-                        width: controller.visible.value == 1 ? 50 : MediaQuery.of(context).size.width,
+                        height: controller.visibleOTP.value == 1 ? 50 : 60,
+                        width: controller.visibleOTP.value == 1 ? 50 : MediaQuery.of(context).size.width,
                         decoration: BoxDecoration(
                             color: AppColors.buttonColorYellow,
                             borderRadius:
-                            BorderRadius.circular(controller.visible.value == 1 ? 60 : 20)),
+                            BorderRadius.circular(controller.visibleOTP.value == 1 ? 60 : 20)),
                         alignment: Alignment.center,
-                        child: controller.visible.value == 1
+                        child: controller.visibleOTP.value == 1
                             ? Center(child: CircularProgressIndicator())
                             : Text(
                           "Submit",

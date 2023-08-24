@@ -14,6 +14,7 @@ abstract class Routes {
   static const SPLASHSCREEN = _Paths.SPLASHSCREEN;
   static const BROWSEJOB = _Paths.BROWSEJOB;
   static const CONTRACTORLISTVIEW = _Paths.CONTRACTORLISTVIEW;
+  static const EXPLORE = _Paths.EXPLORE;
   static const CREATEWORKORDER = _Paths.CREATEWORKORDER;
   static const SAVEDSCREEN = _Paths.SAVEDSCREEN;
   static const MYBOOKING = _Paths.MYBOOKING;
@@ -58,6 +59,8 @@ abstract class _Paths {
   static const MENUPAGE = '/menuPage';
   static const SPLASHSCREEN = '/splashscreen';
   static const BROWSEJOB = '/browsejob';
+  static const EXPLORE = '/explore';
+
   static const CREATEJAYGAFORM = '/create-jayga-form';
 
 }

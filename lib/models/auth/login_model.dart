@@ -9,113 +9,53 @@ LoginModel loginModelFromJson(String str) => LoginModel.fromJson(json.decode(str
 String loginModelToJson(LoginModel data) => json.encode(data.toJson());
 
 class LoginModel {
-  bool? error;
-  String? accessToken;
-  String? tokenType;
-  int? expiryTime;
-  UserInfo? userInfo;
+  String? status;
+  String? message;
+  User? user;
 
   LoginModel({
-    this.error,
-    this.accessToken,
-    this.tokenType,
-    this.expiryTime,
-    this.userInfo,
+     this.status,
+     this.message,
+     this.user,
   });
 
   factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
-    error: json["error"],
-    accessToken: json["access_token"],
-    tokenType: json["token_type"],
-    expiryTime: json["expiry_time"],
-    userInfo: UserInfo.fromJson(json["user_info"]),
+    status: json["status"],
+    message: json["message"],
+    user: User.fromJson(json["user"]),
   );
 
   Map<String, dynamic> toJson() => {
-    "error": error,
-    "access_token": accessToken,
-    "token_type": tokenType,
-    "expiry_time": expiryTime,
-    "user_info": userInfo!.toJson(),
+    "status": status,
+    "message": message,
+    "user": user!.toJson(),
   };
 }
 
-class UserInfo {
-  int id;
-  String firstName;
-  String lastName;
-  String hourlyRate;
-  String tagline;
-  int locationId;
-  String country;
-  String address;
-  String longitude;
-  String latitude;
-  String avatar;
-  String banner;
-  int roleId;
-  String roleName;
-  int profileCompletionStatus;
-  dynamic deviceId;
-  dynamic phone;
+class User {
+  String? userId;
+  String? userPhoneNum;
+  String? otp;
+  String? accToken;
 
-  UserInfo({
-    required this.id,
-    required this.firstName,
-    required this.lastName,
-    required this.hourlyRate,
-    required this.tagline,
-    required this.locationId,
-    required this.country,
-    required this.address,
-    required this.longitude,
-    required this.latitude,
-    required this.avatar,
-    required this.banner,
-    required this.roleId,
-    required this.roleName,
-    required this.profileCompletionStatus,
-    this.deviceId,
-    this.phone,
+  User({
+     this.userId,
+     this.userPhoneNum,
+     this.otp,
+     this.accToken,
   });
 
-  factory UserInfo.fromJson(Map<String, dynamic> json) => UserInfo(
-    id: json["id"],
-    firstName: json["first_name"],
-    lastName: json["last_name"],
-    hourlyRate: json["hourly_rate"],
-    tagline: json["tagline"],
-    locationId: json["location_id"],
-    country: json["country"],
-    address: json["address"],
-    longitude: json["longitude"],
-    latitude: json["latitude"],
-    avatar: json["avatar"],
-    banner: json["banner"],
-    roleId: json["role_id"],
-    roleName: json["role_name"],
-    profileCompletionStatus: json["profile_completion_status"],
-    deviceId: json["device_id"],
-    phone: json["phone"],
+  factory User.fromJson(Map<String, dynamic> json) => User(
+    userId: json["user_id"],
+    userPhoneNum: json["user_phone_num"],
+    otp: json["otp"],
+    accToken: json["acc_token"],
   );
 
   Map<String, dynamic> toJson() => {
-    "id": id,
-    "first_name": firstName,
-    "last_name": lastName,
-    "hourly_rate": hourlyRate,
-    "tagline": tagline,
-    "location_id": locationId,
-    "country": country,
-    "address": address,
-    "longitude": longitude,
-    "latitude": latitude,
-    "avatar": avatar,
-    "banner": banner,
-    "role_id": roleId,
-    "role_name": roleName,
-    "profile_completion_status": profileCompletionStatus,
-    "device_id": deviceId,
-    "phone": phone,
+    "user_id": userId,
+    "user_phone_num": userPhoneNum,
+    "otp": otp,
+    "acc_token": accToken,
   };
 }

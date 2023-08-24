@@ -4,9 +4,10 @@ import 'package:flutter/services.dart';
 import 'package:jayga/modules/auth/controller/auth_controller.dart';
 import 'package:jayga/modules/booking/controller/booking_controller.dart';
 import 'package:jayga/modules/booking/view/all_alemnities.dart';
+import 'package:jayga/modules/booking/view/avaiblity_check.dart';
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import '../../../routes/app_pages.dart';
 
 class MakeBookingDetailsView extends GetView<BookingController> {
@@ -14,6 +15,10 @@ class MakeBookingDetailsView extends GetView<BookingController> {
 
   @override
   Widget build(BuildContext context) {
+    var index = Get.arguments[0];
+    var data = controller.listingData.value[index];
+    print("my booking details data ++++++++++++++ $index");
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.0), // here the desired height
@@ -45,12 +50,44 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                 children: [
 
                   Container(
+                    height: MediaQuery.of(context).size.height*.25,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(0),
+                      border: Border.all(
+                          color: AppColors.containerColor, width: 2),
+                      color: AppColors.containerColor,
+                    ),
                     // color: AppColors.backgroundColor,
-                    child: Image.asset(
-                      fit: BoxFit.fill,
-                      'assets/images/room1.png',
-                      height: MediaQuery.of(context).size.height * .3,
-                      width: MediaQuery.of(context).size.width,
+                    child: CachedNetworkImage(
+                      imageUrl: "https://jayga.xyz/${data.images.first.listingTargetlocation}",
+                      imageBuilder: (context, imageProvider) =>
+                          Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(10),
+                              image: DecorationImage(
+                                image: imageProvider,
+                                fit: BoxFit.fill,
+                              ),
+                            ),
+                          ),
+                      placeholder: (context, url) =>
+                      const Padding(
+                        padding: EdgeInsets.all(5.0),
+                        child: Image(
+                          image: AssetImage(
+                            'assets/images/demo_room1.png',
+                          ),
+                        ),
+                      ),
+                      errorWidget: (context, url, error) =>
+                      const Padding(
+                        padding: EdgeInsets.all(5.0),
+                        child: Image(
+                          image: AssetImage(
+                              'images/img.png'),
+                        ),
+                      ),
                     ),
                   ),
                   Container(
@@ -72,7 +109,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Text(
-                                      "2 Bed 2 Bath Apartment",
+                                      "${data.bedNum.toString()} Bed, ${data.bathroomNum.toString()} Bath",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18,
@@ -87,7 +124,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Text(
-                                      "2000tk",
+                                      "${data.fullDayPriceSetByUser}tk",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18,
@@ -108,7 +145,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                           SizedBox(height: 10,),
                           Center(
                               child: Text(
-                                  "Flat: 3B, House: 27, Road: 18, Dhanmondi, Dhaka")),
+                                  data.listingAddress)),
                           Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: [
@@ -166,12 +203,16 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              Text(
-                                "Description",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold,
-                                    fontSize: 18,
-                                    color: Colors.black),
+                              Container(
+                                height: 30,
+                                child: Text(
+                                  maxLines:2,
+                                 "Description",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 18,
+                                      color: Colors.black),
+                                ),
                               ),
                               InkWell(
                                 onTap: () {
@@ -215,7 +256,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                           ),
                           Center(
                             child: Text(
-                              "Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text",
+                              data.listingDescription,
                               style: TextStyle(
                                   fontWeight: FontWeight.normal,
                                   fontSize: 15,
@@ -229,7 +270,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                               Row(
                                 mainAxisAlignment: MainAxisAlignment.center,
                                 children: [
-                                  Text("Max Guest:4",  style: TextStyle(
+                                  Text("Max Guest:${data.guestNum}",  style: TextStyle(
                                       fontWeight: FontWeight.bold,
                                       fontSize: 15,
                                       color: Colors.black),),
@@ -240,7 +281,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                     width: 2,
                                   ),
                                   SizedBox(width: 10,),
-                                  Text("Bed Room:4",
+                                  Text("Bed Room:${data.bedNum}",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15,
@@ -252,7 +293,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                     width: 2,
                                   ),
                                   SizedBox(width: 10,),
-                                  Text("Bathroom:4",
+                                  Text("Bathroom:${data.bathroomNum}",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15,
@@ -718,70 +759,80 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                             ),
                           ),
                           Divider(thickness: 2,),
-                          ListTile(
-                            title: Row(
-                              children: [
-                                Text(
-                                  "Kaif Shiam",
-                                  style: TextStyle(fontSize: 22),
-                                ),
-                                SizedBox(width: 10,),
-                                Icon(
-                                  Icons.star,
-                                  color: Colors.orange,
-                                  size: 15,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  size: 15,
-                                  color: Colors.orange,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  size: 15,
-                                  color: Colors.orange,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  size: 15,
-                                  color: Colors.orange,
-                                ),
-                                Icon(
-                                  Icons.star,
-                                  size: 15,
+                          Container(
+                            height: MediaQuery.of(context).size.height *.15,
+                           child: ListView.builder(
+                              itemCount: controller.getReview.value.length,
+                              itemBuilder: (BuildContext c, i){
+                                var data = controller.getReview[i];
+                                return  ListTile(
+                                  title: Row(
+                                    children: [
+                                      Text(
+                                        data.listerName,
+                                        style: TextStyle(fontSize: 22),
+                                      ),
+                                      SizedBox(width: 10,),
+                                      Icon(
+                                        Icons.star,
+                                        color: Colors.orange,
+                                        size: 15,
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        size: 15,
+                                        color: Colors.orange,
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        size: 15,
+                                        color: Colors.orange,
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        size: 15,
+                                        color: Colors.orange,
+                                      ),
+                                      Icon(
+                                        Icons.star,
+                                        size: 15,
 
-                                  color: Colors.orange,
-                                ),
-                              ],
-                            ),
-                            subtitle: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Text(
-                                  "April 2023",
-                                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Colors.black54),
-                                ),
-                                Text(
-                                  "Loved every minute and would definitely come back",
-                                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Colors.black),
-                                ),
-                              ],
-                            ),
-                            leading: Container(
-                              height: 100,
-                              width: 100,
-                              decoration: BoxDecoration(
-                                  shape: BoxShape.circle,
-                                  image: DecorationImage(
-                                      image: AssetImage("assets/images/kaif.png"))),
-                              // color: AppColors.backgroundColor,
-                            ),
+                                        color: Colors.orange,
+                                      ),
+                                    ],
+                                  ),
+                                  subtitle: Column(
+                                    crossAxisAlignment: CrossAxisAlignment.start,
+                                    children: [
+                                      Text(
+                                        "April 2023",
+                                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Colors.black54),
+                                      ),
+                                      Text(
+                                        data.description,
+                                        style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Colors.black),
+                                      ),
+                                    ],
+                                  ),
+                                  leading: Container(
+                                    height: 100,
+                                    width: 100,
+                                    decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            image: AssetImage("assets/images/kaif.png"))),
+                                    // color: AppColors.backgroundColor,
+                                  ),
+                                );
+                              }
+                            )
                           ),
+
                           Divider(thickness: 1,),
 
                           ListTile(
                             title: Text(
-                              "Kaif Shiam",
+                              data.listerName,
                               style: TextStyle(fontSize: 22),
                             ),
                             subtitle: Text("Hosted by"),
@@ -849,7 +900,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                           SizedBox(height: 10,),
                           InkWell(
                             onTap: () {
-                               Get.toNamed(Routes.CONFIEMANDPAY);
+                               Get.toNamed(Routes.CONFIEMANDPAY, arguments: [index]);
                               //controller.visible.value++;
                               // controller.loginController();
                             },
@@ -921,6 +972,37 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                             ),
                           ),
                           Divider(),
+                          InkWell(
+                            onTap: (){
+
+                              showDialog(
+                                  context:
+                                  context,
+                                  builder:
+                                      (BuildContext
+                                  context) {
+                                    return AlertDialog(
+                                      insetPadding: EdgeInsets.all(0),
+                                      elevation:
+                                      20,
+                                      backgroundColor:
+                                      Colors.transparent,
+                                      content: Container(
+                                        width: MediaQuery.of(context).size.width,
+                                          height: MediaQuery.of(context).size.width,
+                                          child: AvailablityCheckView())
+                                    );
+                                  });
+                            },
+                            child: Text(
+                              "Availability Check",
+                              style: TextStyle(
+                                color: Colors.black,
+                                fontSize: 18,
+                              ),
+                            ),
+                          ),
+                          Divider(),
                           Text(
                             "Cancelation Policy",
                             style: TextStyle(
@@ -949,6 +1031,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                       ),
                     ),
                   ),
+
 
                 ],
               ),

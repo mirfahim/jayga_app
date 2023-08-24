@@ -7,6 +7,7 @@ import 'package:jayga/models/auth/login_model.dart';
 
 
 
+
 class AuthService extends GetxService {
   final currentUser = LoginModel().obs;
   late GetStorage _box;
@@ -27,7 +28,7 @@ class AuthService extends GetxService {
     //  getDeviceToken();
 
     // getUsed();
-    //getCurrentUser();
+    getCurrentUser();
     super.onInit();
   }
 
@@ -52,7 +53,7 @@ class AuthService extends GetxService {
       currentUser.value = LoginModel.fromJson(_box.read('currentUser'));
       print("${_box.read('currentUser')}");
     }
-    print('customer data: ${currentUser.value.userInfo!.firstName}');
+    print('customer data: ${currentUser.value.user!.userPhoneNum}');
   }
 
   Future removeCurrentUser() async {
@@ -60,9 +61,9 @@ class AuthService extends GetxService {
     await _box.remove('currentUser');
   }
 
-  bool get isAuth => currentUser.value.accessToken == null ? false : true;
+  bool get isAuth => currentUser.value.user!.accToken! == null ? false : true;
 
-  String get apiToken => currentUser.value.accessToken!;
+  String get apiToken => currentUser.value.user!.accToken!;
 
   getLanguage() async {
     language_key.value = GetStorage().read<String>('language') ?? 'en_US';

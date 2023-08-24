@@ -2,12 +2,13 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jayga/modules/auth/controller/auth_controller.dart';
+import 'package:jayga/modules/booking/controller/booking_controller.dart';
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
 
 import '../../../../routes/app_pages.dart';
 
-class MyBookingListHISTORY extends GetView<HomeController> {
+class MyBookingListHISTORY extends GetView<BookingController> {
   const MyBookingListHISTORY({Key? key}) : super(key: key);
 
   @override
@@ -19,13 +20,14 @@ class MyBookingListHISTORY extends GetView<HomeController> {
             child: ListView.builder(
               physics: const ScrollPhysics(),
               scrollDirection: Axis.vertical,
-              itemCount: 5,
+              itemCount: controller.historyList.length,
               itemBuilder: (BuildContext context, index) {
+                var data = controller.historyList[index];
                 return Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: GestureDetector(
                     onTap: (){
-                      Get.toNamed(Routes.BOOKINGDETAILSHISTORY);
+                      Get.toNamed(Routes.BOOKINGDETAILSHISTORY, arguments: [index]);
                     },
                     child: Stack(
 
@@ -51,7 +53,7 @@ class MyBookingListHISTORY extends GetView<HomeController> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text("Uttara, Dhaka", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),),
+                                    Text(data.listing.listingAddress, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),),
                                     Row(
 
                                       children: [
@@ -62,7 +64,7 @@ class MyBookingListHISTORY extends GetView<HomeController> {
 
                                   ],
                                 ),
-                                Text("Elegant and modern space for rent.", style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: Colors.white),),
+                                Text(data.listing.listingDescription, style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: Colors.white),),
 
 
                               ],

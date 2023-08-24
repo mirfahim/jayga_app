@@ -7,13 +7,13 @@ import 'package:jayga/utils/ui_support.dart';
 
 
 class APIManager {
-  Future<dynamic> postAPICallWithHeader(String url, Map<String, String> param, Map<String, String> headerData) async {
+  Future<dynamic> postAPICallWithHeader(String url, Map<String, dynamic> param, Map<String, String> headerData) async {
     print("Calling API: $url");
     print("Calling parameters: $param");
 
     var responseJson;
     try {
-      final response = await http.post(Uri.parse(url), body: param, headers: headerData);
+      final response = await http.post(Uri.parse(url), body: jsonEncode(param), headers: headerData);
       print("api provider bro bro bro bro ${response.body}");
       var data = jsonDecode(response.body);
       if(response.statusCode == 422){

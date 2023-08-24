@@ -18,62 +18,42 @@ class AvailablityCheckView extends GetView<BookingController> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: PreferredSize(
-        preferredSize: Size.fromHeight(70.0), // here the desired height
-        child: Column(
-          children: [
-            SizedBox(
-              height: 20,
-            ),
-            Container(
-              alignment: Alignment.bottomLeft,
-              // color: AppColors.backgroundColor,
-              child: Image.asset(
-                'assets/images/jayga_logo.png',
-                height: 70,
-              ),
-            ),
-          ],
-        ),
+
+      body: TableCalendar(
+        firstDay: kFirstDay,
+        lastDay: kLastDay,
+        focusedDay: controller.focusedDay,
+        calendarFormat: controller.calendarFormat,
+        selectedDayPredicate: (day) {
+          // Use `selectedDayPredicate` to determine which day is currently selected.
+          // If this returns true, then `day` will be marked as selected.
+
+          // Using `isSameDay` is recommended to disregard
+          // the time-part of compared DateTime objects.
+          return isSameDay(controller.selectedDay, day);
+        },
+        onDaySelected: (selectedDay, focusedDay) {
+          if (!isSameDay(controller.selectedDay, selectedDay)) {
+            // Call `setState()` when updating the selected day
+
+              controller.selectedDay = selectedDay;
+              controller.focusedDay = focusedDay;
+
+          }
+        },
+        onFormatChanged: (format) {
+          if (controller.calendarFormat != format) {
+            // Call `setState()` when updating calendar format
+
+              controller.calendarFormat = format;
+
+          }
+        },
+        onPageChanged: (focusedDay) {
+          // No need to call `setState()` here
+          controller.focusedDay = focusedDay;
+        },
       ),
-      body: SingleChildScrollView(
-          child: Container(
-        child: TableCalendar(
-          firstDay: kFirstDay,
-          lastDay: kLastDay,
-          focusedDay: controller.focusedDay,
-          calendarFormat: controller.calendarFormat,
-          selectedDayPredicate: (day) {
-            // Use `selectedDayPredicate` to determine which day is currently selected.
-            // If this returns true, then `day` will be marked as selected.
-
-            // Using `isSameDay` is recommended to disregard
-            // the time-part of compared DateTime objects.
-            return isSameDay(controller.selectedDay, day);
-          },
-          onDaySelected: (selectedDay, focusedDay) {
-            if (!isSameDay(controller.selectedDay, selectedDay)) {
-              // Call `setState()` when updating the selected day
-
-                controller.selectedDay = selectedDay;
-                controller.focusedDay = focusedDay;
-
-            }
-          },
-          onFormatChanged: (format) {
-            if (controller.calendarFormat != format) {
-              // Call `setState()` when updating calendar format
-
-                controller.calendarFormat = format;
-
-            }
-          },
-          onPageChanged: (focusedDay) {
-            // No need to call `setState()` here
-            controller.focusedDay = focusedDay;
-          },
-        ),
-      )),
     );
   }
 }

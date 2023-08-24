@@ -2,14 +2,19 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jayga/modules/auth/controller/auth_controller.dart';
+import 'package:jayga/modules/booking/view/my_booking_history/give_review.dart';
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
 
-class MyBookingHistoryDetailsView extends GetView<HomeController> {
+import '../../controller/booking_controller.dart';
+
+class MyBookingHistoryDetailsView extends GetView<BookingController> {
   const MyBookingHistoryDetailsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
+    var index = Get.arguments[0];
+    var data = controller.historyList[index];
     return  Scaffold(
 
       appBar:  PreferredSize(
@@ -54,7 +59,7 @@ class MyBookingHistoryDetailsView extends GetView<HomeController> {
                         children: [
                           Text("Booking Details:",
                             style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: Colors.black54),),
-                          Text("2 Bed 2 Bath Apartment",
+                          Text("${data.listing.bedNum.toString()} Bed, ${data.listing.bathroomNum.toString()} Bath",
                             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),),
                           Text("Uttara, Dhaka",
                             style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color:AppColors.textColorGreen),),
@@ -129,6 +134,7 @@ class MyBookingHistoryDetailsView extends GetView<HomeController> {
                 ),
                 InkWell(
                   onTap: () {
+                    Get.to(GiveReviewScreen(), arguments: [index]);
                     //  Get.toNamed(Routes.HOME);
                     //controller.visible.value++;
                     // controller.loginController();

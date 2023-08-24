@@ -15,11 +15,11 @@ class SplashscreenController extends GetxController {
     print('SplashscreenController.onInit');
 
     Timer(const Duration(seconds: 3), () {
-      // Get.offAllNamed(Routes.BASE);
-      if (Get.find<AuthService>().isAuth) {
+
+      if (Get.find<AuthService>().currentUser.value.user == null) {
         Get.offAllNamed(Routes.LANDING);
       } else {
-        Get.offAllNamed(Routes.LANDING);
+        Get.offAllNamed(Routes.BASE);
       }
     });
 

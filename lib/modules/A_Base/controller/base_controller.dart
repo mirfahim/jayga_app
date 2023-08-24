@@ -8,6 +8,7 @@ import 'package:jayga/modules/A_Base/view/saved_screen/saved_screen.dart';
 
 
 import '../../../routes/app_pages.dart';
+import '../../booking/view/booking_home_page.dart';
 import '../../booking/view/my_booking_history/my_booking_screen.dart';
 import '../../home/view/home_page_view.dart';
 import 'package:geolocator/geolocator.dart';
@@ -21,7 +22,7 @@ class BaseController extends GetxController {
   final categoryDataLoaded = false.obs;
 
   List<Widget> pages = [
-    HomePageView(),
+    ExplorePageView(),
     SavedView(),
     MyBookingView(),
     ProfileView(),

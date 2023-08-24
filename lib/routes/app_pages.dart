@@ -19,6 +19,7 @@ import 'package:jayga/modules/splash_screen/binding/splash_binding.dart';
 import 'package:jayga/modules/A_Base/view/landing_page.dart';
 import 'package:jayga/modules/splash_screen/view/splash_screeen_view.dart';
 
+import '../modules/booking/view/booking_home_page.dart';
 import '../modules/booking/view/my_booking_history/booking_details_view.dart';
 import '../modules/booking/view/my_booking_history/my_booking_screen.dart';
 import '../modules/host_setup/view/create_jayga_form_view.dart';
@@ -44,10 +45,15 @@ class AppPages {
       binding: SplashscreenBinding(),
     ),
 
+    // GetPage(
+    //   name: _Paths.HOME,
+    //   page: () =>  ExplorePageView(),
+    //   binding: HomeBinding(),
+    // ),
     GetPage(
-      name: _Paths.HOME,
-      page: () =>  HomePageView(),
-      binding: HomeBinding(),
+      name: _Paths.EXPLORE,
+      page: () =>  ExplorePageView(),
+      binding: BookingBinding(),
     ),
     GetPage(
       name: _Paths.BASE,

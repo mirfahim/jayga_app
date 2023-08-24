@@ -12,6 +12,8 @@ class ConfirmAndPayView extends GetView<BookingController> {
 
   @override
   Widget build(BuildContext context) {
+    var index = Get.arguments[0];
+    var data = controller.listingData.value[index];
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.0), // here the desired height
@@ -278,8 +280,7 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                     color: AppColors.textColorWhite,
                                     borderRadius: BorderRadius.circular(20),
                                     border: Border.all(
-                                        color: Colors.black54,
-                                        width: 2),
+                                        color: Colors.black54, width: 2),
                                   ),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -296,23 +297,44 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                                     .size
                                                     .width *
                                                 .39,
-
                                             child: Column(
                                               children: [
-                                                Text(
-                                                  "CHECK-IN",
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.normal,
-                                                      fontSize: 15,
-                                                      color: Colors.black),
+                                                InkWell(
+                                                  onTap: () {
+                                                    controller
+                                                        .selectCheckInDate(
+                                                            context);
+                                                  },
+                                                  child: Text(
+                                                    "CHECK-IN",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        fontSize: 15,
+                                                        color: Colors.blue),
+                                                  ),
                                                 ),
-                                                Text(
-                                                  "12/7/2023",
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 15,
-                                                      color: Colors.black),
-                                                ),
+                                                controller
+                                                        .startDate.value.isEmpty
+                                                    ? Text(
+                                                        "Select Date",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 15,
+                                                            color:
+                                                                Colors.black54),
+                                                      )
+                                                    : Text(
+                                                        controller
+                                                            .startDate.value,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 15,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
                                               ],
                                             ),
                                           ),
@@ -330,38 +352,58 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                                     .size
                                                     .width *
                                                 .39,
-
                                             child: Column(
                                               children: [
-                                                Text(
-                                                  "CheckOut",
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.normal,
-                                                      fontSize: 15,
-                                                      color: Colors.black),
+                                                InkWell(
+                                                  onTap: () {
+                                                    controller
+                                                        .selectCheckoutDate(
+                                                            context);
+                                                  },
+                                                  child: Text(
+                                                    "CHECK-OUT",
+                                                    style: TextStyle(
+                                                        fontWeight:
+                                                            FontWeight.normal,
+                                                        fontSize: 15,
+                                                        color: Colors.blue),
+                                                  ),
                                                 ),
-                                                Text(
-                                                  "12/7/2023",
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 15,
-                                                      color: Colors.black),
-                                                ),
+                                                controller.endDate.value.isEmpty
+                                                    ? Text(
+                                                        "Select Checkout",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 15,
+                                                            color:
+                                                                Colors.black45),
+                                                      )
+                                                    : Text(
+                                                        controller
+                                                            .endDate.value,
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 15,
+                                                            color:
+                                                                Colors.black),
+                                                      ),
                                               ],
                                             ),
                                           ),
                                         ],
                                       ),
-                                      Divider(thickness: 2,),
+                                      Divider(
+                                        thickness: 2,
+                                      ),
                                       Container(
-                                          height: MediaQuery.of(context)
-                                                  .size
-                                                  .height *
-                                              .05,
-                                          width: MediaQuery.of(context)
-                                                  .size
-                                                  .width *
-                                              .8,
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                .05,
+                                        width:
+                                            MediaQuery.of(context).size.width *
+                                                .8,
                                         child: Column(
                                           children: [
                                             Text(
@@ -379,7 +421,8 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                                   color: Colors.black),
                                             ),
                                           ],
-                                        ),)
+                                        ),
+                                      )
                                     ],
                                   ),
                                 ),
@@ -387,19 +430,18 @@ class ConfirmAndPayView extends GetView<BookingController> {
                               SizedBox(
                                 height: 10,
                               ),
-
                               SizedBox(
                                 height: 30,
                                 child: ListTile(
-                                  title: Text("2000 x 6 nights"),
-                                  trailing: Text("12000"),
+                                  title: Text("${data.fullDayPriceSetByUser} x ${controller.getDateDifferenceNum()} nights"),
+                                  trailing: Text("${int.parse(data.fullDayPriceSetByUser)*controller.getDateDifferenceNum()}"),
                                 ),
                               ),
                               SizedBox(
                                 height: 30,
                                 child: ListTile(
                                   title: Text("Long stay discount"),
-                                  trailing: Text("-200"),
+                                  trailing: Text("0"),
                                 ),
                               ),
                               SizedBox(
@@ -416,18 +458,25 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                   trailing: Text("0"),
                                 ),
                               ),
-
                               Divider(),
-
                               SizedBox(
                                 height: 30,
                                 child: ListTile(
-                                  title: Text("Total Fee", style: TextStyle(fontWeight: FontWeight.bold),),
-                                  trailing: Text("10000", style: TextStyle(fontWeight: FontWeight.bold),),
+                                  title: Text(
+                                    "Total Fee",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
+                                  trailing: Text(
+          "${int.parse(data.fullDayPriceSetByUser)*controller.getDateDifferenceNum()}",
+                                    style:
+                                        TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                 ),
                               ),
-                              SizedBox(height: 20,),
-
+                              SizedBox(
+                                height: 20,
+                              ),
                               Center(
                                 child: Text(
                                   "Payment",
@@ -451,7 +500,6 @@ class ConfirmAndPayView extends GetView<BookingController> {
                               ),
                               Row(
                                 children: [
-
                                   Text(
                                     "Pay with Credit/ Debit Card",
                                     style: TextStyle(
@@ -459,7 +507,7 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                         fontSize: 18,
                                         color: AppColors.textColorGreen),
                                   ),
-                                Spacer(),
+                                  Spacer(),
                                   Container(
                                     height: 60,
                                     width: 80,
@@ -494,7 +542,6 @@ class ConfirmAndPayView extends GetView<BookingController> {
                               ),
                               Row(
                                 children: [
-
                                   Text(
                                     "Pay with MFS",
                                     style: TextStyle(
@@ -551,14 +598,18 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                           ),
                                         )),
                                   ),
-                                  SizedBox(width: 15,),
+                                  SizedBox(
+                                    width: 15,
+                                  ),
                                   Container(
-                                    width: MediaQuery.of(context).size.width*.7,
+                                    width:
+                                        MediaQuery.of(context).size.width * .7,
                                     child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.start,
-                                      crossAxisAlignment: CrossAxisAlignment.start,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
                                       children: [
-
                                         Text(
                                           "Accpect Terms & Conditions",
                                           style: TextStyle(
@@ -576,15 +627,14 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                       ],
                                     ),
                                   ),
-
                                 ],
                               ),
-
                               SizedBox(
                                 height: 30,
                               ),
                               InkWell(
                                 onTap: () {
+                                  controller.makeBookingController(context);
                                   //  Get.toNamed(Routes.HOME);
                                   //controller.visible.value++;
                                   // controller.loginController();
@@ -593,8 +643,10 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                   child: AnimatedContainer(
                                     duration: Duration(seconds: 2),
                                     height: 40,
-                                    width:
-                                        MediaQuery.of(context).size.width - 100,
+                                   // height: controller.visibleForLogin.value == 1 ? 50 : 60,
+                                    width: controller.visible.value == 1
+                                        ? MediaQuery.of(context).size.width * .5
+                                        : MediaQuery.of(context).size.width * .7,
                                     decoration: BoxDecoration(
                                         color: AppColors.textColorGreen,
                                         borderRadius:
@@ -610,8 +662,6 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                   ),
                                 ),
                               ),
-
-
                               SizedBox(
                                 height: 20,
                               ),

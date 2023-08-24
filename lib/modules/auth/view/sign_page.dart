@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jayga/modules/auth/controller/auth_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
+import 'package:jayga/utils/ui_support.dart';
 
 import '../../../routes/app_pages.dart';
 
@@ -52,8 +53,10 @@ class LoginView extends GetView<AuthController> {
                   child: TextFormField(
 
                     maxLines: 1,
-                    controller: controller.email.value,
+                    controller: controller.phoneNumCOntroller.value,
+                    keyboardType: TextInputType.number,
                     decoration: new InputDecoration(
+
                       filled: true,
                       fillColor: AppColors.jaygaWhite,
                       focusColor: Colors.white,
@@ -70,7 +73,7 @@ class LoginView extends GetView<AuthController> {
                     ),
                     validator: (value) {
                       if (value!.trim().isEmpty)
-                        return "Email is Required";
+                        return "Number is Required";
                       else if (!GetUtils.isEmail(value.trim()))
                         return "Please enter valid email";
                       else
@@ -82,23 +85,33 @@ class LoginView extends GetView<AuthController> {
               SizedBox(height: 20,),
               InkWell(
                 onTap: () {
-                  controller.sendOTP(context);
-                  Get.toNamed(Routes.OTPPAGE);
+
+                  if(controller.phoneNumCOntroller.value.text.length < 11 ){
+                    Get.showSnackbar(Ui.errorSnackBar(
+                        message:"Please provide a valid phone no", title: 'Error'.tr));
+                  }else {
+                    controller.makeRandomOtpNUm().then((){
+                      Get.offNamed(Routes.OTPPAGE);
+                    });
+                    //controller.sendOTP(context);
+
+                  }
+
                   //controller.visible.value++;
                   // controller.loginController();
                 },
                 child: AnimatedContainer(
                   duration: Duration(seconds: 2),
-                  height: controller.visible.value == 1 ? 50 : 60,
-                  width: controller.visible.value == 1
+                  height: controller.visibleForLogin.value == 1 ? 50 : 60,
+                  width: controller.visibleForLogin.value == 1
                       ? MediaQuery.of(context).size.width * .5
                       : MediaQuery.of(context).size.width * .9,
                   decoration: BoxDecoration(
                       color: AppColors.buttonColorYellow,
                       borderRadius: BorderRadius.circular(
-                          controller.visible.value == 1 ? 60 : 10)),
+                          controller.visibleForLogin.value == 1 ? 60 : 10)),
                   alignment: Alignment.center,
-                  child: controller.visible.value == 1
+                  child: controller.visibleForLogin.value == 1
                       ? Center(child: CircularProgressIndicator())
                       : Text(
                           "Continue",
@@ -114,22 +127,22 @@ class LoginView extends GetView<AuthController> {
               InkWell(
                 onTap: () {
 
-                  Get.toNamed(Routes.REGISTER);
+                 // Get.toNamed(Routes.REGISTER);
                   //controller.visible.value++;
                   // controller.loginController();
                 },
                 child: AnimatedContainer(
                   duration: Duration(seconds: 2),
-                  height: controller.visible.value == 1 ? 50 : 60,
-                  width: controller.visible.value == 1
+                  height: controller.visibleForGoogle.value == 1 ? 50 : 60,
+                  width: controller.visibleForGoogle.value == 1
                       ? MediaQuery.of(context).size.width * .5
                       : MediaQuery.of(context).size.width * .9,
                   decoration: BoxDecoration(
                       color: AppColors.jaygaWhite,
                       borderRadius: BorderRadius.circular(
-                          controller.visible.value == 1 ? 10 : 10)),
+                          controller.visibleForGoogle.value == 1 ? 10 : 10)),
                   alignment: Alignment.center,
-                  child: controller.visible.value == 1
+                  child: controller.visibleForGoogle.value == 1
                       ? Center(child: CircularProgressIndicator())
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.center,
@@ -160,22 +173,22 @@ class LoginView extends GetView<AuthController> {
               ),
               InkWell(
                 onTap: () {
-                  Get.toNamed(Routes.OTPPAGE);
+                //  Get.toNamed(Routes.OTPPAGE);
                   //controller.visible.value++;
                   // controller.loginController();
                 },
                 child: AnimatedContainer(
                   duration: Duration(seconds: 2),
-                  height: controller.visible.value == 1 ? 50 : 60,
-                  width: controller.visible.value == 1
+                  height: controller.visibleForFB.value == 1 ? 50 : 60,
+                  width: controller.visibleForFB.value == 1
                       ? MediaQuery.of(context).size.width * .5
                       : MediaQuery.of(context).size.width * .9,
                   decoration: BoxDecoration(
                       color: AppColors.jaygaWhite,
                       borderRadius: BorderRadius.circular(
-                          controller.visible.value == 1 ? 10 : 10)),
+                          controller.visibleForFB.value == 1 ? 10 : 10)),
                   alignment: Alignment.center,
-                  child: controller.visible.value == 1
+                  child: controller.visibleForFB.value == 1
                       ? Center(child: CircularProgressIndicator())
                       : Row(
                           mainAxisAlignment: MainAxisAlignment.center,

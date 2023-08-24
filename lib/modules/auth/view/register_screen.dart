@@ -16,25 +16,25 @@ class RegisterView extends GetView<AuthController> {
       backgroundColor: AppColors.appBackGroundBrn,
       bottomNavigationBar: InkWell(
         onTap: () {
-          Get.toNamed(Routes.BASE);
+          controller.registerController();
           //controller.visible.value++;
           // controller.loginController();
         },
         child: AnimatedContainer(
           duration: Duration(seconds: 2),
-          height: controller.visible.value == 1 ? 50 : 100,
-          width: controller.visible.value == 1
+          height: controller.visibleRegister.value == 1 ? 50 : 100,
+          width: controller.visibleRegister.value == 1
               ? MediaQuery.of(context).size.width * .5
               : MediaQuery.of(context).size.width * .9,
           decoration: BoxDecoration(
               color: AppColors.textColorGreen,
               borderRadius: BorderRadius.only(
-                  topLeft:Radius.circular(controller.visible.value == 1 ? 60 : 80),
-                topRight: Radius.circular(controller.visible.value == 1 ? 60 : 80),
+                  topLeft:Radius.circular(controller.visibleRegister.value == 1 ? 60 : 80),
+                topRight: Radius.circular(controller.visibleRegister.value == 1 ? 60 : 80),
                 
                   )),
           alignment: Alignment.center,
-          child: controller.visible.value == 1
+          child: controller.visibleRegister.value == 1
               ? Center(child: CircularProgressIndicator())
               : Text(
             "Continue",
