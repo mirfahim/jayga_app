@@ -1,30 +1,114 @@
 // To parse this JSON data, do
 //
-//     final listingMOdel = listingMOdelFromJson(jsonString);
+//     final bookingHistoryModel = bookingHistoryModelFromJson(jsonString);
 
 import 'dart:convert';
 
-ListingMOdel listingMOdelFromJson(String str) => ListingMOdel.fromJson(json.decode(str));
+BookingHistoryModel bookingHistoryModelFromJson(String str) => BookingHistoryModel.fromJson(json.decode(str));
 
-String listingMOdelToJson(ListingMOdel data) => json.encode(data.toJson());
+String bookingHistoryModelToJson(BookingHistoryModel data) => json.encode(data.toJson());
 
-class ListingMOdel {
-  List<Listing> listings;
+class BookingHistoryModel {
+  List<BookingHistory> bookings;
 
-  ListingMOdel({
-    required this.listings,
+  BookingHistoryModel({
+    required this.bookings,
   });
 
-  factory ListingMOdel.fromJson(Map<String, dynamic> json) => ListingMOdel(
-    listings: List<Listing>.from(json["listings"].map((x) => Listing.fromJson(x))),
+  factory BookingHistoryModel.fromJson(Map<String, dynamic> json) => BookingHistoryModel(
+    bookings: List<BookingHistory>.from(json["bookings"].map((x) => BookingHistory.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
-    "listings": List<dynamic>.from(listings.map((x) => x.toJson())),
+    "bookings": List<dynamic>.from(bookings.map((x) => x.toJson())),
   };
 }
 
-class Listing {
+class BookingHistory {
+  String bookingId;
+  String userId;
+  String listingId;
+  String listerId;
+  dynamic timeFlag;
+  dynamic timeId;
+  dynamic allDayFlag;
+  String daysStayed;
+  DateTime dateEnter;
+  DateTime dateExit;
+  dynamic payAmount;
+  dynamic paymentFlag;
+  ListingHistory listing;
+  List<Image> images;
+
+  BookingHistory({
+    required this.bookingId,
+    required this.userId,
+    required this.listingId,
+    required this.listerId,
+    required this.timeFlag,
+    required this.timeId,
+    required this.allDayFlag,
+    required this.daysStayed,
+    required this.dateEnter,
+    required this.dateExit,
+    required this.payAmount,
+    required this.paymentFlag,
+    required this.listing,
+    required this.images,
+  });
+
+  factory BookingHistory.fromJson(Map<String, dynamic> json) => BookingHistory(
+    bookingId: json["booking_id"],
+    userId: json["user_id"],
+    listingId: json["listing_id"],
+    listerId: json["lister_id"],
+    timeFlag: json["time_flag"],
+    timeId: json["time_id"],
+    allDayFlag: json["all_day_flag"],
+    daysStayed: json["days_stayed"],
+    dateEnter: DateTime.parse(json["date_enter"]),
+    dateExit: DateTime.parse(json["date_exit"]),
+    payAmount: json["pay_amount"],
+    paymentFlag: json["payment_flag"],
+    listing: ListingHistory.fromJson(json["listing"]),
+    images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "booking_id": bookingId,
+    "user_id": userId,
+    "listing_id": listingId,
+    "lister_id": listerId,
+    "time_flag": timeFlag,
+    "time_id": timeId,
+    "all_day_flag": allDayFlag,
+    "days_stayed": daysStayed,
+    "date_enter": "${dateEnter.year.toString().padLeft(4, '0')}-${dateEnter.month.toString().padLeft(2, '0')}-${dateEnter.day.toString().padLeft(2, '0')}",
+    "date_exit": "${dateExit.year.toString().padLeft(4, '0')}-${dateExit.month.toString().padLeft(2, '0')}-${dateExit.day.toString().padLeft(2, '0')}",
+    "pay_amount": payAmount,
+    "payment_flag": paymentFlag,
+    "listing": listing.toJson(),
+    "images": List<dynamic>.from(images.map((x) => x.toJson())),
+  };
+}
+
+class Image {
+  String listingFilename;
+
+  Image({
+    required this.listingFilename,
+  });
+
+  factory Image.fromJson(Map<String, dynamic> json) => Image(
+    listingFilename: json["listing_filename"],
+  );
+
+  Map<String, dynamic> toJson() => {
+    "listing_filename": listingFilename,
+  };
+}
+
+class ListingHistory {
   String listingId;
   String listerId;
   String listerName;
@@ -50,9 +134,10 @@ class Listing {
   String roomLock;
   String whoElseMightBeThere;
   String listingType;
-  List<Image> images;
+  dynamic lati;
+  dynamic longi;
 
-  Listing({
+  ListingHistory({
     required this.listingId,
     required this.listerId,
     required this.listerName,
@@ -78,10 +163,11 @@ class Listing {
     required this.roomLock,
     required this.whoElseMightBeThere,
     required this.listingType,
-    required this.images,
+    required this.lati,
+    required this.longi,
   });
 
-  factory Listing.fromJson(Map<String, dynamic> json) => Listing(
+  factory ListingHistory.fromJson(Map<String, dynamic> json) => ListingHistory(
     listingId: json["listing_id"],
     listerId: json["lister_id"],
     listerName: json["lister_name"],
@@ -102,12 +188,13 @@ class Listing {
     describeStylish: json["describe_stylish"],
     describeCentral: json["describe_central"],
     describeSpacious: json["describe_spacious"],
-    bathroomPrivate: json["bathroom_private"] ?? "No Data" ,
+    bathroomPrivate: json["bathroom_private"] ?? "No data",
     breakfastAvailability: json["breakfast_availability"] ?? "No Data",
-    roomLock: json["room_lock"] ??"No Data",
+    roomLock: json["room_lock"] ?? "No data",
     whoElseMightBeThere: json["who_else_might_be_there"] ?? "No Data",
     listingType: json["listing_type"] ?? "No Data",
-    images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+    lati: json["lati"],
+    longi: json["longi"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -136,38 +223,7 @@ class Listing {
     "room_lock": roomLock,
     "who_else_might_be_there": whoElseMightBeThere,
     "listing_type": listingType,
-    "images": List<dynamic>.from(images.map((x) => x.toJson())),
-  };
-}
-
-class Image {
-  String listingImgId;
-  String listingId;
-  String listerId;
-  String listingFilename;
-  String listingTargetlocation;
-
-  Image({
-    required this.listingImgId,
-    required this.listingId,
-    required this.listerId,
-    required this.listingFilename,
-    required this.listingTargetlocation,
-  });
-
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
-    listingImgId: json["listing_img_id"],
-    listingId: json["listing_id"],
-    listerId: json["lister_id"],
-    listingFilename: json["listing_filename"],
-    listingTargetlocation: json["listing_targetlocation"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "listing_img_id": listingImgId,
-    "listing_id": listingId,
-    "lister_id": listerId,
-    "listing_filename": listingFilename,
-    "listing_targetlocation": listingTargetlocation,
+    "lati": lati,
+    "longi": longi,
   };
 }

@@ -10,7 +10,7 @@ import 'package:jayga/utils/AppColors/app_colors.dart';
 
 class ItEasyToTellJayga extends GetView<HostController> {
   const ItEasyToTellJayga({Key? key}) : super(key: key);
-
+//index3
   @override
   Widget build(BuildContext context) {
     return  SingleChildScrollView(

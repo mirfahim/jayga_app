@@ -10,7 +10,7 @@ import 'package:jayga/utils/AppColors/app_colors.dart';
 
 class SetHomeAddress extends GetView<HostController> {
   const SetHomeAddress({Key? key}) : super(key: key);
-
+ //page8
   @override
   Widget build(BuildContext context) {
     return  SingleChildScrollView(
@@ -49,6 +49,7 @@ class SetHomeAddress extends GetView<HostController> {
                             fontSize: 20,
                             color: Colors.black54),
                       ),
+
                       SizedBox(height: 5,),
                       Padding(
                         padding: const EdgeInsets.all(16.0),
@@ -56,7 +57,7 @@ class SetHomeAddress extends GetView<HostController> {
                         child: TextFormField(
 
                           maxLines: 1,
-                          controller: controller.nameController.value,
+                          controller: controller.streetAddress.value,
                           decoration: new InputDecoration(
                             filled: true,
                             fillColor: AppColors.jaygaWhite,
@@ -90,7 +91,7 @@ class SetHomeAddress extends GetView<HostController> {
                         child: TextFormField(
 
                           maxLines: 1,
-                          controller: controller.nameController.value,
+                          controller: controller.town.value,
                           decoration: new InputDecoration(
                             filled: true,
                             fillColor: AppColors.jaygaWhite,
@@ -124,7 +125,7 @@ class SetHomeAddress extends GetView<HostController> {
                         child: TextFormField(
 
                           maxLines: 1,
-                          controller: controller.nameController.value,
+                          controller: controller.district.value,
                           decoration: new InputDecoration(
                             filled: true,
                             fillColor: AppColors.jaygaWhite,
@@ -158,7 +159,7 @@ class SetHomeAddress extends GetView<HostController> {
                         child: TextFormField(
 
                           maxLines: 1,
-                          controller: controller.nameController.value,
+                          controller: controller.zip.value,
                           decoration: new InputDecoration(
                             filled: true,
                             fillColor: AppColors.jaygaWhite,

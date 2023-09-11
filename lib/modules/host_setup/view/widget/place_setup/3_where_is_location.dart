@@ -12,7 +12,7 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class WhereIsPlace extends GetView<HostController> {
   const WhereIsPlace({Key? key}) : super(key: key);
-
+//page7
   @override
   Widget build(BuildContext context) {
 

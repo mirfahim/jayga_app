@@ -2,6 +2,7 @@ import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:jayga/modules/auth/controller/auth_controller.dart';
+import 'package:jayga/services/firebase_service.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
 import 'package:jayga/utils/ui_support.dart';
 
@@ -85,7 +86,7 @@ class LoginView extends GetView<AuthController> {
               SizedBox(height: 20,),
               InkWell(
                 onTap: () {
-
+                  FirebaseService().logCustomEvent();
                   if(controller.phoneNumCOntroller.value.text.length < 11 ){
                     Get.showSnackbar(Ui.errorSnackBar(
                         message:"Please provide a valid phone no", title: 'Error'.tr));

@@ -101,12 +101,14 @@ class AuthController extends GetxController {
   sendOtpWithMuthoFun() async{
     visibleOTP.value++;
     AuthRepository().sendOtpWithMuthoFun(phoneNumCOntroller.value.text, otpNum.value.toString() ).then((e) async{
-
+      print("hlw muthofun1");
       if(e['message']== "SMS queued successfully!"){
+        print("hlw muthofun2");
         visibleOTP.value = 0;
         Get.toNamed(Routes.OTPPAGE);
 
       }else {
+        print("hlw muthofun3");
         visibleOTP.value = 0;
       }
 

@@ -26,6 +26,8 @@ import 'package:jayga/modules/host_setup/view/widget/tell_us_about_jayga.dart';
 import 'package:jayga/modules/host_setup/view/widget/type_of_property.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
 
+import '../../../utils/ui_support.dart';
+
 class CreateJaygaFormView extends GetView<HostController> {
   const CreateJaygaFormView({Key? key}) : super(key: key);
 
@@ -51,30 +53,24 @@ class CreateJaygaFormView extends GetView<HostController> {
                         : InkWell(
                             onTap: () {
                               if (controller.pageIndex.value == 2) {
-                                controller.pageIndex.value =1;
+                                controller.pageIndex.value = 1;
                               } else if (controller.pageIndex.value == 3) {
                                 controller.pageIndex.value = 2;
                               } else if (controller.pageIndex.value == 4) {
                                 controller.pageIndex.value = 3;
                               } else if (controller.pageIndex.value == 5) {
                                 controller.pageIndex.value = 4;
-                              }
-                              else if (controller.pageIndex.value == 6) {
+                              } else if (controller.pageIndex.value == 6) {
                                 controller.pageIndex.value = 5;
-                              }
-                              else if (controller.pageIndex.value == 7) {
+                              } else if (controller.pageIndex.value == 7) {
                                 controller.pageIndex.value = 6;
-                              }
-                              else if (controller.pageIndex.value == 8) {
+                              } else if (controller.pageIndex.value == 8) {
                                 controller.pageIndex.value = 7;
-                              }
-                              else if (controller.pageIndex.value == 9) {
+                              } else if (controller.pageIndex.value == 9) {
                                 controller.pageIndex.value = 8;
-                              }
-                              else if (controller.pageIndex.value == 10) {
+                              } else if (controller.pageIndex.value == 10) {
                                 controller.pageIndex.value = 9;
-                              }
-                              else if (controller.pageIndex.value == 11) {
+                              } else if (controller.pageIndex.value == 11) {
                                 controller.pageIndex.value = 10;
                               } else if (controller.pageIndex.value == 12) {
                                 controller.pageIndex.value = 11;
@@ -105,11 +101,8 @@ class CreateJaygaFormView extends GetView<HostController> {
                                   )),
                             ),
                           ),
-
                     Row(
-
                       children: [
-
                         CircleAvatar(
                             radius: 5,
                             backgroundColor: controller.pageIndex.value == 1
@@ -289,80 +282,138 @@ class CreateJaygaFormView extends GetView<HostController> {
                 ),
                 controller.pageIndex.value == 1
                     ? NidFormView()
-                    :   controller.pageIndex.value == 2
-                    ? TypeOfPropertyFormView()
-                    :   controller.pageIndex.value == 3
-                    ? ItEasyToTellJayga()
-                    :   controller.pageIndex.value == 4
-                    ? TellUsAboutJayga()
-                    :   controller.pageIndex.value == 5
-                    ? WhichOfPlace()
-                    :   controller.pageIndex.value == 6
-                    ? WhatTypeOfPropertyHasToOfferView()
-                    :   controller.pageIndex.value == 7
-                    ? WhereIsPlace()
-                    :   controller.pageIndex.value == 8
-                    ? SetHomeAddress()
-                    :   controller.pageIndex.value == 9
-                    ? ShareSomeInfoAboutBedWash()
-                    :   controller.pageIndex.value == 10
-                    ? MakeItStandOut()
-                    :   controller.pageIndex.value == 11
-                    ? WhatPlaceHasToOffer()
-                    :   controller.pageIndex.value == 12
-                    ? DoYouHaveAnyRestriction()
-                    :   controller.pageIndex.value == 13
-                    ? AddPhotosOfHouse()
-                    :   controller.pageIndex.value == 14
-                    ? GiveHouseTitle()
-                    :   controller.pageIndex.value == 15
-                    ? DescribeYourHouse()
-                    :   controller.pageIndex.value == 16
-                    ? CreateYourDescription()
-                    :   controller.pageIndex.value == 17
-                    ? FinishUpAndPublish()
-                    :   controller.pageIndex.value == 17
-                    ? FullDayPrice()
-                    : FullDayPrice(),
+                    : controller.pageIndex.value == 2
+                        ? TypeOfPropertyFormView()
+                        : controller.pageIndex.value == 3
+                            ? ItEasyToTellJayga()
+                            : controller.pageIndex.value == 4
+                                ? TellUsAboutJayga()
+                                : controller.pageIndex.value == 5
+                                    ? WhichOfPlace()
+                                    : controller.pageIndex.value == 6
+                                        ? WhatTypeOfPropertyHasToOfferView()
+                                        : controller.pageIndex.value == 7
+                                            ? WhereIsPlace()
+                                            : controller.pageIndex.value == 8
+                                                ? SetHomeAddress()
+                                                : controller.pageIndex.value ==
+                                                        9
+                                                    ? ShareSomeInfoAboutBedWash()
+                                                    : controller.pageIndex
+                                                                .value ==
+                                                            10
+                                                        ? MakeItStandOut()
+                                                        : controller.pageIndex
+                                                                    .value ==
+                                                                11
+                                                            ? WhatPlaceHasToOffer()
+                                                            : controller.pageIndex
+                                                                        .value ==
+                                                                    12
+                                                                ? DoYouHaveAnyRestriction()
+                                                                : controller.pageIndex
+                                                                            .value ==
+                                                                        13
+                                                                    ? AddPhotosOfHouse()
+                                                                    : controller.pageIndex.value ==
+                                                                            14
+                                                                        ? GiveHouseTitle()
+                                                                        : controller.pageIndex.value ==
+                                                                                15
+                                                                            ? DescribeYourHouse()
+                                                                            : controller.pageIndex.value == 16
+                                                                                ? CreateYourDescription()
+                                                                                : controller.pageIndex.value == 17
+                                                                                    ? FinishUpAndPublish()
+                                                                                    : controller.pageIndex.value == 17
+                                                                                        ? FullDayPrice()
+                                                                                        : FullDayPrice(),
                 SizedBox(
                   height: 30,
                 ),
                 InkWell(
                   onTap: () {
                     if (controller.pageIndex.value == 1) {
-                      controller.pageIndex.value = 2;
+                      if(controller.nidPic.isEmpty || controller.lister_image.isEmpty || controller.utility_image.isEmpty) {
+                        controller.addImage();
+                        Get.showSnackbar(Ui.errorSnackBar(
+                            message:"Please provide NID, Utility and Your Image as well.", title: 'Error'.tr));
+                      } else {
+                        if(controller.userData.value.nid == null){
+                          Get.showSnackbar(Ui.errorSnackBar(
+                              message:"Please provide valid NID image", title: 'Error'.tr));
+                        }else {
+                          controller.pageIndex.value = 2;
+
+                        }
+                      }
+
                     } else if (controller.pageIndex.value == 2) {
-                      controller.pageIndex.value = 3;
-                    }else if (controller.pageIndex.value == 3) {
-                      controller.pageIndex.value = 4;
-                    }else if (controller.pageIndex.value == 4) {
-                      controller.pageIndex.value = 5;
-                    }else if (controller.pageIndex.value == 5) {
-                      controller.pageIndex.value = 6;
-                    }else if (controller.pageIndex.value == 6) {
+                      if(controller.type_of_property.isEmpty) {
+                        Get.showSnackbar(Ui.errorSnackBar(
+                            message:"Please select property type", title: 'Error'.tr));
+                      } else {
+                        controller.pageIndex.value = 3;
+                      }
+                    } else if (controller.pageIndex.value == 3) {
+
+                        controller.pageIndex.value = 4;
+
+
+                    } else if (controller.pageIndex.value == 4) {
+
+                        controller.pageIndex.value = 5;
+
+
+                    } else if (controller.pageIndex.value == 5) {
+                      print("my page index is ${controller.pageIndex.value}");
+                      if(controller.house.value == 0) {
+                        Get.showSnackbar(Ui.errorSnackBar(
+                            message:"Please select atleast one place", title: 'Error'.tr));
+                      } else {
+                        controller.pageIndex.value = 6;
+                      }
+
+                    } else if (controller.pageIndex.value == 6) {
+
                       controller.pageIndex.value = 7;
-                    }else if (controller.pageIndex.value == 7) {
+                    } else if (controller.pageIndex.value == 7) {
                       controller.pageIndex.value = 8;
-                    }else if (controller.pageIndex.value == 8) {
-                      controller.pageIndex.value = 9;
-                    }else if (controller.pageIndex.value == 9) {
-                      controller.pageIndex.value = 10;
-                    }else if (controller.pageIndex.value == 10) {
+                    } else if (controller.pageIndex.value == 8) {
+                      if(controller.streetAddress.value.text.isEmpty || controller.town.value.text.isEmpty
+                          || controller.district.value.text.isEmpty ||controller.zip.value.text.isEmpty) {
+                        Get.showSnackbar(Ui.errorSnackBar(
+                            message:"Please fill all the field", title: 'Error'.tr));
+                      } else {
+                        controller.pageIndex.value = 9;
+                      }
+                    } else if (controller.pageIndex.value == 9) {
+                      if(controller.numbedRooms.value == 0 && controller.numGuest.value == 0
+                          && controller.numBeds.value == 0 &&controller.numBath.value == 0  ) {
+                        Get.showSnackbar(Ui.errorSnackBar(
+                            message:"Please increase atleast a number", title: 'Error'.tr));
+                      } else {
+                        controller.pageIndex.value = 10;
+                      }
+                    } else if (controller.pageIndex.value == 10) {
                       controller.pageIndex.value = 11;
-                    }else if (controller.pageIndex.value == 11) {
+                    } else if (controller.pageIndex.value == 11) {
                       controller.pageIndex.value = 12;
-                    }else if (controller.pageIndex.value == 12) {
+                    } else if (controller.pageIndex.value == 12) {
                       controller.pageIndex.value = 13;
-                    }else if (controller.pageIndex.value == 13) {
+                    } else if (controller.pageIndex.value == 13) {
                       controller.pageIndex.value = 14;
-                    }else if (controller.pageIndex.value == 14) {
+                    } else if (controller.pageIndex.value == 14) {
                       controller.pageIndex.value = 15;
-                    }else if (controller.pageIndex.value == 15) {
+                    } else if (controller.pageIndex.value == 15) {
                       controller.pageIndex.value = 16;
-                    }else if (controller.pageIndex.value == 16) {
+                    } else if (controller.pageIndex.value == 16) {
                       controller.pageIndex.value = 17;
-                    }else if (controller.pageIndex.value == 17) {
+                    } else if (controller.pageIndex.value == 17) {
                       controller.pageIndex.value = 18;
+                    } else if (controller.pageIndex.value == 18) {
+                      print("add listing strated");
+                      controller.addListingController();
                     }
                   },
                   child: Center(
@@ -374,13 +425,21 @@ class CreateJaygaFormView extends GetView<HostController> {
                           color: AppColors.textColorGreen,
                           borderRadius: BorderRadius.circular(50)),
                       alignment: Alignment.center,
-                      child: Text(
-                        "Continue",
-                        style: TextStyle(
-                          color: AppColors.backgroundColor,
-                          fontSize: 15,
-                        ),
-                      ),
+                      child: controller.pageIndex.value == 18
+                          ? Text(
+                              "Publish",
+                              style: TextStyle(
+                                color: AppColors.backgroundColor,
+                                fontSize: 15,
+                              ),
+                            )
+                          : Text(
+                              "Continue",
+                              style: TextStyle(
+                                color: AppColors.backgroundColor,
+                                fontSize: 15,
+                              ),
+                            ),
                     ),
                   ),
                 ),

@@ -6,6 +6,7 @@ import 'package:jayga/modules/booking/controller/booking_controller.dart';
 import 'package:jayga/modules/booking/view/all_alemnities.dart';
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
+import 'package:jayga/utils/ui_support.dart';
 
 class ConfirmAndPayView extends GetView<BookingController> {
   const ConfirmAndPayView({Key? key}) : super(key: key);
@@ -67,14 +68,14 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "2 Bed 2 Bath Apartment",
+                                    "${data.bedNum} Bed, ${data.bathroomNum} Bath",
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 18,
                                         color: Colors.black),
                                   ),
                                   Text(
-                                    "Flat: 3B, House: 27, Road: 18, Dhanmondi, Dhaka",
+                                    data.listingAddress,
                                     style: TextStyle(
                                         fontWeight: FontWeight.normal,
                                         fontSize: 14,
@@ -106,7 +107,7 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                       SizedBox(
                                         width: 20,
                                       ),
-                                      Text("800 sqft"),
+                                     // Text(data.),
                                     ],
                                   ),
                                   Container(
@@ -250,7 +251,7 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                    "2000",
+                                   data.fullDayPriceSetByUser,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15,
@@ -586,17 +587,43 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-                                  Container(
-                                    height: 30,
-                                    width: 30,
-                                    decoration: BoxDecoration(
-                                        borderRadius: BorderRadius.circular(20),
-                                        image: DecorationImage(
-                                          fit: BoxFit.fill,
-                                          image: AssetImage(
-                                            'assets/icons/tick.png',
-                                          ),
-                                        )),
+                                  InkWell(
+                                    onTap:(){
+                                      if( controller.term.value == true){
+                                        controller.term.value = false;
+                                      } else{
+                                        controller.term.value = true;
+                                      }
+
+
+                        },
+
+                                    child: controller.term.value == false
+                                        ?  Container(
+                                        height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+
+                                          borderRadius: BorderRadius.circular(20),
+                                        border: Border.all(
+                                            color: AppColors.textColorBlack, width: 1),
+
+                                      ))
+                                    :Container(
+                                      height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+
+                                          borderRadius: BorderRadius.circular(20),
+                                          image: DecorationImage(
+
+                                            fit: BoxFit.fill,
+                                            image: AssetImage(
+
+                                              'assets/icons/tick.png',
+                                            ),
+                                          )),
+                                    ),
                                   ),
                                   SizedBox(
                                     width: 15,
@@ -611,7 +638,7 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                           CrossAxisAlignment.start,
                                       children: [
                                         Text(
-                                          "Accpect Terms & Conditions",
+                                          "Accept Terms & Conditions",
                                           style: TextStyle(
                                               fontWeight: FontWeight.bold,
                                               fontSize: 16,
@@ -634,7 +661,19 @@ class ConfirmAndPayView extends GetView<BookingController> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  controller.makeBookingController(context);
+                                  if(controller.term.value == true){
+                                    if(controller.endDate.value.isEmpty && controller.startDate.value.isEmpty){
+                                      Get.showSnackbar(Ui.errorSnackBar(
+                                          message:"Please give checkIn and CheckOut Date", title: 'Error'.tr));
+                                    } else {
+                                      controller.makeBookingController(context, lister_id: data.listerId, listing_id: data.listingId);
+                                    }
+
+                                  }else{
+                                    Get.showSnackbar(Ui.errorSnackBar(
+                                        message:"Please agree on terms and conditions.", title: 'Error'.tr));
+                                  }
+
                                   //  Get.toNamed(Routes.HOME);
                                   //controller.visible.value++;
                                   // controller.loginController();

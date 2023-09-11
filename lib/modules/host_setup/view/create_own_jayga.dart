@@ -7,6 +7,7 @@ import 'package:jayga/modules/booking/view/all_alemnities.dart';
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/modules/host_setup/controller/host_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
+import 'package:jayga/utils/ui_support.dart';
 
 import '../../../routes/app_pages.dart';
 
@@ -96,17 +97,38 @@ class CreateOwnJaygaView extends GetView<HostController> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            Container(
-                              height: 30,
-                              width: 30,
-                              decoration: BoxDecoration(
-                                  borderRadius: BorderRadius.circular(20),
-                                  image: DecorationImage(
-                                    fit: BoxFit.fill,
-                                    image: AssetImage(
-                                      'assets/icons/tick.png',
-                                    ),
+                            controller.term.value == false
+                                ?  InkWell(
+                              onTap:(){
+                                controller.term.value = true;
+                  },
+                                  child: Container(
+                                  height: 30,
+                                  width: 30,
+                                  decoration: BoxDecoration(
+
+                                    borderRadius: BorderRadius.circular(20),
+                                    border: Border.all(
+                                        color: AppColors.textColorBlack, width: 1),
+
                                   )),
+                                ) :
+                            InkWell(
+                              onTap: (){
+                                controller.term.value = false;
+                              },
+                              child: Container(
+                                height: 30,
+                                width: 30,
+                                decoration: BoxDecoration(
+                                    borderRadius: BorderRadius.circular(20),
+                                    image: DecorationImage(
+                                      fit: BoxFit.fill,
+                                      image: AssetImage(
+                                        'assets/icons/tick.png',
+                                      ),
+                                    )),
+                              ),
                             ),
                             SizedBox(width: 15,),
                             Container(
@@ -142,7 +164,13 @@ class CreateOwnJaygaView extends GetView<HostController> {
                         ),
                         InkWell(
                           onTap: () {
+                            if(controller.term.value ==  false){
+                              Get.showSnackbar(Ui.errorSnackBar(
+                                  message:"Please agree on terms and condition", title: 'Error'.tr));
+                            }else {
                               Get.toNamed(Routes.CREATEJAYGAFORM);
+                            }
+
                             //controller.visible.value++;
                             // controller.loginController();
                           },

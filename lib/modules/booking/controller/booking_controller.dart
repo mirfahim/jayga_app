@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jayga/models/get_review_model.dart';
 import 'package:jayga/models/listing_model.dart';
 import 'dart:collection';
@@ -21,14 +22,17 @@ class BookingController extends GetxController {
   final landingPage = 1.obs;
   final currentIndex = 0.obs;
   final visible = 0.obs;
+  GoogleMapController? mapController;
   final visibleReview = 0.obs;
   final listingId = "".obs;
+  final term = false.obs;
   final categoryDataLoaded = false.obs;
   final listingData = <Listing>[].obs;
   final detailsData = <Listing>[].obs;
   final getReview = <GetReviewModel>[].obs;
   final historyList = <BookingHistory>[].obs;
   final seeAmenities = false.obs;
+  final selectReview = false.obs;
  // final listingData = <Listing>[].obs;
   CalendarFormat calendarFormat = CalendarFormat.month;
   DateTime focusedDay = DateTime.now();
@@ -156,7 +160,8 @@ class BookingController extends GetxController {
 
     });
   }
-  makeBookingController(BuildContext context) async{
+  makeBookingController(BuildContext context, {lister_id, user_id, listing_id}) async{
+    print("my lister id is $lister_id and listing id $listing_id");
    visible.value++;
     ListingRep().makeBooking().then((e) async{
 
@@ -217,7 +222,7 @@ class BookingController extends GetxController {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedCheckinDate,
-        firstDate: DateTime(1920, 8),
+        firstDate: DateTime.now(),
         lastDate: DateTime(2100),);
     if (picked != null && picked != selectedCheckinDate) {
       selectedCheckinDate = picked;
@@ -228,7 +233,7 @@ class BookingController extends GetxController {
     final DateTime? picked = await showDatePicker(
         context: context,
         initialDate: selectedCheckoutDate,
-        firstDate: DateTime(1920, 8),
+        firstDate: DateTime.now(),
         lastDate:  DateTime(2100),);
     if (picked != null && picked != selectedCheckoutDate) {
       selectedCheckoutDate = picked;
