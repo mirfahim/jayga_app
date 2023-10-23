@@ -2,7 +2,6 @@ import 'package:get/get.dart';
 import 'package:jayga/modules/A_Base/binding/base_binding.dart';
 import 'package:jayga/modules/A_Base/view/base_view.dart';
 
-import 'package:jayga/modules/A_Base/view/profile/profile_screen.dart';
 import 'package:jayga/modules/A_Base/view/saved_screen/saved_screen.dart';
 import 'package:jayga/modules/auth/binding/auth_binding.dart';
 import 'package:jayga/modules/auth/view/otp_page.dart';
@@ -11,7 +10,12 @@ import 'package:jayga/modules/auth/view/sign_page.dart';
 import 'package:jayga/modules/booking/binding/booking_binding.dart';
 import 'package:jayga/modules/booking/view/booking_details.dart';
 import 'package:jayga/modules/booking/view/confirmANDpay.dart';
+import 'package:jayga/modules/booking/view/search_booking.dart';
 import 'package:jayga/modules/home/binding/home_binding.dart';
+import 'package:jayga/modules/home/profile/edit_profile/edit_num_otp.dart';
+import 'package:jayga/modules/home/profile/edit_profile/edit_number.dart';
+import 'package:jayga/modules/home/profile/edit_profile/profile_details_edit.dart';
+import 'package:jayga/modules/home/profile/profile_screen.dart';
 import 'package:jayga/modules/home/view/home_page_view.dart';
 import 'package:jayga/modules/host_setup/binding/host_binding.dart';
 import 'package:jayga/modules/host_setup/view/create_own_jayga.dart';
@@ -82,6 +86,11 @@ class AppPages {
       binding: BookingBinding(),
     ),
     GetPage(
+      name: _Paths.SEARCHPAGE,
+      page: () =>  SearchListing(),
+      binding: BookingBinding(),
+    ),
+    GetPage(
       name: _Paths.CONFIRMANDPAY,
       page: () =>  ConfirmAndPayView(),
       binding: BookingBinding(),
@@ -119,7 +128,21 @@ class AppPages {
       binding: AuthBinding(),
     ),
 
-
+    GetPage(
+      name: _Paths.PROFILEDETAIL,
+      page: () =>  ProfileDetailView(),
+      binding: HomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDITNUM,
+      page: () =>  EditNumberView(),
+      binding: HomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.EDITNUMOTP,
+      page: () =>  EditNumOTPView(),
+      binding: HomeBinding(),
+    ),
 
   ];
 }

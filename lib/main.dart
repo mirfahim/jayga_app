@@ -8,6 +8,7 @@ import 'package:jayga/routes/app_pages.dart';
 import 'package:jayga/services/auth_services.dart';
 import 'package:jayga/routes/app_pages.dart';
 import 'package:jayga/services/auth_services.dart';
+import 'package:jayga/services/location_service.dart';
 initAllServices() async {
   Get.log('starting all services ...');
 
@@ -15,6 +16,7 @@ initAllServices() async {
   // await Get.putAsync<SettingsService>(() async => SettingsService());
   await Get.putAsync<AuthService>(() async => AuthService());
   Get.log('All services started...');
+  await Get.putAsync<LocationService>(() async => LocationService());
 }
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

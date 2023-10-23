@@ -3,8 +3,11 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:jayga/modules/A_Base/view/profile/profile_screen.dart';
+import 'package:jayga/models/profile/profile_model.dart';
+
 import 'package:jayga/modules/A_Base/view/saved_screen/saved_screen.dart';
+import 'package:jayga/modules/home/profile/profile_screen.dart';
+import 'package:jayga/repositories/listing_rep.dart';
 
 
 import '../../../routes/app_pages.dart';
@@ -21,6 +24,7 @@ class BaseController extends GetxController {
   GeolocatorService geolocatorService = GeolocatorService();
   final categoryDataLoaded = false.obs;
 
+
   List<Widget> pages = [
     ExplorePageView(),
     SavedView(),
@@ -30,6 +34,7 @@ class BaseController extends GetxController {
   ];
   @override
   void onInit() {
+
     super.onInit();
   }
 

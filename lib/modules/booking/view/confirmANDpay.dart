@@ -107,7 +107,7 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                       SizedBox(
                                         width: 20,
                                       ),
-                                     // Text(data.),
+                                      // Text(data.),
                                     ],
                                   ),
                                   Container(
@@ -153,20 +153,63 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                 ),
                               ),
                               Divider(),
-                              Row(
-                                children: [
-                                  Icon(
-                                    Icons.flag,
-                                    color: Colors.red,
-                                  ),
-                                  Text(
-                                    "Report this posting",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
+                              Column(
+                                  children: [
+                                    ListTile(
+                                      title: Text("Late night entry"),
+                                      leading:  Container(
+                                        height: 30,
+                                        child: Container(
+                                          height: 30,
+                                          width: 30,
+                                          alignment: Alignment.bottomLeft,
+                                          // color: AppColors.backgroundColor,
+                                          child: Image.asset(
+                                            'assets/icons/host/no_entry.png',
+                                            height: 30,
+                                            width: 30,
+                                          ),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ],
+                                    ListTile(
+                                      title: Text("No pets are allowed"),
+                                      leading:  Container(
+                                        height: 30,
+                                        child: Container(
+                                          height: 30,
+                                          width: 30,
+                                          alignment: Alignment.bottomLeft,
+                                          // color: AppColors.backgroundColor,
+                                          child: Image.asset(
+                                            'assets/icons/host/no_smoke.png',
+                                            height: 30,
+                                            width: 30,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    ListTile(
+                                      title: Text("No parties are allowed"),
+                                      leading:  Container(
+                                        height: 30,
+                                        child: Container(
+                                          height: 30,
+                                          width: 30,
+                                          alignment: Alignment.bottomLeft,
+                                          // color: AppColors.backgroundColor,
+                                          child: Image.asset(
+                                            'assets/icons/host/party.png',
+                                            height: 30,
+                                            width: 30,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+
+
+                                  ]
+
                               ),
                               Divider(),
                               Row(
@@ -251,7 +294,7 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
-                                   data.fullDayPriceSetByUser,
+                                    data.fullDayPriceSetByUser,
                                     style: TextStyle(
                                         fontWeight: FontWeight.bold,
                                         fontSize: 15,
@@ -357,9 +400,15 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                               children: [
                                                 InkWell(
                                                   onTap: () {
-                                                    controller
-                                                        .selectCheckoutDate(
-                                                            context);
+                                                    if(controller.selectedCheckinDate.toString().isNotEmpty){
+                                                      controller
+                                                          .selectCheckoutDate(
+                                                          context);
+                                                    } else{
+                                                      Get.showSnackbar(Ui.errorSnackBar(
+                                                          message:"Select Checkin date first", title: 'Error'.tr));
+                                                    }
+
                                                   },
                                                   child: Text(
                                                     "CHECK-OUT",
@@ -434,8 +483,10 @@ class ConfirmAndPayView extends GetView<BookingController> {
                               SizedBox(
                                 height: 30,
                                 child: ListTile(
-                                  title: Text("${data.fullDayPriceSetByUser} x ${controller.getDateDifferenceNum()} nights"),
-                                  trailing: Text("${int.parse(data.fullDayPriceSetByUser)*controller.getDateDifferenceNum()}"),
+                                  title: Text(
+                                      "${data.fullDayPriceSetByUser} x ${controller.getDateDifferenceNum()} nights"),
+                                  trailing: Text(
+                                      "${int.parse(data.fullDayPriceSetByUser) * controller.getDateDifferenceNum()}"),
                                 ),
                               ),
                               SizedBox(
@@ -469,7 +520,7 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
                                   trailing: Text(
-          "${int.parse(data.fullDayPriceSetByUser)*controller.getDateDifferenceNum()}",
+                                    "${int.parse(data.fullDayPriceSetByUser) * controller.getDateDifferenceNum()}",
                                     style:
                                         TextStyle(fontWeight: FontWeight.bold),
                                   ),
@@ -588,42 +639,38 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   InkWell(
-                                    onTap:(){
-                                      if( controller.term.value == true){
+                                    onTap: () {
+                                      if (controller.term.value == true) {
                                         controller.term.value = false;
-                                      } else{
+                                      } else {
                                         controller.term.value = true;
                                       }
-
-
-                        },
-
+                                    },
                                     child: controller.term.value == false
-                                        ?  Container(
-                                        height: 30,
-                                      width: 30,
-                                      decoration: BoxDecoration(
-
-                                          borderRadius: BorderRadius.circular(20),
-                                        border: Border.all(
-                                            color: AppColors.textColorBlack, width: 1),
-
-                                      ))
-                                    :Container(
-                                      height: 30,
-                                      width: 30,
-                                      decoration: BoxDecoration(
-
-                                          borderRadius: BorderRadius.circular(20),
-                                          image: DecorationImage(
-
-                                            fit: BoxFit.fill,
-                                            image: AssetImage(
-
-                                              'assets/icons/tick.png',
-                                            ),
-                                          )),
-                                    ),
+                                        ? Container(
+                                            height: 30,
+                                            width: 30,
+                                            decoration: BoxDecoration(
+                                              borderRadius:
+                                                  BorderRadius.circular(20),
+                                              border: Border.all(
+                                                  color:
+                                                      AppColors.textColorBlack,
+                                                  width: 1),
+                                            ))
+                                        : Container(
+                                            height: 30,
+                                            width: 30,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                image: DecorationImage(
+                                                  fit: BoxFit.fill,
+                                                  image: AssetImage(
+                                                    'assets/icons/tick.png',
+                                                  ),
+                                                )),
+                                          ),
                                   ),
                                   SizedBox(
                                     width: 15,
@@ -661,17 +708,22 @@ class ConfirmAndPayView extends GetView<BookingController> {
                               ),
                               InkWell(
                                 onTap: () {
-                                  if(controller.term.value == true){
-                                    if(controller.endDate.value.isEmpty && controller.startDate.value.isEmpty){
+                                  if (controller.term.value == true) {
+                                    if (controller.endDate.value.isEmpty &&
+                                        controller.startDate.value.isEmpty) {
                                       Get.showSnackbar(Ui.errorSnackBar(
-                                          message:"Please give checkIn and CheckOut Date", title: 'Error'.tr));
+                                          message:
+                                              "Please give checkIn and CheckOut Date",
+                                          title: 'Error'.tr));
                                     } else {
-                                      controller.makeBookingController(context, lister_id: data.listerId, listing_id: data.listingId);
+                                      //controller.makeBookingController(context, lister_id: data.listerId, listing_id: data.listingId);
+                                      controller.getPaymentUrl();
                                     }
-
-                                  }else{
+                                  } else {
                                     Get.showSnackbar(Ui.errorSnackBar(
-                                        message:"Please agree on terms and conditions.", title: 'Error'.tr));
+                                        message:
+                                            "Please agree on terms and conditions.",
+                                        title: 'Error'.tr));
                                   }
 
                                   //  Get.toNamed(Routes.HOME);
@@ -682,10 +734,11 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                   child: AnimatedContainer(
                                     duration: Duration(seconds: 2),
                                     height: 40,
-                                   // height: controller.visibleForLogin.value == 1 ? 50 : 60,
+                                    // height: controller.visibleForLogin.value == 1 ? 50 : 60,
                                     width: controller.visible.value == 1
                                         ? MediaQuery.of(context).size.width * .5
-                                        : MediaQuery.of(context).size.width * .7,
+                                        : MediaQuery.of(context).size.width *
+                                            .7,
                                     decoration: BoxDecoration(
                                         color: AppColors.textColorGreen,
                                         borderRadius:

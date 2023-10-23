@@ -19,6 +19,7 @@ class ReviewListView extends GetView<BookingController> {
     var index = Get.arguments[0];
     var data = controller.listingData.value[index];
 
+
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.0), // here the desired height
@@ -64,7 +65,7 @@ class ReviewListView extends GetView<BookingController> {
                         ),
                         // color: AppColors.backgroundColor,
                         child: CachedNetworkImage(
-                          imageUrl: "https://jayga.xyz/${data.images.first.listingTargetlocation}",
+                          imageUrl: "https://new.jayga.xyz/uploads/listings/${data.images.first.listingFilename}",
                           imageBuilder: (context, imageProvider) =>
                               Container(
                                 decoration: BoxDecoration(

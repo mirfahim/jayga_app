@@ -8,28 +8,31 @@ import '../../services/auth_services.dart';
 
 
 class AuthRepository {
-  Future userLogin(String mobile) async {
+  Future userLogin(String mobile, String fcm) async {
     APIManager _manager = APIManager();
     final response = await _manager.postAPICall(
-      "https://jayga.xyz/API/V1/login-api.php?phone_number=$mobile",
-      {'email': mobile, },
+      ApiUrl.login,
+      {'phone': mobile, 'FCM_token': fcm, "is_lister": "0" },
     );
     print("login response is $response");
 
     return response;
   }
 
-  Future registerRep(String name, String email, String dob, String token) async {
+  Future registerRep(
+      {String? name, String? email, String? dob, String? phone}) async {
     APIManager _manager = APIManager();
     final response = await _manager.postAPICall(
-      "https://jayga.xyz/API/V1/register-api.php",
-      {'acc_token': token,
-        'user_name': "email",
-        'user_email': "email",
-        'user_dob': "dob",
+      ApiUrl.register,
+      {'user_name': name,
+        'user_email': email,
+        'phone': phone,
+        'user_dob': dob,
+        "is_lister":"0",
+
       },
     );
-    print("login response is $response");
+    print("register response is $response");
 
     return response;
   }

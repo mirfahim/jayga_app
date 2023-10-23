@@ -10,7 +10,7 @@ import 'package:jayga/utils/AppColors/app_colors.dart';
 
 class FinishUpAndPublish extends GetView<HostController> {
   const FinishUpAndPublish({Key? key}) : super(key: key);
-
+//page17
   @override
   Widget build(BuildContext context) {
     return  SingleChildScrollView(

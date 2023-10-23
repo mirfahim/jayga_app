@@ -24,7 +24,7 @@ class NidFormView extends GetView<HostController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 1.1,
+              height: MediaQuery.of(context).size.height * 1.2,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(40)),
               child: Padding(
@@ -130,8 +130,8 @@ class NidFormView extends GetView<HostController> {
                                         children: [
                                           Image.asset(
                                             'assets/images/nid.png',
-                                            height: Get.size.width * .35,
-                                            width: Get.size.width * .7,
+                                            height: Get.size.width * .3,
+                                            width: Get.size.width * .6,
                                             color: AppColors.textColorGrey,
                                           ),
                                           Positioned(
@@ -231,8 +231,8 @@ class NidFormView extends GetView<HostController> {
                                         children: [
                                           Image.asset(
                                             'assets/images/nid.png',
-                                            height: Get.size.width * .35,
-                                            width: Get.size.width * .7,
+                                            height: Get.size.width * .3,
+                                            width: Get.size.width * .6,
                                             color: AppColors.textColorGrey,
                                           ),
                                           Positioned(
@@ -332,8 +332,8 @@ class NidFormView extends GetView<HostController> {
                                         children: [
                                           Image.asset(
                                             'assets/images/nid.png',
-                                            height: Get.size.width * .35,
-                                            width: Get.size.width * .7,
+                                            height: Get.size.width * .3,
+                                            width: Get.size.width * .6,
                                             color: AppColors.textColorGrey,
                                           ),
                                           Positioned(

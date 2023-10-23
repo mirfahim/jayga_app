@@ -39,6 +39,11 @@ class BookingInfo {
   int daysStayed;
   DateTime dateEnter;
   DateTime dateExit;
+  String bookingOrderName;
+  String shortStayFlag;
+  String timeId;
+  String allDayFlag;
+  int payAmount;
 
   BookingInfo({
     required this.userId,
@@ -47,6 +52,11 @@ class BookingInfo {
     required this.daysStayed,
     required this.dateEnter,
     required this.dateExit,
+    required this.bookingOrderName,
+    required this.shortStayFlag,
+    required this.timeId,
+    required this.allDayFlag,
+    required this.payAmount,
   });
 
   factory BookingInfo.fromJson(Map<String, dynamic> json) => BookingInfo(
@@ -56,6 +66,11 @@ class BookingInfo {
     daysStayed: json["days_stayed"],
     dateEnter: DateTime.parse(json["date_enter"]),
     dateExit: DateTime.parse(json["date_exit"]),
+    bookingOrderName: json["booking_order_name"],
+    shortStayFlag: json["short_stay_flag"],
+    timeId: json["time_id"],
+    allDayFlag: json["all_day_flag"],
+    payAmount: json["pay_amount"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -65,6 +80,11 @@ class BookingInfo {
     "days_stayed": daysStayed,
     "date_enter": "${dateEnter.year.toString().padLeft(4, '0')}-${dateEnter.month.toString().padLeft(2, '0')}-${dateEnter.day.toString().padLeft(2, '0')}",
     "date_exit": "${dateExit.year.toString().padLeft(4, '0')}-${dateExit.month.toString().padLeft(2, '0')}-${dateExit.day.toString().padLeft(2, '0')}",
+    "booking_order_name": bookingOrderName,
+    "short_stay_flag": shortStayFlag,
+    "time_id": timeId,
+    "all_day_flag": allDayFlag,
+    "pay_amount": payAmount,
   };
 }
 
@@ -120,11 +140,9 @@ class ListingInfo {
   String describeStylish;
   String describeCentral;
   String describeSpacious;
-  String bathroomPrivate;
-  String breakfastAvailability;
-  String roomLock;
-  String whoElseMightBeThere;
   String listingType;
+  dynamic lati;
+  dynamic longi;
 
   ListingInfo({
     required this.listingId,
@@ -146,11 +164,9 @@ class ListingInfo {
     required this.describeStylish,
     required this.describeCentral,
     required this.describeSpacious,
-    required this.bathroomPrivate,
-    required this.breakfastAvailability,
-    required this.roomLock,
-    required this.whoElseMightBeThere,
     required this.listingType,
+    required this.lati,
+    required this.longi,
   });
 
   factory ListingInfo.fromJson(Map<String, dynamic> json) => ListingInfo(
@@ -173,11 +189,9 @@ class ListingInfo {
     describeStylish: json["describe_stylish"],
     describeCentral: json["describe_central"],
     describeSpacious: json["describe_spacious"],
-    bathroomPrivate: json["bathroom_private"],
-    breakfastAvailability: json["breakfast_availability"],
-    roomLock: json["room_lock"],
-    whoElseMightBeThere: json["who_else_might_be_there"],
     listingType: json["listing_type"],
+    lati: json["lati"],
+    longi: json["longi"],
   );
 
   Map<String, dynamic> toJson() => {
@@ -200,10 +214,8 @@ class ListingInfo {
     "describe_stylish": describeStylish,
     "describe_central": describeCentral,
     "describe_spacious": describeSpacious,
-    "bathroom_private": bathroomPrivate,
-    "breakfast_availability": breakfastAvailability,
-    "room_lock": roomLock,
-    "who_else_might_be_there": whoElseMightBeThere,
     "listing_type": listingType,
+    "lati": lati,
+    "longi": longi,
   };
 }

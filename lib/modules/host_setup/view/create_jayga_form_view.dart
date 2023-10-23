@@ -334,19 +334,20 @@ class CreateJaygaFormView extends GetView<HostController> {
                 InkWell(
                   onTap: () {
                     if (controller.pageIndex.value == 1) {
-                      if(controller.nidPic.isEmpty || controller.lister_image.isEmpty || controller.utility_image.isEmpty) {
-                        controller.addImage();
-                        Get.showSnackbar(Ui.errorSnackBar(
-                            message:"Please provide NID, Utility and Your Image as well.", title: 'Error'.tr));
-                      } else {
-                        if(controller.userData.value.nid == null){
-                          Get.showSnackbar(Ui.errorSnackBar(
-                              message:"Please provide valid NID image", title: 'Error'.tr));
-                        }else {
-                          controller.pageIndex.value = 2;
-
-                        }
-                      }
+                      controller.pageIndex.value = 2;
+                      // if(controller.nidPic.isEmpty || controller.lister_image.isEmpty || controller.utility_image.isEmpty) {
+                      //   controller.addImage();
+                      //   Get.showSnackbar(Ui.errorSnackBar(
+                      //       message:"Please provide NID, Utility and Your Image as well.", title: 'Error'.tr));
+                      // } else {
+                      //   if(controller.userData.value.nid == null){
+                      //     Get.showSnackbar(Ui.errorSnackBar(
+                      //         message:"Please provide valid NID image", title: 'Error'.tr));
+                      //   }else {
+                      //     controller.pageIndex.value = 2;
+                      //
+                      //   }
+                      // }
 
                     } else if (controller.pageIndex.value == 2) {
                       if(controller.type_of_property.isEmpty) {
@@ -380,8 +381,7 @@ class CreateJaygaFormView extends GetView<HostController> {
                     } else if (controller.pageIndex.value == 7) {
                       controller.pageIndex.value = 8;
                     } else if (controller.pageIndex.value == 8) {
-                      if(controller.streetAddress.value.text.isEmpty || controller.town.value.text.isEmpty
-                          || controller.district.value.text.isEmpty ||controller.zip.value.text.isEmpty) {
+                      if(controller.streetAddress.value.text.isEmpty ||controller.zip.value.text.isEmpty) {
                         Get.showSnackbar(Ui.errorSnackBar(
                             message:"Please fill all the field", title: 'Error'.tr));
                       } else {
@@ -402,9 +402,21 @@ class CreateJaygaFormView extends GetView<HostController> {
                     } else if (controller.pageIndex.value == 12) {
                       controller.pageIndex.value = 13;
                     } else if (controller.pageIndex.value == 13) {
-                      controller.pageIndex.value = 14;
+                      if(controller.listingImagesBase64.length < 2) {
+                        Get.showSnackbar(Ui.errorSnackBar(
+                            message:"Please add atleast 5 photos", title: 'Error'.tr));
+                      } else {
+                        controller.pageIndex.value = 14;
+                      }
+
                     } else if (controller.pageIndex.value == 14) {
-                      controller.pageIndex.value = 15;
+                      if(controller.houseTitle.value.text.isEmpty) {
+                        Get.showSnackbar(Ui.errorSnackBar(
+                            message:"Please give title", title: 'Error'.tr));
+                      } else {
+                        controller.pageIndex.value = 15;
+
+                      }
                     } else if (controller.pageIndex.value == 15) {
                       controller.pageIndex.value = 16;
                     } else if (controller.pageIndex.value == 16) {
@@ -412,9 +424,18 @@ class CreateJaygaFormView extends GetView<HostController> {
                     } else if (controller.pageIndex.value == 17) {
                       controller.pageIndex.value = 18;
                     } else if (controller.pageIndex.value == 18) {
-                      print("add listing strated");
-                      controller.addListingController();
+
+                      if(controller.listingPrice.value.text.isEmpty) {
+                        Get.showSnackbar(Ui.errorSnackBar(
+                            message:"Please give an amount", title: 'Error'.tr));
+                      } else {
+                        controller.addListingController().then((e){
+                          controller.pageIndex.value = 19;
+                        });
+                      }
+
                     }
+
                   },
                   child: Center(
                     child: AnimatedContainer(
@@ -426,7 +447,7 @@ class CreateJaygaFormView extends GetView<HostController> {
                           borderRadius: BorderRadius.circular(50)),
                       alignment: Alignment.center,
                       child: controller.pageIndex.value == 18
-                          ? Text(
+                          ? controller.loading.value == true ? CircularProgressIndicator(): Text(
                               "Publish",
                               style: TextStyle(
                                 color: AppColors.backgroundColor,

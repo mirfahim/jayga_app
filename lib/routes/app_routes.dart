@@ -12,10 +12,13 @@ abstract class Routes {
   static const MENUPAGE = _Paths.MENUPAGE;
   static const CHANGEPASS = _Paths.CHANGEPASS;
   static const SPLASHSCREEN = _Paths.SPLASHSCREEN;
+  static const EDITNUM = _Paths.EDITNUM;
+  static const EDITNUMOTP = _Paths.EDITNUMOTP;
   static const BROWSEJOB = _Paths.BROWSEJOB;
   static const CONTRACTORLISTVIEW = _Paths.CONTRACTORLISTVIEW;
   static const EXPLORE = _Paths.EXPLORE;
   static const CREATEWORKORDER = _Paths.CREATEWORKORDER;
+  static const PROFILEDETAIL = _Paths.PROFILEDETAIL;
   static const SAVEDSCREEN = _Paths.SAVEDSCREEN;
   static const MYBOOKING = _Paths.MYBOOKING;
   static const PROFILE = _Paths.PROFILE;
@@ -27,12 +30,7 @@ abstract class Routes {
   static const CONFIEMANDPAY = _Paths.CONFIRMANDPAY;
   static const CREATEOWNJAYGA = _Paths.CREATEOWNJAYGA;
   static const CREATEJAYGAFORM = _Paths.CREATEJAYGAFORM;
-
-
-
-
-
-
+  static const SEARCHPAGE = _Paths.SEARCHPAGE;
 }
 
 abstract class _Paths {
@@ -47,8 +45,12 @@ abstract class _Paths {
   static const PROFILE = '/profile';
   static const OTPPAGE = '/otp';
   static const LANDING = '/landing';
+  static const PROFILEDETAIL = '/profile-detail';
+  static const EDITNUM = '/edit_num';
+  static const EDITNUMOTP = '/edit_num_otp';
   static const BOOKINGDETAILSHISTORY = '/booking_details_history';
   static const REGISTER = '/register';
+  static const SEARCHPAGE = '/search-page';
   static const LOGIN = '/login';
   static const CONTRACTORLISTVIEW = '/contractorlistview';
   static const LEADMARKET = '/leadmarket';
@@ -62,5 +64,4 @@ abstract class _Paths {
   static const EXPLORE = '/explore';
 
   static const CREATEJAYGAFORM = '/create-jayga-form';
-
 }

@@ -10,7 +10,7 @@ import 'package:jayga/utils/AppColors/app_colors.dart';
 
 class GiveHouseTitle extends GetView<HostController> {
   const GiveHouseTitle({Key? key}) : super(key: key);
-
+//page14
   @override
   Widget build(BuildContext context) {
     return  SingleChildScrollView(
@@ -56,7 +56,7 @@ class GiveHouseTitle extends GetView<HostController> {
                         child: TextFormField(
 
                           maxLines: 3,
-                          controller: controller.nameController.value,
+                          controller: controller.houseTitle.value,
                           decoration: new InputDecoration(
                             hintText: "Lovely 2 bed apartment near, uttara sector 7 park",
                             filled: true,

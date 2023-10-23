@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -44,12 +46,62 @@ class MyBookingHistoryDetailsView extends GetView<BookingController> {
                 Row(
                   children: [
                     Container(
-                      // color: AppColors.backgroundColor,
-                      child: Image.asset(
-                        'assets/images/demo_room1.png',
-                         height: MediaQuery.of(context).size.height *.2,
-                         width: MediaQuery.of(context).size.width *.2,
-                      ),
+                        height: MediaQuery.of(context).size.height*.25,
+                        width: MediaQuery.of(context).size.width,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(20),
+                          border: Border.all(
+                              color: Colors.transparent, width: 2),
+                          color: AppColors.appBackGroundBrn,
+                        ),
+                        child: CarouselSlider(
+                          options: CarouselOptions(height: 400.0),
+                          items: data.images.map((i) {
+                            return Builder(
+                              builder: (BuildContext context) {
+                                return Container(
+                                  width: MediaQuery.of(context).size.width,
+                                  margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                  decoration: BoxDecoration(
+                                      color: Colors.transparent
+                                  ),
+                                  child:   CachedNetworkImage(
+                                    imageUrl: "https://jayga.xyz/${index.listingTargetlocation}",
+                                    imageBuilder: (context, imageProvider) =>
+                                        Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            borderRadius: BorderRadius.circular(20),
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.fill,
+                                            ),
+                                          ),
+                                        ),
+                                    placeholder: (context, url) =>
+                                    const Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: Image(
+                                        image: AssetImage(
+                                          'assets/images/jayga_logo.png',
+                                        ),
+                                      ),
+                                    ),
+                                    errorWidget: (context, url, error) =>
+                                    const Padding(
+                                      padding: EdgeInsets.all(5.0),
+                                      child: Image(
+                                        image: AssetImage(
+                                          'assets/images/jayga_logo.png',),
+                                      ),
+                                    ),
+                                  ),
+                                );
+                              },
+                            );
+                          }).toList(),
+                        )
+
                     ),
                     SizedBox(width: 20,),
                     Container(

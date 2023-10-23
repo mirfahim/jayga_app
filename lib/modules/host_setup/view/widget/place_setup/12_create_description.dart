@@ -10,7 +10,7 @@ import 'package:jayga/utils/AppColors/app_colors.dart';
 
 class CreateYourDescription extends GetView<HostController> {
   const CreateYourDescription({Key? key}) : super(key: key);
-
+//page16
   @override
   Widget build(BuildContext context) {
     return  SingleChildScrollView(
@@ -57,7 +57,7 @@ class CreateYourDescription extends GetView<HostController> {
                         child: TextFormField(
 
                           maxLines: 5,
-                          controller: controller.nameController.value,
+                          controller: controller.listingDescription.value,
                           decoration: new InputDecoration(
                             hintText: "Great view, along the main road, easy transportation",
                             filled: true,

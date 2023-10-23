@@ -91,7 +91,10 @@ class LoginView extends GetView<AuthController> {
                     Get.showSnackbar(Ui.errorSnackBar(
                         message:"Please provide a valid phone no", title: 'Error'.tr));
                   }else {
-                    controller.makeRandomOtpNUm().then((){
+                    controller.box.value.write('phone', controller.phoneNumCOntroller.value.text);
+                    print("my phn no is${controller.phoneNumCOntroller.value.text}");
+                    controller.makeRandomOtpNUm().then((e){
+
                       Get.offNamed(Routes.OTPPAGE);
                     });
                     //controller.sendOTP(context);

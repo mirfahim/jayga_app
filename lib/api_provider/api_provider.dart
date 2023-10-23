@@ -39,6 +39,8 @@ class APIManager {
     var responseJson;
     try {
       final response = await http.post(Uri.parse(url), body: param, headers: header);
+      print("status code is ${response.statusCode}" );
+      print("status  ${response}" );
       if(response.statusCode ==  200 ){
         responseJson = _response(response);
         print('APIManager.postAPICall');

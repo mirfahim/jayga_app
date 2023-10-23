@@ -10,52 +10,48 @@ String loginModelToJson(LoginModel data) => json.encode(data.toJson());
 
 class LoginModel {
   String? status;
-  String? message;
+  String? messege;
   User? user;
 
   LoginModel({
      this.status,
-     this.message,
+     this.messege,
      this.user,
   });
 
   factory LoginModel.fromJson(Map<String, dynamic> json) => LoginModel(
     status: json["status"],
-    message: json["message"],
+    messege: json["messege"],
     user: User.fromJson(json["user"]),
   );
 
   Map<String, dynamic> toJson() => {
     "status": status,
-    "message": message,
+    "messege": messege,
     "user": user!.toJson(),
   };
 }
 
 class User {
-  String? userId;
-  String? userPhoneNum;
-  String? otp;
-  String? accToken;
+  int userId;
+  String phone;
+  String authToken;
 
   User({
-     this.userId,
-     this.userPhoneNum,
-     this.otp,
-     this.accToken,
+    required this.userId,
+    required this.phone,
+    required this.authToken,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
     userId: json["user_id"],
-    userPhoneNum: json["user_phone_num"],
-    otp: json["otp"],
-    accToken: json["acc_token"],
+    phone: json["phone"],
+    authToken: json["authToken"],
   );
 
   Map<String, dynamic> toJson() => {
     "user_id": userId,
-    "user_phone_num": userPhoneNum,
-    "otp": otp,
-    "acc_token": accToken,
+    "phone": phone,
+    "authToken": authToken,
   };
 }
