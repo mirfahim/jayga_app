@@ -17,7 +17,11 @@ import 'package:jayga/utils/AppColors/app_colors.dart';
 class PaymentWeb extends StatefulWidget {
   String? url;
   String? appBar;
-  PaymentWeb({this.url, required this.appBar});
+  String? bookingID;
+  String? listerID;
+  String? amount;
+  String? listingID;
+  PaymentWeb({this.url, required this.appBar, this.listingID, this.listerID, this.amount, this.bookingID});
   @override
   _dashboardWebViewClassState createState() => _dashboardWebViewClassState();
 }
@@ -92,9 +96,43 @@ class _dashboardWebViewClassState extends State<PaymentWeb> {
                   print("i am here 11");
                   print("onLoadStart++++++++++++++++++++++++++ " +
                       url.toString());
-                  if (url.toString().contains("success")) {
+                  if (url.toString().contains("success.html")) {
 
-                    Get.find<BookingController>().makeBookingController(context, lister_id: "74", listing_id: "36");
+                    showDialog(
+                        context: context,
+                        builder: (BuildContext context) {
+                          return AlertDialog(
+                              insetPadding: EdgeInsets.all(0),
+                              elevation: 20,
+                              backgroundColor: Colors.white,
+                              content: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Container(
+                                    width: MediaQuery.of(context).size.width * .7,
+                                    height: MediaQuery.of(context).size.width * .4,
+                                    child: Column(
+                                      children: [
+                                        Text(
+                                          "Your transaction has been successful!",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold, fontSize: 18),
+                                        ),
+                                        Text("Your booking has been placed",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold, fontSize: 18)),
+                                        Text(
+                                            "You can view your bookings in the ‘My Bookings’ tab in the menu section.",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 18)),
+                                      ],
+                                    )),
+                              ));
+                        });
+
+                    BookingController().paymentStatus(listingId: widget.listingID , listerID: widget.listerID, bookingId: widget.bookingID, pay: widget.amount);
+
+
                     // Redirect to a different URL
 
 

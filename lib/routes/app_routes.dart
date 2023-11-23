@@ -15,6 +15,8 @@ abstract class Routes {
   static const EDITNUM = _Paths.EDITNUM;
   static const EDITNUMOTP = _Paths.EDITNUMOTP;
   static const BROWSEJOB = _Paths.BROWSEJOB;
+  static const GROUPTOURDETAILS = _Paths.GROUPTOURDETAILS;
+
   static const CONTRACTORLISTVIEW = _Paths.CONTRACTORLISTVIEW;
   static const EXPLORE = _Paths.EXPLORE;
   static const CREATEWORKORDER = _Paths.CREATEWORKORDER;
@@ -31,18 +33,64 @@ abstract class Routes {
   static const CREATEOWNJAYGA = _Paths.CREATEOWNJAYGA;
   static const CREATEJAYGAFORM = _Paths.CREATEJAYGAFORM;
   static const SEARCHPAGE = _Paths.SEARCHPAGE;
+  static const HOSTPROFILESETTING = _Paths.HOSTPROFILESETTING;
+  static const NOTIFICATIONLIST = _Paths.NOTIFICATIONLIST;
+  static const EXPERIENCELANDING = _Paths.EXPERIENCELANDING;
+  static const PROFILELISTING = _Paths.PROFILELISTING;
+  static const EDITLISTINGNAME = _Paths.EDITLISTINGNAME;
+  static const ADDIMAGEEDITLISTING = _Paths.ADDIMAGEEDITLISTING;
+  static const PAYHOME = _Paths.PAYHOME;
+  static const EDITAMENITIES = _Paths.EDITAMENITIES;
+  static const EDITLOCATION = _Paths.EDITLOCATION;
+  static const EDITRESTRICTION = _Paths.EDITRESTRICTION;
+  static const LISTINGMAP = _Paths.LISTINGMAP;
+  static const GROUPTOURLIST = _Paths.GROUPTOURLIST;
+  static const EDITLISTINGTYPE = _Paths.EDITLISTINGTYPE;
+  static const PACKAGEINCLUDE = _Paths.PACKAGEINCLUDE;
+  static const BOOKGROUPTOUR = _Paths.BOOKGROUPTOUR;
+  static const COMMUNITYHOME = _Paths.COMMUNITYHOME;
+  static const VISTEDCOUNTRY = _Paths.VISTEDCOUNTRY;
+
+
+  static const VISTEDBD = _Paths.VISTEDBD;
+
+
 }
 
 abstract class _Paths {
   _Paths._();
   static const HOME = '/home';
+  static const PAYHOME = '/pay-home';
+  static const EDITLISTINGTYPE = '/edit-listing-type';
+  static const EDITRESTRICTION = '/edit-restriction';
   static const POSTPROJECT = '/post_project';
+  static const VISTEDCOUNTRY = '/visited-country';
+  static const VISTEDBD = '/visited-bd';
   static const CREATEESTIMATION = '/estimation';
+  static const EDITAMENITIES = '/edit-amenities';
+
   static const BASE = '/base';
+  static const LISTINGMAP = '/listing-map-view';
+  static const EDITLOCATION = '/EDITLOCATION';
+  // group tour
+  static const GROUPTOURLIST = '/group-tour';
+  static const BOOKGROUPTOUR = '/book-group-tour';
+  static const GROUPTOURDETAILS = '/group-tour-details';
+  // community
+  static const COMMUNITYHOME = '/community-home';
+
   static const SAVEDSCREEN = '/saved';
+  static const PROFILELISTING = '/profile-listing';
+  static const EDITLISTINGNAME = '/edit-listing-name';
+  static const ADDIMAGEEDITLISTING = '/edit-image-listing';
   static const CONFIRMANDPAY = '/confirmandpay';
   static const MYBOOKING = '/mybooking';
+  static const EXPERIENCELANDING = '/experience-landing';
   static const PROFILE = '/profile';
+  static const PACKAGEINCLUDE = '/package-include';
+
+  static const HOSTPROFILESETTING = '/host-setting';
+  static const NOTIFICATIONLIST = '/notification-list';
   static const OTPPAGE = '/otp';
   static const LANDING = '/landing';
   static const PROFILEDETAIL = '/profile-detail';

@@ -5,6 +5,7 @@ import 'package:jayga/modules/auth/controller/auth_controller.dart';
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:jayga/utils/ui_support.dart';
 import '../../controller/booking_controller.dart';
 
 class GiveReviewScreen extends GetView<BookingController> {
@@ -14,13 +15,14 @@ class GiveReviewScreen extends GetView<BookingController> {
   Widget build(BuildContext context) {
     var index = Get.arguments[0];
     var data = controller.historyList[index];
-    return  Scaffold(
-
-      appBar:  PreferredSize(
+    return Scaffold(
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.0), // here the desired height
-        child:  Column(
+        child: Column(
           children: [
-            SizedBox(height: 20,),
+            SizedBox(
+              height: 20,
+            ),
             Container(
               alignment: Alignment.bottomLeft,
               // color: AppColors.backgroundColor,
@@ -34,10 +36,11 @@ class GiveReviewScreen extends GetView<BookingController> {
       ),
       body: SingleChildScrollView(
         child: Container(
+          height: MediaQuery.of(context).size.height,
           color: AppColors.appBackGroundBrn,
           child: Padding(
             padding: const EdgeInsets.all(8.0),
-            child:  Column(
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Row(
@@ -46,31 +49,47 @@ class GiveReviewScreen extends GetView<BookingController> {
                       // color: AppColors.backgroundColor,
                       child: Image.asset(
                         'assets/images/demo_room1.png',
-                        height: MediaQuery.of(context).size.height *.2,
-                        width: MediaQuery.of(context).size.width *.2,
+                        height: MediaQuery.of(context).size.height * .2,
+                        width: MediaQuery.of(context).size.width * .2,
                       ),
                     ),
-                    SizedBox(width: 20,),
+                    SizedBox(
+                      width: 20,
+                    ),
                     Container(
                       width: MediaQuery.of(context).size.width * .7,
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text("Booking Details:",
-                            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: Colors.black54),),
-                          Text("${data.listing.bedNum.toString()} Bed, ${data.listing.bathroomNum.toString()} Bath",
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),),
-                          Text("Uttara, Dhaka",
-                            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color:AppColors.textColorGreen),),
-
+                          Text(
+                            "Booking Details:",
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 18,
+                                color: Colors.black54),
+                          ),
+                          Text(
+                            "${data.listings!.bedNum.toString()} Bed, ${data.listings!.bathroomNum.toString()} Bath",
+                            style: TextStyle(
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                                color: Colors.black),
+                          ),
+                          Text(
+                            "Uttara, Dhaka",
+                            style: TextStyle(
+                                fontWeight: FontWeight.normal,
+                                fontSize: 18,
+                                color: AppColors.textColorGreen),
+                          ),
                         ],
                       ),
                     )
                   ],
                 ),
-
-
-                SizedBox(height: 10,),
+                SizedBox(
+                  height: 10,
+                ),
                 Text(
                   "Rating",
                   style: TextStyle(
@@ -78,24 +97,28 @@ class GiveReviewScreen extends GetView<BookingController> {
                     fontSize: 18,
                   ),
                 ),
-        Center(
-          child: RatingBar.builder(
-            initialRating: 3,
-            minRating: 1,
-            direction: Axis.horizontal,
-            allowHalfRating: true,
-            itemCount: 5,
-            itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
-            itemBuilder: (context, _) => Icon(
-              Icons.star,
-              color: Colors.amber,
-            ),
-            onRatingUpdate: (rating) {
-              print(rating);
-            },
-          ),
-        ),
-                SizedBox(height: 10,),
+                Center(
+                  child: RatingBar.builder(
+                    initialRating: 3,
+                    minRating: 1,
+                    allowHalfRating: false,
+                    direction: Axis.horizontal,
+
+                    itemCount: 5,
+                    itemPadding: EdgeInsets.symmetric(horizontal: 4.0),
+                    itemBuilder: (context, _) => Icon(
+                      Icons.star,
+                      color: Colors.amber,
+                    ),
+                    onRatingUpdate: (rating) {
+                      controller.ratingNum.value = rating;
+                      print(rating);
+                    },
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
                 Text(
                   "Experience",
                   style: TextStyle(
@@ -105,13 +128,11 @@ class GiveReviewScreen extends GetView<BookingController> {
                 ),
                 Padding(
                   padding: const EdgeInsets.all(16.0),
-
                   child: TextFormField(
-
                     maxLines: 10,
-                    //controller: controller.nameController.value,
+                    controller: controller.reviewController.value,
                     decoration: new InputDecoration(
-                     // hintText: "Please share your Experience",
+                      // hintText: "Please share your Experience",
                       filled: true,
                       fillColor: AppColors.jaygaWhite,
                       focusColor: Colors.white,
@@ -120,7 +141,8 @@ class GiveReviewScreen extends GetView<BookingController> {
                       //   Icons.email_outlined,
                       // ),
                       border: OutlineInputBorder(
-                        borderSide: const BorderSide(color: Colors.white, width: 2.0),
+                        borderSide:
+                            const BorderSide(color: Colors.white, width: 2.0),
                         borderRadius: BorderRadius.all(
                           Radius.circular(10.0),
                         ),
@@ -135,15 +157,18 @@ class GiveReviewScreen extends GetView<BookingController> {
                         return null;
                     },
                   ),
-
                 ),
-                SizedBox(height: 20,),
+                SizedBox(
+                  height: 20,
+                ),
                 InkWell(
                   onTap: () {
-
-
-
-                    controller.makeReview();
+                    if(controller.reviewController.value.text.isEmpty || controller.ratingNum.value == 0){
+                      Get.showSnackbar(Ui.errorSnackBar(
+                          message: "Please give comment and give stars", title: 'Error'.tr));
+                    }else{
+                      controller.makeReview(stars: controller.ratingNum.value, listingId: data.listingId);
+                    }
 
                   },
                   child: Center(
@@ -161,40 +186,21 @@ class GiveReviewScreen extends GetView<BookingController> {
                       child: controller.visibleReview.value == 1
                           ? Center(child: CircularProgressIndicator())
                           : Text(
-                        "Save Review",
-                        style: TextStyle(
-                          color: AppColors.backgroundColor,
-                          fontWeight: FontWeight.bold,
-                          fontSize: 18,
-                        ),
-                      ),
+                              "Save Review",
+                              style: TextStyle(
+                                color: AppColors.backgroundColor,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 18,
+                              ),
+                            ),
                     ),
                   ),
                 ),
-                Divider(),
-                Text(
-                  "Host Restriction",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                  ),
-                ),
-                Divider(),
-                Text(
-                  "Cancelation Policy",
-                  style: TextStyle(
-                    color: Colors.black,
-                    fontSize: 18,
-                  ),
-                ),
-                Divider(),
               ],
             ),
           ),
         ),
       ),
     );
-
-
   }
 }

@@ -25,7 +25,7 @@ class DoYouHaveAnyRestriction extends GetView<HostController> {
                 children: [
 
                   Container(
-                    height: MediaQuery.of(context).size.height *.7,
+                    height: MediaQuery.of(context).size.height *.8,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(40)),
@@ -84,7 +84,7 @@ class DoYouHaveAnyRestriction extends GetView<HostController> {
                                                   fit: BoxFit.fill,
                                                   image: AssetImage(
 
-                                                    'assets/icons/cabin.png',
+                                                    'assets/icons/host/restriction/no_smoke.png',
                                                   ),
                                                 )),
                                           ),
@@ -119,7 +119,7 @@ class DoYouHaveAnyRestriction extends GetView<HostController> {
                                                 image: DecorationImage(
                                                   fit: BoxFit.fill,
                                                   image: AssetImage(
-                                                    'assets/icons/cabin.png',
+                                                    'assets/icons/host/restriction/party.png',
                                                   ),
                                                 )),
                                           ),
@@ -162,7 +162,7 @@ class DoYouHaveAnyRestriction extends GetView<HostController> {
                                                   fit: BoxFit.fill,
                                                   image: AssetImage(
 
-                                                    'assets/icons/cabin.png',
+                                                    'assets/icons/host/restriction/pet.png',
                                                   ),
                                                 )),
                                           ),
@@ -197,7 +197,7 @@ class DoYouHaveAnyRestriction extends GetView<HostController> {
                                                 image: DecorationImage(
                                                   fit: BoxFit.fill,
                                                   image: AssetImage(
-                                                    'assets/icons/cabin.png',
+                                                    'assets/icons/host/restriction/vaccine.png',
                                                   ),
                                                 )),
                                           ),
@@ -240,7 +240,7 @@ class DoYouHaveAnyRestriction extends GetView<HostController> {
                                                   fit: BoxFit.fill,
                                                   image: AssetImage(
 
-                                                    'assets/icons/cabin.png',
+                                                    'assets/icons/host/restriction/no_entry.png',
                                                   ),
                                                 )),
                                           ),
@@ -275,7 +275,7 @@ class DoYouHaveAnyRestriction extends GetView<HostController> {
                                                 image: DecorationImage(
                                                   fit: BoxFit.fill,
                                                   image: AssetImage(
-                                                    'assets/icons/cabin.png',
+                                                    'assets/icons/host/restriction/unknwn_guest.png',
                                                   ),
                                                 )),
                                           ),
@@ -286,6 +286,7 @@ class DoYouHaveAnyRestriction extends GetView<HostController> {
                                 ),)
                             ],
                           ),
+                          SizedBox(height: 20,),
                           Text(
                             "Anything specific requirements for the guest?",
                             style: TextStyle(

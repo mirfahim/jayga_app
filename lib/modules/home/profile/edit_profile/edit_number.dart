@@ -91,7 +91,7 @@ class EditNumberView extends GetView<HomeController> {
                         message:"Please provide a valid phone no", title: 'Error'.tr));
                   }else {
                     controller.makeRandomOtpNUm().then((e){
-                      Get.offNamed(Routes.EDITNUMOTP);
+                      Get.offNamed(Routes.EDITNUMOTP, arguments: [controller.phoneNumCOntroller.value.text]);
                     });
                     //controller.sendOTP(context);
 

@@ -39,174 +39,163 @@ class CreateOwnJaygaView extends GetView<HostController> {
         child: Obx(() {
           return controller.seeAmenities.value == false
               ? Container(
-            color: AppColors.appBackGroundBrn,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.start,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-
-              SizedBox(height: 40,),
-                Container(
-                  height: MediaQuery.of(context).size.height *.9,
-                  decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(40),
-                  image: DecorationImage(
-                    image: AssetImage("assets/images/host1.png")
-                  )),
-                  child: Padding(
-                    padding: const EdgeInsets.all(30.0),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Center(
-                          child: Text(
-                            "Create your own jayga!",
-                            style: TextStyle(
-                                fontWeight: FontWeight.bold,
-                                fontSize: 35,
-                                color: Colors.black),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 10,
-                        ),
-                        Container(
-                          height: 100,
-                          width: MediaQuery.of(context).size.width * .8,
-                          child: Text(
-                            "Setup your own available space for renting to start earning through Jayga.",
-                            style: TextStyle(
-                                fontWeight: FontWeight.normal,
-                                fontSize: 22,
-                                color: Colors.black54),
-                          ),
-                        ),
-                        SizedBox(
-                          height: 50,
-                        ),
-
-
-
-
-
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.start,
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            controller.term.value == false
-                                ?  InkWell(
-                              onTap:(){
-                                controller.term.value = true;
-                  },
-                                  child: Container(
-                                  height: 30,
-                                  width: 30,
-                                  decoration: BoxDecoration(
-
-                                    borderRadius: BorderRadius.circular(20),
-                                    border: Border.all(
-                                        color: AppColors.textColorBlack, width: 1),
-
-                                  )),
-                                ) :
-                            InkWell(
-                              onTap: (){
-                                controller.term.value = false;
-                              },
-                              child: Container(
-                                height: 30,
-                                width: 30,
-                                decoration: BoxDecoration(
-                                    borderRadius: BorderRadius.circular(20),
-                                    image: DecorationImage(
-                                      fit: BoxFit.fill,
-                                      image: AssetImage(
-                                        'assets/icons/tick.png',
-                                      ),
-                                    )),
+                  color: AppColors.appBackGroundBrn,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.start,
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      SizedBox(
+                        height: 40,
+                      ),
+                      Container(
+                        height: MediaQuery.of(context).size.height * .9,
+                        decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(40),
+                            image: DecorationImage(
+                                image: AssetImage("assets/images/host1.png"))),
+                        child: Padding(
+                          padding: const EdgeInsets.all(30.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              SizedBox(
+                                height: 10,
                               ),
-                            ),
-                            SizedBox(width: 15,),
-                            Container(
-                              width: MediaQuery.of(context).size.width*.7,
-                              child: Column(
+                              Center(
+                                child: Text(
+                                  "Create your own jayga!",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.bold,
+                                      fontSize: 35,
+                                      color: Colors.black),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 10,
+                              ),
+                              Container(
+                                height: 100,
+                                width: MediaQuery.of(context).size.width * .8,
+                                child: Text(
+                                  "Setup your own available space for renting to start earning through Jayga.",
+                                  style: TextStyle(
+                                      fontWeight: FontWeight.normal,
+                                      fontSize: 22,
+                                      color: Colors.black54),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 50,
+                              ),
+                              Row(
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
-
-                                  Text(
-                                    "Accpect Terms & Conditions",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.bold,
-                                        fontSize: 16,
-                                        color: Colors.black54),
+                                  InkWell(
+                                    onTap: () {
+                                      if (controller.term.value == true) {
+                                        controller.term.value = false;
+                                      } else {
+                                        controller.term.value = true;
+                                      }
+                                    },
+                                    child: Container(
+                                      height: 30,
+                                      width: 30,
+                                      decoration: BoxDecoration(
+                                        borderRadius: BorderRadius.circular(20),
+                                        border: Border.all(
+                                            color: AppColors.textColorBlack,
+                                            width: 1),
+                                      ),
+                                      child: controller.term.value == false
+                                          ? Container()
+                                          : Icon(
+                                              Icons.verified,
+                                              color: AppColors.textColorGreen,
+                                            ),
+                                    ),
                                   ),
-                                  Text(
-                                    "By selecting this button you will accept our terms and conditions",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 14,
-                                        color: AppColors.textColorGreen),
+                                  SizedBox(
+                                    width: 15,
+                                  ),
+                                  Container(
+                                    width:
+                                        MediaQuery.of(context).size.width * .7,
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.start,
+                                      crossAxisAlignment:
+                                          CrossAxisAlignment.start,
+                                      children: [
+                                        Text(
+                                          "Accpect Terms & Conditions",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.bold,
+                                              fontSize: 16,
+                                              color: Colors.black54),
+                                        ),
+                                        Text(
+                                          "By selecting this button you will accept our terms and conditions",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 14,
+                                              color: AppColors.textColorGreen),
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ],
                               ),
-                            ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                              InkWell(
+                                onTap: () {
+                                  if (controller.term.value == false) {
+                                    Get.showSnackbar(Ui.errorSnackBar(
+                                        message:
+                                            "Please agree on terms and condition",
+                                        title: 'Error'.tr));
+                                  } else {
+                                    Get.toNamed(Routes.CREATEJAYGAFORM);
+                                  }
 
-                          ],
-                        ),
-
-                        SizedBox(
-                          height: 20,
-                        ),
-                        InkWell(
-                          onTap: () {
-                            if(controller.term.value ==  false){
-                              Get.showSnackbar(Ui.errorSnackBar(
-                                  message:"Please agree on terms and condition", title: 'Error'.tr));
-                            }else {
-                              Get.toNamed(Routes.CREATEJAYGAFORM);
-                            }
-
-                            //controller.visible.value++;
-                            // controller.loginController();
-                          },
-                          child: Center(
-                            child: AnimatedContainer(
-                              duration: Duration(seconds: 2),
-                              height: 50,
-                              width:
-                              MediaQuery.of(context).size.width*.5,
-                              decoration: BoxDecoration(
-                                  color: AppColors.textColorGreen,
-                                  borderRadius:
-                                  BorderRadius.circular(50)),
-                              alignment: Alignment.center,
-                              child: Text(
-                                "Continue",
-                                style: TextStyle(
-                                  color: AppColors.backgroundColor,
-                                  fontSize: 12,
+                                  //controller.visible.value++;
+                                  // controller.loginController();
+                                },
+                                child: Center(
+                                  child: AnimatedContainer(
+                                    duration: Duration(seconds: 2),
+                                    height: 50,
+                                    width:
+                                        MediaQuery.of(context).size.width * .5,
+                                    decoration: BoxDecoration(
+                                        color: AppColors.textColorGreen,
+                                        borderRadius:
+                                            BorderRadius.circular(50)),
+                                    alignment: Alignment.center,
+                                    child: Text(
+                                      "Continue",
+                                      style: TextStyle(
+                                        color: AppColors.backgroundColor,
+                                        fontSize: 12,
+                                      ),
+                                    ),
+                                  ),
                                 ),
                               ),
-                            ),
+                              SizedBox(
+                                height: 20,
+                              ),
+                            ],
                           ),
                         ),
-
-
-                        SizedBox(
-                          height: 20,
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-          )
+                )
               : AllAlemnitiesView();
         }),
       ),

@@ -1,5 +1,6 @@
 import 'package:connectivity/connectivity.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -7,8 +8,12 @@ import 'package:jayga/models/AreaModel.dart';
 import 'package:jayga/models/district_model.dart';
 import 'package:jayga/models/get_review_model.dart';
 import 'package:jayga/models/listing/filtered_listing_model.dart';
+import 'package:jayga/models/profile/profile_model.dart';
 
 import 'package:jayga/modules/booking/view/my_booking_history/payment_webview.dart';
+import 'package:jayga/modules/home/controller/home_controller.dart';
+import 'package:jayga/repositories/auth/auth_rep.dart';
+import 'package:jayga/services/auth_services.dart';
 //import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'dart:collection';
 
@@ -21,10 +26,56 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../models/booking_history_model.dart';
 import '../../../repositories/listing_rep.dart';
 import '../../../routes/app_pages.dart';
+import '../../../utils/ui_support.dart';
 import '../../home/view/home_page_view.dart';
 
 class BookingController extends GetxController {
   //TODO: Implement BaseController
+  // all amenities
+  final listingDataguestNum = "".obs;
+  final listingDatabedNum = "".obs;
+  final listingDatabathroomNum = "".obs;
+  final listingDatalistingTitle = "".obs;
+  final listingDatalistingDescription = "".obs;
+  final listingDatafullDayPriceSetByUser = "".obs;
+  final listingDatalistingAddress = "".obs;
+  final listingDatadistrict = "".obs;
+  final listingDatatown = "".obs;
+  final listingDatazipCode = "".obs;
+  final listingDataallowShortStay = "".obs;
+  final listingDatadescribePeaceful = "".obs;
+  final listingDatadescribeUnique = "".obs;
+  final listingDatadescribeFamilyfriendly = "".obs;
+  final listingDatadescribeStylish = "".obs;
+  final listingDatadescribeCentral = "".obs;
+  final dlistingDataescribeSpacious = "".obs;
+  final listingDataprivateBathroom = "".obs;
+  final listingDatadoorLock = "".obs;
+  final listingDatabreakfastIncluded = "".obs;
+  final listingDataunknownGuestEntry = "".obs;
+  final listingDatalistingType = "".obs;
+  final listingDatalistingId = "".obs;
+  final listingDatawifi = "".obs;
+  final listingDatatv = "".obs;
+  final listingDatakitchen = "".obs;
+  final listingDatawashingMachine = "".obs;
+  final listingDatafreeParking = "".obs;
+  final listingDatadedicatedWorkspace = "".obs;
+  final listingDatapool = "".obs;
+  final listingDatahotTub = "".obs;
+  final listingDatapatio = "".obs;
+  final listingDatabbqGrill = "".obs;
+  final listingDataoutdooring = "".obs;
+  final listingDatafirePit = "".obs;
+  final listingDatagym = "".obs;
+  final listingDatabeachLakeAccess = "".obs;
+
+  final listingDataairCondition = "".obs;
+  final listingDatasmokeAlarm = "".obs;
+  final listingDatafirstAid = "".obs;
+  final listingDatafireExtinguish = "".obs;
+  final listingDatacctv = "".obs;
+  // all amenities end
   final seeListView = false.obs;
   final seeRestriction = false.obs;
 
@@ -39,24 +90,34 @@ class BookingController extends GetxController {
   final visibleReview = 0.obs;
   final numGuest = 0.obs;
   final numbedRooms = 0.obs;
+  final guestNum = 0.obs;
   final numBeds = 0.obs;
   final numBath = 0.obs;
   final shortStay = 0.obs;
-
+  final markers = <Marker>[].obs;
   final box = GetStorage().obs;
 
   final searchController = TextEditingController().obs;
+  final messageController = TextEditingController().obs;
+  final emailController = TextEditingController().obs;
+  final reviewController = TextEditingController().obs;
   final listingId = "".obs;
   final term = false.obs;
   final categoryDataLoaded = false.obs;
   final listingData = <FilteredListing>[].obs;
   final detailsData = <FilteredListing>[].obs;
-  final getReview = <GetReviewModel>[].obs;
-  final historyList = <BookingHistory>[].obs;
+  final getReview = <Review>[].obs;
+  final getReviewModel = GetReviewModel().obs;
+  final historyList = <Booking>[].obs;
+  final historyListModel = BookingHistory().obs;
   final seeAmenities = false.obs;
   final selectReview = false.obs;
   final districtName = "".obs;
   final districtId = "".obs;
+  final areaName = "".obs;
+  final districtArea = "".obs;
+  var scrollController = ScrollController().obs;
+
   final searchString = "".obs;
   // final listingData = <Listing>[].obs;
   CalendarFormat calendarFormat = CalendarFormat.month;
@@ -67,12 +128,36 @@ class BookingController extends GetxController {
   var startDate = ''.obs;
   var endDate = ''.obs;
   final searchShortStay = false.obs;
+  final searchGym = false.obs;
+  final searchGymInt = 0.obs;
+  final searchPool = false.obs;
+  final searchPoolInt = 0.obs;
+  final searchWorkSpace = false.obs;
+  final searchWorkSpaceInt = 0.obs;
+  final searchBeachSide = false.obs;
+  final searchBeachSideInt = 0.obs;
+  final searchAc = false.obs;
+  final searchAcInt = 0.obs;
+  final searchParking = false.obs;
+  final searchParkingInt = 0.obs;
+  final ratingNum = 0.0.obs;
+  final searchNightEntry = false.obs;
+  final searchNightInt = 0.obs;
+  final searchPets = false.obs;
+  final searchPetsInt = 0.obs;
+  final searchAddiGuest = false.obs;
+  final searchAddiInt = 0.obs;
+  final profileName = "".obs;
+  final filterListData = <Map<String, dynamic>>[].obs;
+
+  final profileData = ProfileModel().obs;
+
   final allowShortStay = "0".obs;
   final searchGuestNo = "0".obs;
   final searchBedNo = "0".obs;
   var myFormat = DateFormat('yyyy-MM-dd');
- //date
-
+  //date
+  var phoneNum = ''.obs;
   var selectedDate = ''.obs;
   var dateCount = ''.obs;
   var range = ''.obs;
@@ -84,6 +169,8 @@ class BookingController extends GetxController {
     bookingHistoryController();
     getDistrictData();
     areaController();
+    profileController();
+
     super.onInit();
   }
 
@@ -120,20 +207,19 @@ class BookingController extends GetxController {
         .toList()
         .cast<FilteredListing>();
   }
+
   Future<void> checkInternetConnectivity() async {
     var connectivityResult = await Connectivity().checkConnectivity();
     if (connectivityResult == ConnectivityResult.none) {
       print('No internet connection.');
       getStoredData();
     } else {
-
-
-
-        filterdListingController();
+      filterdListingController();
 
       print('Internet connection is available.');
     }
   }
+
   List<FilteredListing> get filteredListingList {
     return listingData.value.where((place) {
       final name = place.listingTitle.toLowerCase();
@@ -148,7 +234,26 @@ class BookingController extends GetxController {
     searchString.value = text;
   }
 
+  void onMarkerTapped(MarkerId markerId) {
+    // Find the tapped marker
+    Marker tappedMarker =
+        markers.firstWhere((marker) => marker.markerId == markerId);
+    Get.toNamed(Routes.MAKEBOOKINGDETAILS);
+  }
+
+  void onMapTapped(LatLng location) {
+    //onMarkerTapped(location);
+    // Handle map tap events here
+  }
+  // sendOtpWithMuthoFun() async{
+  //
+  //   AuthRepository().sendOtpWithMuthoFun(phoneNumCOntroller.value.text, otpNum.value.toString() ).then((e) async{
+  //
+  //
+  //   });
+  // }
   filterdListingController() async {
+    print("hlw filtered data");
     box.value.remove('listing');
     visible.value++;
     ListingRep()
@@ -165,6 +270,22 @@ class BookingController extends GetxController {
         listingData.value = e.filteredListing;
         print("total listing +++++++++++++++${listingData.value.length}");
         await box.value.write('listing', listingData.value);
+        listingData.value.forEach((element) {
+          markers.value.add(
+            Marker(
+                markerId: MarkerId(
+                  element.listingId.toString(),
+                ),
+                position: LatLng(
+                    double.parse(element.lat), double.parse(element.long)),
+                infoWindow: InfoWindow(
+                  title: element.listingTitle,
+                ),
+                onTap: () {
+                  Get.toNamed(Routes.MAKEBOOKINGDETAILS, arguments: [element]);
+                }),
+          );
+        });
 
         // Get.offAllNamed(Routes.BASE);
       } else {
@@ -174,13 +295,28 @@ class BookingController extends GetxController {
     });
   }
 
-  getPaymentUrl() {
-    ListingRep().getPaymentUrl().then((e) async {
+  getPaymentUrl({
+    String? booking_id,
+    String? listerID,
+    String? listingID,
+    String? trans_id,
+    String? amount,
+  }) {
+    ListingRep()
+        .getPaymentUrl(
+            booking_id: booking_id, trans_id: trans_id, amount: amount)
+        .then((e) async {
       print("my ssl pay url is $e");
-      if (e["status"] == "SUCCESS") {
-        Get.to(() => PaymentWeb(
-              url: e["GatewayPageURL"],
-          appBar: "Payment",
+      if (e["response"]["status"] == "SUCCESS") {
+        Get.off(() => PaymentWeb(
+
+          listerID: listerID.toString(),
+              listingID: listingID.toString(),
+              amount: amount.toString(),
+              bookingID: booking_id.toString(),
+
+              url: e["response"]["GatewayPageURL"],
+              appBar: "Payment",
             ));
       }
     });
@@ -189,10 +325,11 @@ class BookingController extends GetxController {
   getReviewController(listingId) async {
     visible.value++;
     ListingRep().getReviewRep(listingId).then((e) async {
-      print("my registerr data $e");
+      print("my review data $e");
       if (e != null) {
         visible.value = 0;
-        getReview.value = e;
+        getReviewModel.value = e;
+        getReview.value = e.reviews!;
         print("total review +++++++++++++++${getReview.value.length}");
 
         // Get.offAllNamed(Routes.BASE);
@@ -205,11 +342,17 @@ class BookingController extends GetxController {
 
   bookingHistoryController() async {
     visible.value++;
-    ListingRep().bookingHistory("20230813_112222_7479").then((e) async {
-      print("my registerr data $e");
+    ListingRep()
+        .bookingHistory(
+            Get.find<AuthService>().currentUser.value.user!.userId.toString())
+        .then((e) async {
+      print("my booking history data $e");
       if (e != null) {
         visible.value = 0;
-        historyList.value = e.bookings;
+        historyListModel.value = e;
+        historyList.value = e.bookings!;
+        print(
+            "total history +++++++++++++++${historyListModel.value.bookings!.first.listings!.images!.first.listingFilename}");
         print("total history +++++++++++++++${historyList.value.length}");
 
         // Get.offAllNamed(Routes.BASE);
@@ -220,68 +363,96 @@ class BookingController extends GetxController {
     });
   }
 
-  makeReview() async {
+  makeReview({listingId, stars}) async {
     visible.value++;
     ListingRep()
-        .makeReview(listerId: "", listingId: "", userID: "", review: "")
+        .makeReview(
+            stars: stars.toString(),
+            listingId: listingId.toString(),
+            review: reviewController.value.text)
         .then((e) async {
-      print("my registerr data $e");
+      print("my review add data $e");
       if (e != null) {
         visible.value = 0;
+        Get.showSnackbar(
+            Ui.successSnackBar(message: "Review added", title: 'Success'.tr));
+        print("review +++++++++++++++$e");
 
-        print("total history +++++++++++++++$e");
-
-        // Get.offAllNamed(Routes.BASE);
+        Get.offAllNamed(Routes.BASE);
       } else {
+        Get.showSnackbar(Ui.errorSnackBar(
+            message: "Review could not added", title: 'Error'.tr));
         print("error ++++++++++++++");
         visible.value = 0;
       }
     });
   }
+  paymentStatus({listingId, listerID, bookingId, pay}) async {
+    visible.value++;
+    ListingRep()
+        .paymentStatus(
+        listerId: listerID.toString(),
+        booking_id: bookingId.toString(),
+        listingId: listingId.toString(),
+        pay_amount: pay.toString())
+        .then((e) async {
+      print("paYMWNT status changed $e");
 
+    });
+  }
+
+  profileController() async {
+    ListingRep()
+        .getProfile(Get.find<AuthService>().currentUser.value.user!.userId)
+        .then((e) async {
+      print("my profile data ${e.userData![0].name}");
+      if (e != null) {
+        profileData.value = e;
+        print("profile data +++++++++++++++${profileData.value}");
+        profileName.value = profileData.value.userData!.first.name;
+        // Get.offAllNamed(Routes.BASE);
+      } else {
+        print("error ++++++++++++++");
+      }
+    });
+  }
 
   makeBookingController(BuildContext context,
-      {lister_id, user_id, listing_id}) async {
+      {lister_id, user_id, listing_id, amount}) async {
     print("my lister id is $lister_id and listing id $listing_id");
     visible.value++;
-    ListingRep().makeBooking().then((e) async {
-      print("my registerr data $e");
+    ListingRep()
+        .makeBooking(
+      date_enter: selectedCheckinDate.toString() ,
+            date_exit: selectedCheckoutDate.toString(),
+            message: messageController.value.text,
+            guestNum: guestNum.value.toString(),
+            email: emailController.value.text,
+            phone: profileData.value.userData!.first.phone,
+            name: profileData.value.userData!.first.name,
+            amount: amount.toString(),
+            trans_id: "${DateTime.now().millisecond}listing$listing_id",
+            listingID: listing_id.toString(),
+            userId: Get.find<AuthService>()
+                .currentUser
+                .value
+                .user!
+                .userId
+                .toString())
+        .then((e) async {
+      print("my booking request data $e");
       if (e != null) {
         visible.value = 0;
-        //  listingData.value = e.listings;
-        // print("total listing +++++++++++++++${listingData.value.length}");
 
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                  insetPadding: EdgeInsets.all(0),
-                  elevation: 20,
-                  backgroundColor: Colors.white,
-                  content: Padding(
-                    padding: const EdgeInsets.all(16.0),
-                    child: Container(
-                        width: MediaQuery.of(context).size.width * .7,
-                        height: MediaQuery.of(context).size.width * .4,
-                        child: Column(
-                          children: [
-                            Text(
-                              "Your transaction has been successful!",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
-                            ),
-                            Text("Your booking has been placed",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.bold, fontSize: 18)),
-                            Text(
-                                "You can view your bookings in the ‘My Bookings’ tab in the menu section.",
-                                style: TextStyle(
-                                    fontWeight: FontWeight.normal,
-                                    fontSize: 18)),
-                          ],
-                        )),
-                  ));
-            });
+        getPaymentUrl(
+          listingID: e["booking_details"]["listing_id"],
+          listerID: e["booking_details"]["lister_id"],
+
+          booking_id: e["booking_details"]["id"],
+          amount: e["booking_details"]["pay_amount"],
+          trans_id: e["booking_details"]["transaction_id"],
+        );
+
         // Get.offAllNamed(Routes.BASE);
       } else {
         print("error ++++++++++++++");
@@ -316,12 +487,56 @@ class BookingController extends GetxController {
     }
     endDate.value = "${myFormat.format(selectedCheckoutDate)}";
   }
+
   Future<void> makePhoneCall(String phoneNumber) async {
     final Uri launchUri = Uri(
       scheme: 'tel',
       path: phoneNumber,
     );
     await launchUrl(launchUri);
+  }
+
+  List<FilteredListing> get filteredListingListFromFilter {
+    switch (shortStay.value) {
+      case 0:
+        if (districtName.value.isNotEmpty && areaName.value.isNotEmpty) {
+          print("hlw 1");
+          return listingData.value.where((place) {
+            return districtName.value == place.district &&
+                areaName.value == place.town;
+          }).toList();
+        } else if (districtName.value.isNotEmpty) {
+          print("hlw 2");
+          return listingData.value.where((place) {
+            return districtName.value == place.district;
+          }).toList();
+        } else {
+          print("hlw 3");
+          return listingData.value;
+        }
+        break;
+      case 1:
+        if (districtName.value.isNotEmpty && areaName.value.isNotEmpty) {
+          print("hlw 4");
+          return listingData.value.where((place) {
+            return districtName.value == place.district &&
+                areaName.value == place.town;
+          }).toList();
+        } else if (districtName.value.isNotEmpty) {
+          print("hlw 5");
+          return listingData.value.where((place) {
+            return districtName.value == place.district;
+          }).toList();
+        } else {
+          print("hlw 6");
+          return listingData.value.where((place) {
+            return shortStay.value.toString() == place.allowShortStay;
+          }).toList();
+        }
+        break;
+      default:
+        return listingData.value;
+    }
   }
 
   getDateDifferenceNum() {
@@ -854,9 +1069,7 @@ class BookingController extends GetxController {
   }
 
   List<AreaModel> areaByDistrict(disId) {
-    return getAllArea
-        .where((element) => element.districtId == "34")
-        .toList();
+    return getAllArea.where((element) => element.districtId == "34").toList();
   }
 
   areaController() {
@@ -1504,6 +1717,7 @@ class BookingController extends GetxController {
         "name": "Suborno Char",
         "bn_name": "সুবর্ণ চর "
       },
+      //mirbackup740@gmail.com
       {
         "id": "135",
         "district_id": "50",
@@ -1574,6 +1788,23 @@ class BookingController extends GetxController {
         "bn_name": "নবাবগঞ্জ"
       },
       {"id": "149", "district_id": "1", "name": "Savar", "bn_name": "সাভার"},
+      {
+        "id": "1050",
+        "district_id": "1",
+        "name": "Dhanmondi",
+        "bn_name": "সাভার"
+      },
+      {"id": "1051", "district_id": "1", "name": "Uttora", "bn_name": "সাভার"},
+      {"id": "1052", "district_id": "1", "name": "Banani", "bn_name": "সাভার"},
+      {"id": "1053", "district_id": "1", "name": "Gulshan", "bn_name": "সাভার"},
+      {"id": "1054", "district_id": "1", "name": "Badda", "bn_name": "সাভার"},
+      {"id": "1055", "district_id": "1", "name": "Rampura", "bn_name": "সাভার"},
+      {
+        "id": "1056",
+        "district_id": "1",
+        "name": "Khilkhet",
+        "bn_name": "সাভার"
+      },
       {
         "id": "150",
         "district_id": "2",

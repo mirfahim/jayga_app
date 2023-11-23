@@ -8,6 +8,7 @@ import 'package:jayga/modules/home/controller/home_controller.dart';
 class BookingBinding extends Bindings {
   @override
   void dependencies() {
+
     Get.lazyPut<BookingController>(
           () => BookingController(),
     );

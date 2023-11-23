@@ -1,3 +1,4 @@
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -9,7 +10,7 @@ import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/routes/app_pages.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-
+import 'package:intl/intl.dart';
 
 class ReviewListView extends GetView<BookingController> {
   const ReviewListView({Key? key}) : super(key: key);
@@ -65,7 +66,7 @@ class ReviewListView extends GetView<BookingController> {
                         ),
                         // color: AppColors.backgroundColor,
                         child: CachedNetworkImage(
-                          imageUrl: "https://new.jayga.xyz/uploads/listings/${data.images.first.listingFilename}",
+                          imageUrl: "https://new.jayga.io/uploads/listings/${data.images.first.listingFilename}",
                           imageBuilder: (context, imageProvider) =>
                               Container(
                                 decoration: BoxDecoration(
@@ -305,63 +306,64 @@ class ReviewListView extends GetView<BookingController> {
                                       itemCount: controller.getReview.value.length,
                                       itemBuilder: (BuildContext c, i){
                                         var data = controller.getReview[i];
-                                        return  ListTile(
-                                          title: Row(
-                                            children: [
-                                              Text(
-                                                data.listerName,
-                                                style: TextStyle(fontSize: 22),
-                                              ),
-                                              SizedBox(width: 10,),
-                                              Icon(
-                                                Icons.star,
-                                                color: Colors.orange,
-                                                size: 15,
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                size: 15,
-                                                color: Colors.orange,
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                size: 15,
-                                                color: Colors.orange,
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                size: 15,
-                                                color: Colors.orange,
-                                              ),
-                                              Icon(
-                                                Icons.star,
-                                                size: 15,
+                                        return  Card(
+                                          child: ListTile(
+                                            title: Text(
+                                              data.userName,
+                                              style: TextStyle(fontSize: 22),
+                                            ),
+                                            subtitle: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              mainAxisAlignment: MainAxisAlignment.start,
+                                              children: [
+                                                Container(
+                                                  height:
+                                                  MediaQuery.of(context).size.height * .03,
+                                                  child: Center(
+                                                    child: RatingBar.builder(
+                                                      initialRating: double.parse(data.stars),
+                                                      minRating: 1,
+                                                      direction: Axis.horizontal,
+                                                      allowHalfRating: true,
+                                                      itemCount: 5,
+                                                      itemSize: 16,
+                                                      itemPadding:
+                                                      EdgeInsets.symmetric(horizontal: 4.0),
+                                                      itemBuilder: (context, _) => Icon(
+                                                        Icons.star,
+                                                        color: Colors.amber,
+                                                        size: 14,
+                                                      ),
+                                                      onRatingUpdate: (rating) {
+                                                        print(rating);
+                                                      },
+                                                    ),
+                                                  ),
+                                                ),
+                                                Text(
+                                                  DateFormat.yMd()
+                                                      .add_jm()
+                                                      .format(
+                                                    data.createdAt,
+                                                  ),
+                                                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Colors.black54),
+                                                ),
+                                                Text(
+                                                  data.description,
+                                                  style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Colors.black),
+                                                ),
+                                              ],
+                                            ),
+                                            leading: Container(
+                                              height: 100,
+                                              width: 100,
 
-                                                color: Colors.orange,
-                                              ),
-                                            ],
-                                          ),
-                                          subtitle: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                "April 2023",
-                                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Colors.black54),
-                                              ),
-                                              Text(
-                                                data.description,
-                                                style: TextStyle(fontSize: 15, fontWeight: FontWeight.normal, color: Colors.black),
-                                              ),
-                                            ],
-                                          ),
-                                          leading: Container(
-                                            height: 100,
-                                            width: 100,
-                                            decoration: BoxDecoration(
-                                                shape: BoxShape.circle,
-                                                image: DecorationImage(
-                                                    image: AssetImage("assets/images/kaif.png"))),
-                                            // color: AppColors.backgroundColor,
+                                              decoration: BoxDecoration(
+                                                color: AppColors.textColorGreen,
+                                                  shape: BoxShape.circle,),
+                                              child: Icon(Icons.verified_user, color: Colors.white, size: 30,),
+                                              // color: AppColors.backgroundColor,
+                                            ),
                                           ),
                                         );
                                       }

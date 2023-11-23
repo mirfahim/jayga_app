@@ -42,7 +42,7 @@ class AuthRepository {
     Map body =  {
       "sender_id": "8809601010510",
       "receiver": phone,
-      "message": otp,
+      "message": "Your Jayga OTP is $otp",
       "remove_duplicate": "true",
     };
     final response = await _manager.postAPICallWithHeader(
@@ -51,7 +51,7 @@ class AuthRepository {
         {
           "sender_id": "8809601010510",
           "receiver": phone,
-          "message": otp,
+          "message": "Your Jayga OTP is $otp",
           "remove_duplicate": "true",
         },
 

@@ -1,4 +1,7 @@
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -12,16 +15,16 @@ import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import '../../../routes/app_pages.dart';
+import '../../../services/location_service.dart';
 import 'my_booking_history/payment_webview.dart';
+import 'package:intl/intl.dart';
 
 class MakeBookingDetailsView extends GetView<BookingController> {
   const MakeBookingDetailsView({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    var index = Get.arguments[0];
-    var data = controller.listingData.value[index];
-    print("my booking details data ++++++++++++++ $index");
+    var data = Get.arguments[0];
 
     return Scaffold(
       appBar: PreferredSize(
@@ -43,12 +46,9 @@ class MakeBookingDetailsView extends GetView<BookingController> {
         ),
       ),
       body: WillPopScope(
-        onWillPop: ()async{
-
-
-            Get.offAllNamed(Routes.BASE);
-            return true;
-
+        onWillPop: () async {
+          Get.offAllNamed(Routes.BASE);
+          return true;
         },
         child: SingleChildScrollView(
           child: Obx(() {
@@ -60,7 +60,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         Container(
-                            height: MediaQuery.of(context).size.height*.25,
+                            height: MediaQuery.of(context).size.height * .25,
                             width: MediaQuery.of(context).size.width,
                             decoration: BoxDecoration(
                               borderRadius: BorderRadius.circular(20),
@@ -70,30 +70,35 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                             ),
                             child: CarouselSlider(
                               options: CarouselOptions(height: 400.0),
-                              items: data.images.map((i) {
+                              items: data.images!.map<Widget>((i) {
+                                print("all images are ${data.images.length}");
                                 return Builder(
                                   builder: (BuildContext context) {
                                     return Container(
                                       width: MediaQuery.of(context).size.width,
-                                      margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                      margin:
+                                          EdgeInsets.symmetric(horizontal: 5.0),
                                       decoration: BoxDecoration(
-                                          color: Colors.transparent
-                                      ),
-                                      child:   CachedNetworkImage(
-                                        imageUrl: "https://jayga.xyz/${i.listingTargetlocation}",
-                                        imageBuilder: (context, imageProvider) =>
-                                            Container(
-                                              decoration: BoxDecoration(
-                                                color: Colors.transparent,
-                                                borderRadius: BorderRadius.circular(20),
-                                                image: DecorationImage(
-                                                  image: imageProvider,
-                                                  fit: BoxFit.fill,
-                                                ),
-                                              ),
+                                          color: Colors.transparent),
+                                      child: CachedNetworkImage(
+                                        //imageUrl: "http://new.jaygaheight: MediaQuery.of(context).size.height *.12/uploads/listings/66dGWkgYLX5JyZGg0uHTv9N8M1bGhcCtBNzsX3MD.jpg",
+                                        imageUrl:
+                                            "https://new.jayga.io/uploads/listings/${i.listingFilename}",
+                                        imageBuilder:
+                                            (context, imageProvider) =>
+                                                Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.fill,
                                             ),
+                                          ),
+                                        ),
                                         placeholder: (context, url) =>
-                                        const Padding(
+                                            const Padding(
                                           padding: EdgeInsets.all(5.0),
                                           child: Image(
                                             image: AssetImage(
@@ -102,11 +107,12 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                           ),
                                         ),
                                         errorWidget: (context, url, error) =>
-                                        const Padding(
+                                            const Padding(
                                           padding: EdgeInsets.all(5.0),
                                           child: Image(
                                             image: AssetImage(
-                                              'assets/images/jayga_logo.png',),
+                                              'assets/images/jayga_logo.png',
+                                            ),
                                           ),
                                         ),
                                       ),
@@ -114,9 +120,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                   },
                                 );
                               }).toList(),
-                            )
-
-                        ),
+                            )),
                         Container(
                           decoration: BoxDecoration(
                               color: Colors.white,
@@ -129,8 +133,8 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                 Row(
                                   children: [
                                     Container(
-                                      width:
-                                          MediaQuery.of(context).size.width * .6,
+                                      width: MediaQuery.of(context).size.width *
+                                          .6,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -146,8 +150,8 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                       ),
                                     ),
                                     Container(
-                                      width:
-                                          MediaQuery.of(context).size.width * .3,
+                                      width: MediaQuery.of(context).size.width *
+                                          .3,
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.center,
@@ -157,7 +161,8 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                             style: TextStyle(
                                                 fontWeight: FontWeight.bold,
                                                 fontSize: 18,
-                                                color: AppColors.textColorGreen),
+                                                color:
+                                                    AppColors.textColorGreen),
                                           ),
                                           Text(
                                             "/Night",
@@ -174,56 +179,46 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Center(child: Text(data.listingAddress)),
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.orange,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.orange,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.orange,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.orange,
-                                    ),
-                                    Icon(
-                                      Icons.star,
-                                      color: Colors.orange,
-                                    ),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Text("800 sqft"),
-                                    SizedBox(
-                                      width: 20,
-                                    ),
-                                    Container(
-                                      child: Row(
-                                        children: [
-                                          Icon(
-                                            Icons.bed,
-                                          ),
-                                          Text("1"),
-                                          Icon(
-                                            Icons.bed,
-                                          ),
-                                          Text("1"),
-                                          Icon(
-                                            Icons.bed,
-                                          ),
-                                          Text("1"),
-                                        ],
+                                Center(
+                                    child: Text(
+                                  "${data.listingTitle}",
+                                  style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                      color: AppColors.textColorGreen),
+                                )),
+                                Center(
+                                    child: Text(
+                                        "${data.listingAddress}, ${data.town},${data.district}")),
+                                Container(
+                                  height:
+                                      MediaQuery.of(context).size.height * .05,
+                                  child: Center(
+                                    child: RatingBar.builder(
+                                      initialRating: controller.getReviewModel
+                                                  .value.averageRating ==
+                                              null
+                                          ? 5
+                                          : controller.getReviewModel.value
+                                              .averageRating!
+                                              .toDouble(),
+                                      minRating: 1,
+                                      direction: Axis.horizontal,
+                                      allowHalfRating: true,
+                                      itemCount: 5,
+                                      itemSize: 30,
+                                      itemPadding:
+                                          EdgeInsets.symmetric(horizontal: 4.0),
+                                      itemBuilder: (context, _) => Icon(
+                                        Icons.star,
+                                        color: Colors.amber,
+                                        size: 14,
                                       ),
-                                    )
-                                  ],
+                                      onRatingUpdate: (rating) {
+                                        print(rating);
+                                      },
+                                    ),
+                                  ),
                                 ),
                                 Divider(),
                                 SizedBox(
@@ -273,15 +268,25 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Center(
-                                  child: Text(
-                                    "Short Stay is available for this place",
-                                    style: TextStyle(
-                                        fontWeight: FontWeight.normal,
-                                        fontSize: 15,
-                                        color: Colors.black),
-                                  ),
-                                ),
+                                data.allowShortStay == "0"
+                                    ? Center(
+                                        child: Text(
+                                          "Short Stay is not available for this place",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 15,
+                                              color: AppColors.redButton),
+                                        ),
+                                      )
+                                    : Center(
+                                        child: Text(
+                                          "Short Stay is available for this place",
+                                          style: TextStyle(
+                                              fontWeight: FontWeight.normal,
+                                              fontSize: 15,
+                                              color: Colors.black),
+                                        ),
+                                      ),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -301,7 +306,8 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                   crossAxisAlignment: CrossAxisAlignment.center,
                                   children: [
                                     Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.center,
                                       children: [
                                         Text(
                                           "Max Guest:${data.guestNum}",
@@ -348,54 +354,6 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                         ),
                                       ],
                                     ),
-                                    Row(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Text(
-                                          "Max Guest:4",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                              color: Colors.black),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                          color: Colors.grey,
-                                          height: 10,
-                                          width: 2,
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          "Bed Room:4",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                              color: Colors.black),
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Container(
-                                          color: Colors.grey,
-                                          height: 10,
-                                          width: 2,
-                                        ),
-                                        SizedBox(
-                                          width: 10,
-                                        ),
-                                        Text(
-                                          "Bathroom:4",
-                                          style: TextStyle(
-                                              fontWeight: FontWeight.bold,
-                                              fontSize: 15,
-                                              color: Colors.black),
-                                        ),
-                                      ],
-                                    )
                                   ],
                                 ),
                                 SizedBox(
@@ -403,7 +361,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                 ),
                                 Row(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceBetween,
+                                      MainAxisAlignment.spaceAround,
                                   children: [
                                     Container(
                                       height: 70,
@@ -420,9 +378,11 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                             MainAxisAlignment.center,
                                         //crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
-                                          Icon(
-                                            Icons.supervised_user_circle_sharp,
+                                          Image.asset(
+                                            "assets/icons/single_room.png",
                                             color: AppColors.textColorGreen,
+                                            height: 20,
+                                            width: 20,
                                           ),
                                           Center(
                                             child: Container(
@@ -460,9 +420,11 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                             MainAxisAlignment.center,
                                         //crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
-                                          Icon(
-                                            Icons.supervised_user_circle_sharp,
+                                          Image.asset(
+                                            "assets/icons/sanitary.png",
                                             color: AppColors.textColorGreen,
+                                            height: 20,
+                                            width: 20,
                                           ),
                                           Center(
                                             child: Container(
@@ -470,7 +432,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                               width: 50,
                                               child: Center(
                                                 child: Text(
-                                                  "Single Room",
+                                                  "Sanitary stations",
                                                   maxLines: 2,
                                                   style: TextStyle(
                                                       fontWeight:
@@ -500,9 +462,11 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                             MainAxisAlignment.center,
                                         //crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
-                                          Icon(
-                                            Icons.supervised_user_circle_sharp,
+                                          Image.asset(
+                                            "assets/icons/host/place_offer/wifi.png",
                                             color: AppColors.textColorGreen,
+                                            height: 20,
+                                            width: 20,
                                           ),
                                           Center(
                                             child: Container(
@@ -510,7 +474,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                               width: 50,
                                               child: Center(
                                                 child: Text(
-                                                  "Single Room",
+                                                  "Personal WIFI",
                                                   maxLines: 2,
                                                   style: TextStyle(
                                                       fontWeight:
@@ -540,9 +504,11 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                             MainAxisAlignment.center,
                                         //crossAxisAlignment: CrossAxisAlignment.center,
                                         children: [
-                                          Icon(
-                                            Icons.supervised_user_circle_sharp,
+                                          Image.asset(
+                                            "assets/icons/bathroom.png",
                                             color: AppColors.textColorGreen,
+                                            height: 20,
+                                            width: 20,
                                           ),
                                           Center(
                                             child: Container(
@@ -550,47 +516,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                               width: 50,
                                               child: Center(
                                                 child: Text(
-                                                  "Single Room",
-                                                  maxLines: 2,
-                                                  style: TextStyle(
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      fontSize: 12,
-                                                      color: AppColors
-                                                          .textColorGreen),
-                                                ),
-                                              ),
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Container(
-                                      height: 70,
-                                      width: 60,
-                                      decoration: BoxDecoration(
-                                        color: AppColors.textColorWhite,
-                                        borderRadius: BorderRadius.circular(20),
-                                        border: Border.all(
-                                            color: AppColors.textColorGreen,
-                                            width: 2),
-                                      ),
-                                      child: Column(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.center,
-                                        //crossAxisAlignment: CrossAxisAlignment.center,
-                                        children: [
-                                          Icon(
-                                            Icons.supervised_user_circle_sharp,
-                                            color: AppColors.textColorGreen,
-                                          ),
-                                          Center(
-                                            child: Container(
-                                              height: 30,
-                                              width: 50,
-                                              child: Center(
-                                                child: Text(
-                                                  "Single Room",
+                                                  "Bathroom",
                                                   maxLines: 2,
                                                   style: TextStyle(
                                                       fontWeight:
@@ -668,7 +594,13 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                       color: Colors.orange,
                                     ),
                                     Text(
-                                      "4.8",
+                                      controller.getReviewModel.value
+                                                  .averageRating ==
+                                              null
+                                          ? "5"
+                                          : controller.getReviewModel.value
+                                              .averageRating
+                                              .toString(),
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
                                           fontSize: 18,
@@ -688,7 +620,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                       onTap: () {
                                         // controller.selectReview.value = true;
                                         Get.to(ReviewListView(),
-                                            arguments: [index]);
+                                            arguments: [data]);
                                       },
                                       child: Text(
                                         "${controller.getReview.value.length} reviews",
@@ -703,264 +635,264 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Container(
-                                  height: 140,
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceBetween,
-                                    children: [
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              "Cleanness",
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              AnimatedContainer(
-                                                duration: Duration(seconds: 2),
-                                                height: 20,
-                                                width: 140,
-                                                decoration: BoxDecoration(
-                                                    color:
-                                                        AppColors.textColorGreen,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50)),
-                                                alignment: Alignment.center,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                "5.0",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              "Communication",
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              AnimatedContainer(
-                                                duration: Duration(seconds: 2),
-                                                height: 20,
-                                                width: 140,
-                                                decoration: BoxDecoration(
-                                                    color:
-                                                        AppColors.textColorGreen,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50)),
-                                                alignment: Alignment.center,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                "5.0",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              "Check-in",
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              AnimatedContainer(
-                                                duration: Duration(seconds: 2),
-                                                height: 20,
-                                                width: 140,
-                                                decoration: BoxDecoration(
-                                                    color:
-                                                        AppColors.textColorGreen,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50)),
-                                                alignment: Alignment.center,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                "5.0",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              "Accuracy",
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              AnimatedContainer(
-                                                duration: Duration(seconds: 2),
-                                                height: 20,
-                                                width: 140,
-                                                decoration: BoxDecoration(
-                                                    color:
-                                                        AppColors.textColorGreen,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50)),
-                                                alignment: Alignment.center,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                "5.0",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              "Location",
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              AnimatedContainer(
-                                                duration: Duration(seconds: 2),
-                                                height: 20,
-                                                width: 140,
-                                                decoration: BoxDecoration(
-                                                    color:
-                                                        AppColors.textColorGreen,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50)),
-                                                alignment: Alignment.center,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                "5.0",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Container(
-                                            child: Text(
-                                              "Value",
-                                              style: TextStyle(
-                                                  fontSize: 15,
-                                                  fontWeight: FontWeight.bold,
-                                                  color: Colors.black),
-                                            ),
-                                          ),
-                                          Row(
-                                            children: [
-                                              AnimatedContainer(
-                                                duration: Duration(seconds: 2),
-                                                height: 20,
-                                                width: 140,
-                                                decoration: BoxDecoration(
-                                                    color:
-                                                        AppColors.textColorGreen,
-                                                    borderRadius:
-                                                        BorderRadius.circular(
-                                                            50)),
-                                                alignment: Alignment.center,
-                                              ),
-                                              SizedBox(
-                                                width: 5,
-                                              ),
-                                              Text(
-                                                "5.0",
-                                                style: TextStyle(
-                                                    fontSize: 15,
-                                                    fontWeight: FontWeight.bold,
-                                                    color: Colors.black),
-                                              )
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ),
-                                SizedBox(
-                                  height: 10,
-                                ),
+                                // Container(
+                                //   height: 140,
+                                //   child: Column(
+                                //     mainAxisAlignment:
+                                //         MainAxisAlignment.spaceBetween,
+                                //     children: [
+                                //       Row(
+                                //         mainAxisAlignment:
+                                //             MainAxisAlignment.spaceBetween,
+                                //         children: [
+                                //           Container(
+                                //             child: Text(
+                                //               "Cleanness",
+                                //               style: TextStyle(
+                                //                   fontSize: 15,
+                                //                   fontWeight: FontWeight.bold,
+                                //                   color: Colors.black),
+                                //             ),
+                                //           ),
+                                //           Row(
+                                //             children: [
+                                //               AnimatedContainer(
+                                //                 duration: Duration(seconds: 2),
+                                //                 height: 20,
+                                //                 width: 140,
+                                //                 decoration: BoxDecoration(
+                                //                     color: AppColors
+                                //                         .textColorGreen,
+                                //                     borderRadius:
+                                //                         BorderRadius.circular(
+                                //                             50)),
+                                //                 alignment: Alignment.center,
+                                //               ),
+                                //               SizedBox(
+                                //                 width: 5,
+                                //               ),
+                                //               Text(
+                                //                 "5.0",
+                                //                 style: TextStyle(
+                                //                     fontSize: 15,
+                                //                     fontWeight: FontWeight.bold,
+                                //                     color: Colors.black),
+                                //               )
+                                //             ],
+                                //           ),
+                                //         ],
+                                //       ),
+                                //       Row(
+                                //         mainAxisAlignment:
+                                //             MainAxisAlignment.spaceBetween,
+                                //         children: [
+                                //           Container(
+                                //             child: Text(
+                                //               "Communication",
+                                //               style: TextStyle(
+                                //                   fontSize: 15,
+                                //                   fontWeight: FontWeight.bold,
+                                //                   color: Colors.black),
+                                //             ),
+                                //           ),
+                                //           Row(
+                                //             children: [
+                                //               AnimatedContainer(
+                                //                 duration: Duration(seconds: 2),
+                                //                 height: 20,
+                                //                 width: 140,
+                                //                 decoration: BoxDecoration(
+                                //                     color: AppColors
+                                //                         .textColorGreen,
+                                //                     borderRadius:
+                                //                         BorderRadius.circular(
+                                //                             50)),
+                                //                 alignment: Alignment.center,
+                                //               ),
+                                //               SizedBox(
+                                //                 width: 5,
+                                //               ),
+                                //               Text(
+                                //                 "5.0",
+                                //                 style: TextStyle(
+                                //                     fontSize: 15,
+                                //                     fontWeight: FontWeight.bold,
+                                //                     color: Colors.black),
+                                //               )
+                                //             ],
+                                //           ),
+                                //         ],
+                                //       ),
+                                //       Row(
+                                //         mainAxisAlignment:
+                                //             MainAxisAlignment.spaceBetween,
+                                //         children: [
+                                //           Container(
+                                //             child: Text(
+                                //               "Check-in",
+                                //               style: TextStyle(
+                                //                   fontSize: 15,
+                                //                   fontWeight: FontWeight.bold,
+                                //                   color: Colors.black),
+                                //             ),
+                                //           ),
+                                //           Row(
+                                //             children: [
+                                //               AnimatedContainer(
+                                //                 duration: Duration(seconds: 2),
+                                //                 height: 20,
+                                //                 width: 140,
+                                //                 decoration: BoxDecoration(
+                                //                     color: AppColors
+                                //                         .textColorGreen,
+                                //                     borderRadius:
+                                //                         BorderRadius.circular(
+                                //                             50)),
+                                //                 alignment: Alignment.center,
+                                //               ),
+                                //               SizedBox(
+                                //                 width: 5,
+                                //               ),
+                                //               Text(
+                                //                 "5.0",
+                                //                 style: TextStyle(
+                                //                     fontSize: 15,
+                                //                     fontWeight: FontWeight.bold,
+                                //                     color: Colors.black),
+                                //               )
+                                //             ],
+                                //           ),
+                                //         ],
+                                //       ),
+                                //       Row(
+                                //         mainAxisAlignment:
+                                //             MainAxisAlignment.spaceBetween,
+                                //         children: [
+                                //           Container(
+                                //             child: Text(
+                                //               "Accuracy",
+                                //               style: TextStyle(
+                                //                   fontSize: 15,
+                                //                   fontWeight: FontWeight.bold,
+                                //                   color: Colors.black),
+                                //             ),
+                                //           ),
+                                //           Row(
+                                //             children: [
+                                //               AnimatedContainer(
+                                //                 duration: Duration(seconds: 2),
+                                //                 height: 20,
+                                //                 width: 140,
+                                //                 decoration: BoxDecoration(
+                                //                     color: AppColors
+                                //                         .textColorGreen,
+                                //                     borderRadius:
+                                //                         BorderRadius.circular(
+                                //                             50)),
+                                //                 alignment: Alignment.center,
+                                //               ),
+                                //               SizedBox(
+                                //                 width: 5,
+                                //               ),
+                                //               Text(
+                                //                 "5.0",
+                                //                 style: TextStyle(
+                                //                     fontSize: 15,
+                                //                     fontWeight: FontWeight.bold,
+                                //                     color: Colors.black),
+                                //               )
+                                //             ],
+                                //           ),
+                                //         ],
+                                //       ),
+                                //       Row(
+                                //         mainAxisAlignment:
+                                //             MainAxisAlignment.spaceBetween,
+                                //         children: [
+                                //           Container(
+                                //             child: Text(
+                                //               "Location",
+                                //               style: TextStyle(
+                                //                   fontSize: 15,
+                                //                   fontWeight: FontWeight.bold,
+                                //                   color: Colors.black),
+                                //             ),
+                                //           ),
+                                //           Row(
+                                //             children: [
+                                //               AnimatedContainer(
+                                //                 duration: Duration(seconds: 2),
+                                //                 height: 20,
+                                //                 width: 140,
+                                //                 decoration: BoxDecoration(
+                                //                     color: AppColors
+                                //                         .textColorGreen,
+                                //                     borderRadius:
+                                //                         BorderRadius.circular(
+                                //                             50)),
+                                //                 alignment: Alignment.center,
+                                //               ),
+                                //               SizedBox(
+                                //                 width: 5,
+                                //               ),
+                                //               Text(
+                                //                 "5.0",
+                                //                 style: TextStyle(
+                                //                     fontSize: 15,
+                                //                     fontWeight: FontWeight.bold,
+                                //                     color: Colors.black),
+                                //               )
+                                //             ],
+                                //           ),
+                                //         ],
+                                //       ),
+                                //       Row(
+                                //         mainAxisAlignment:
+                                //             MainAxisAlignment.spaceBetween,
+                                //         children: [
+                                //           Container(
+                                //             child: Text(
+                                //               "Value",
+                                //               style: TextStyle(
+                                //                   fontSize: 15,
+                                //                   fontWeight: FontWeight.bold,
+                                //                   color: Colors.black),
+                                //             ),
+                                //           ),
+                                //           Row(
+                                //             children: [
+                                //               AnimatedContainer(
+                                //                 duration: Duration(seconds: 2),
+                                //                 height: 20,
+                                //                 width: 140,
+                                //                 decoration: BoxDecoration(
+                                //                     color: AppColors
+                                //                         .textColorGreen,
+                                //                     borderRadius:
+                                //                         BorderRadius.circular(
+                                //                             50)),
+                                //                 alignment: Alignment.center,
+                                //               ),
+                                //               SizedBox(
+                                //                 width: 5,
+                                //               ),
+                                //               Text(
+                                //                 "5.0",
+                                //                 style: TextStyle(
+                                //                     fontSize: 15,
+                                //                     fontWeight: FontWeight.bold,
+                                //                     color: Colors.black),
+                                //               )
+                                //             ],
+                                //           ),
+                                //         ],
+                                //       ),
+                                //     ],
+                                //   ),
+                                // ),
+                                // SizedBox(
+                                //   height: 10,
+                                // ),
                                 Center(
                                   child: Text(
                                     "Highlighted reviews",
@@ -974,84 +906,71 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                   thickness: 2,
                                 ),
                                 Container(
-                                    height:
-                                        MediaQuery.of(context).size.height * .15,
-                                    child: ListView.builder(
-                                        itemCount:
-                                            controller.getReview.value.length,
-                                        itemBuilder: (BuildContext c, i) {
-                                          var data = controller.getReview[i];
-                                          return ListTile(
-                                            title: Row(
-                                              children: [
-                                                Text(
-                                                  data.listerName,
-                                                  style: TextStyle(fontSize: 22),
+                                    height: MediaQuery.of(context).size.height *
+                                        .15,
+                                    child: controller.getReview.value.isEmpty
+                                        ? Text("No review yet")
+                                        : ListView.builder(
+                                            itemCount: controller
+                                                .getReview.value.length,
+                                            itemBuilder: (BuildContext c, i) {
+                                              var data =
+                                                  controller.getReview[i];
+                                              return ListTile(
+                                                title: Row(
+                                                  children: [
+                                                    Text(
+                                                      data.userName ??
+                                                          "No Data",
+                                                      style: TextStyle(
+                                                          fontSize: 16),
+                                                    ),
+                                                  ],
                                                 ),
-                                                SizedBox(
-                                                  width: 10,
+                                                subtitle: Column(
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    Text(
+                                                      DateFormat.yMd()
+                                                          .add_jm()
+                                                          .format(
+                                                            data.createdAt,
+                                                          ),
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          color:
+                                                              Colors.black54),
+                                                    ),
+                                                    Text(
+                                                      data.description,
+                                                      style: TextStyle(
+                                                          fontSize: 15,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                          color: Colors.black),
+                                                    ),
+                                                  ],
                                                 ),
-                                                Icon(
-                                                  Icons.star,
-                                                  color: Colors.orange,
-                                                  size: 15,
+                                                leading: Container(
+                                                  height: 100,
+                                                  width: 100,
+                                                  decoration: BoxDecoration(
+                                                    shape: BoxShape.circle,
+                                                    color: AppColors
+                                                        .textColorGreen,
+                                                  ),
+                                                  child: Icon(
+                                                    Icons.verified_user,
+                                                    color: Colors.white,
+                                                    size: 30,
+                                                  ),
+                                                  // color: AppColors.backgroundColor,
                                                 ),
-                                                Icon(
-                                                  Icons.star,
-                                                  size: 15,
-                                                  color: Colors.orange,
-                                                ),
-                                                Icon(
-                                                  Icons.star,
-                                                  size: 15,
-                                                  color: Colors.orange,
-                                                ),
-                                                Icon(
-                                                  Icons.star,
-                                                  size: 15,
-                                                  color: Colors.orange,
-                                                ),
-                                                Icon(
-                                                  Icons.star,
-                                                  size: 15,
-                                                  color: Colors.orange,
-                                                ),
-                                              ],
-                                            ),
-                                            subtitle: Column(
-                                              crossAxisAlignment:
-                                                  CrossAxisAlignment.start,
-                                              children: [
-                                                Text(
-                                                  "April 2023",
-                                                  style: TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      color: Colors.black54),
-                                                ),
-                                                Text(
-                                                  data.description,
-                                                  style: TextStyle(
-                                                      fontSize: 15,
-                                                      fontWeight:
-                                                          FontWeight.normal,
-                                                      color: Colors.black),
-                                                ),
-                                              ],
-                                            ),
-                                            leading: Container(
-                                              height: 100,
-                                              width: 100,
-                                              decoration: BoxDecoration(
-                                                  shape: BoxShape.circle,
-                                                  image: DecorationImage(
-                                                      image: AssetImage(
-                                                          "assets/images/kaif.png"))),
-                                              // color: AppColors.backgroundColor,
-                                            ),
-                                          );
-                                        })),
+                                              );
+                                            })),
                                 Divider(
                                   thickness: 1,
                                 ),
@@ -1108,8 +1027,8 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                     child: AnimatedContainer(
                                       duration: Duration(seconds: 2),
                                       height: 40,
-                                      width:
-                                          MediaQuery.of(context).size.width - 100,
+                                      width: MediaQuery.of(context).size.width -
+                                          100,
                                       decoration: BoxDecoration(
                                           color: AppColors.textColorGreen,
                                           borderRadius:
@@ -1131,7 +1050,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                 InkWell(
                                   onTap: () {
                                     Get.toNamed(Routes.CONFIEMANDPAY,
-                                        arguments: [index]);
+                                        arguments: [data]);
                                     //controller.visible.value++;
                                     // controller.loginController();
                                   },
@@ -1139,8 +1058,8 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                     child: AnimatedContainer(
                                       duration: Duration(seconds: 2),
                                       height: 40,
-                                      width:
-                                          MediaQuery.of(context).size.width - 100,
+                                      width: MediaQuery.of(context).size.width -
+                                          100,
                                       decoration: BoxDecoration(
                                           color: AppColors.textColorGreen,
                                           borderRadius:
@@ -1176,18 +1095,159 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                 SizedBox(
                                   height: 10,
                                 ),
-                                Container(
-                                  height: 100,
-                                  child: GoogleMap(
-                                    onMapCreated: (c) {
-                                      c = controller.mapController!;
-                                    },
-                                    initialCameraPosition: CameraPosition(
-                                      target: LatLng(37.7749,
-                                          -122.4194), // San Francisco coordinates
-                                      zoom: 12.0,
+                                Stack(
+                                  children: [
+                                    SizedBox(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              .4,
+                                      width: MediaQuery.of(context).size.width,
+                                      child: GoogleMap(
+                                          gestureRecognizers: Set()
+                                            ..add(Factory<PanGestureRecognizer>(
+                                                () => PanGestureRecognizer()))
+                                            ..add(Factory<
+                                                    VerticalDragGestureRecognizer>(
+                                                () =>
+                                                    VerticalDragGestureRecognizer())),
+                                          zoomControlsEnabled: true,
+                                          scrollGesturesEnabled: true,
+                                          initialCameraPosition: CameraPosition(
+                                            target: LatLng(
+                                                double.parse(data.lat),
+                                                double.parse(data.long)),
+                                            zoom: 10,
+                                            //target: LatLng(23.797911, 90.414391),
+                                          ),
+                                          markers: {
+                                            Marker(
+                                              markerId:
+                                                  MarkerId('selected-location'),
+                                              position: LatLng(
+                                                  double.parse(data.lat),
+                                                  double.parse(data.long)),
+                                              infoWindow: InfoWindow(
+                                                title: 'Selected Location',
+                                              ),
+                                            ),
+                                          }),
                                     ),
-                                  ),
+                                  ],
+                                ),
+                                Container(
+                                    margin: EdgeInsets.all(8),
+                                    child: Table(
+
+                                      border: TableBorder.all(),
+                                      columnWidths: const <int, TableColumnWidth>{
+                                        0: IntrinsicColumnWidth(),
+                                        1: FlexColumnWidth(),
+                                        2: FlexColumnWidth(),
+                                      },
+                                      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                                      children: <TableRow>[
+                                        TableRow(
+                                          decoration: BoxDecoration(
+                                            color: AppColors.textColorGreen,
+
+
+                                          ),
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text("Company", style: TextStyle(color: AppColors.textColorGreen),),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text("Price", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text("Cancellation policy", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                            ),
+
+
+
+                                          ],
+                                        ),
+                                        TableRow(
+                                          decoration: BoxDecoration(
+
+
+                                          ),
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text("1. Jayga LTD", style: TextStyle(color: AppColors.textColorGreen),),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text("Price", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text("Cancellation policy", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                            ),
+
+
+
+                                          ],
+                                        ),
+                                        TableRow(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text("2. Obokash", style: TextStyle(color: AppColors.textColorGreen),),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text("Price", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text("Cancellation policy", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                            ),
+
+                                          ],
+                                        ),
+                                        TableRow(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text("3. GoZayaan", style: TextStyle(color: AppColors.textColorGreen),),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text("Price", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text("Cancellation policy", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                            ),
+
+                                          ],
+                                        ),
+                                        TableRow(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text("4. ShareTrip", style: TextStyle(color: AppColors.textColorGreen),),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text("Price", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                            ),
+                                            Padding(
+                                              padding: const EdgeInsets.all(4.0),
+                                              child: Text("Cancellation policy", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                            ),
+
+                                          ],
+                                        ),
+
+
+                                      ],
+                                    )
                                 ),
                                 SizedBox(
                                   height: 20,
@@ -1207,9 +1267,9 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                   height: 20,
                                 ),
                                 Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-
                                     Text(
                                       "Host Restriction",
                                       style: TextStyle(
@@ -1218,122 +1278,206 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                       ),
                                     ),
                                     InkWell(
-                                      onTap: (){
-                                        if(controller.seeRestriction.value == false){
-                                          controller.seeRestriction.value = true;
-                                        }else{
-                                          controller.seeRestriction.value = false;
-                                        }
-
-                                      },
-                                        child: controller.seeRestriction.value == false
-                                            ? Icon(Icons.arrow_drop_down_circle_outlined, color: AppColors.textColorGreen,)
-                                            : Icon(Icons.arrow_circle_up, color: AppColors.textColorGreen,)
-                                    ),
-
+                                        onTap: () {
+                                          if (controller.seeRestriction.value ==
+                                              false) {
+                                            controller.seeRestriction.value =
+                                                true;
+                                          } else {
+                                            controller.seeRestriction.value =
+                                                false;
+                                          }
+                                        },
+                                        child: controller
+                                                    .seeRestriction.value ==
+                                                false
+                                            ? Icon(
+                                                Icons
+                                                    .arrow_drop_down_circle_outlined,
+                                                color: AppColors.textColorGreen,
+                                              )
+                                            : Icon(
+                                                Icons.arrow_circle_up,
+                                                color: AppColors.textColorGreen,
+                                              )),
                                   ],
                                 ),
-                                controller.seeRestriction.value == false ? Container():    Container(
-                                  height: MediaQuery.of(context).size.height*.22,
-                                  child: Column(
-                                      children: [
-                                        ListTile(
-                                          title: Text("Late night entry"),
-                                          leading:  Container(
-                                            height: 30,
-                                            child: Container(
+                                controller.seeRestriction.value == false
+                                    ? Container()
+                                    : Container(
+                                        height:
+                                            MediaQuery.of(context).size.height *
+                                                .34,
+                                        child: Column(children: [
+                                          ListTile(
+                                            title: Text("Late night entry"),
+                                            leading: Container(
                                               height: 30,
-                                              width: 30,
-                                              alignment: Alignment.bottomLeft,
-                                              // color: AppColors.backgroundColor,
-                                              child: Image.asset(
-                                                'assets/icons/host/no_entry.png',
+                                              child: Container(
                                                 height: 30,
                                                 width: 30,
+                                                alignment: Alignment.bottomLeft,
+                                                // color: AppColors.backgroundColor,
+                                                child: Image.asset(
+                                                  'assets/icons/host/restriction/no_entry.png',
+                                                  height: 30,
+                                                  width: 30,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        ListTile(
-                                          title: Text("No pets are allowed"),
-                                          leading:  Container(
-                                            height: 30,
-                                            child: Container(
+                                          ListTile(
+                                            title: Text("No pets are allowed"),
+                                            leading: Container(
                                               height: 30,
-                                              width: 30,
-                                              alignment: Alignment.bottomLeft,
-                                              // color: AppColors.backgroundColor,
-                                              child: Image.asset(
-                                                'assets/icons/host/no_smoke.png',
+                                              child: Container(
                                                 height: 30,
                                                 width: 30,
+                                                alignment: Alignment.bottomLeft,
+                                                // color: AppColors.backgroundColor,
+                                                child: Image.asset(
+                                                  'assets/icons/host/restriction/no_smoke.png',
+                                                  height: 30,
+                                                  width: 30,
+                                                ),
                                               ),
                                             ),
                                           ),
-                                        ),
-                                        ListTile(
-                                          title: Text("No parties are allowed"),
-                                          leading:  Container(
-                                            height: 30,
-                                            child: Container(
+                                          ListTile(
+                                            title:
+                                                Text("No parties are allowed"),
+                                            leading: Container(
                                               height: 30,
-                                              width: 30,
-                                              alignment: Alignment.bottomLeft,
-                                              // color: AppColors.backgroundColor,
-                                              child: Image.asset(
-                                                'assets/icons/host/party.png',
+                                              child: Container(
                                                 height: 30,
                                                 width: 30,
+                                                alignment: Alignment.bottomLeft,
+                                                // color: AppColors.backgroundColor,
+                                                child: Image.asset(
+                                                  'assets/icons/host/restriction/party.png',
+                                                  height: 30,
+                                                  width: 30,
+                                                ),
                                               ),
                                             ),
                                           ),
+                                        ]),
+                                      ),
+                                Divider(),
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        showDialog(
+                                            context: context,
+                                            builder: (BuildContext context) {
+                                              return AlertDialog(
+                                                  insetPadding:
+                                                      EdgeInsets.all(0),
+                                                  elevation: 20,
+                                                  backgroundColor:
+                                                      Colors.transparent,
+                                                  content: Container(
+                                                      width:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      height:
+                                                          MediaQuery.of(context)
+                                                              .size
+                                                              .width,
+                                                      child:
+                                                          AvailablityCheckView()));
+                                            });
+                                      },
+                                      child: Text(
+                                        "Availability Check",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
                                         ),
-
-
-                                      ]
-
-                                  ),
+                                      ),
+                                    ),
+                                    InkWell(
+                                        onTap: () {
+                                          showDialog(
+                                              context: context,
+                                              builder: (BuildContext context) {
+                                                return AlertDialog(
+                                                    insetPadding:
+                                                        EdgeInsets.all(0),
+                                                    elevation: 20,
+                                                    backgroundColor:
+                                                        Colors.transparent,
+                                                    content: Container(
+                                                        width: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        height: MediaQuery.of(
+                                                                context)
+                                                            .size
+                                                            .width,
+                                                        child:
+                                                            AvailablityCheckView()));
+                                              });
+                                        },
+                                        child: controller
+                                                    .seeRestriction.value ==
+                                                false
+                                            ? Icon(
+                                                Icons
+                                                    .arrow_drop_down_circle_outlined,
+                                                color: AppColors.textColorGreen,
+                                              )
+                                            : Icon(
+                                                Icons.arrow_circle_up,
+                                                color: AppColors.textColorGreen,
+                                              )),
+                                  ],
                                 ),
                                 Divider(),
-                                InkWell(
-                                  onTap: () {
-                                    showDialog(
-                                        context: context,
-                                        builder: (BuildContext context) {
-                                          return AlertDialog(
-                                              insetPadding: EdgeInsets.all(0),
-                                              elevation: 20,
-                                              backgroundColor: Colors.transparent,
-                                              content: Container(
-                                                  width: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  height: MediaQuery.of(context)
-                                                      .size
-                                                      .width,
-                                                  child: AvailablityCheckView()));
-                                        });
-                                  },
-                                  child: Text(
-                                    "Availability Check",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
+                                Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceBetween,
+                                  children: [
+                                    InkWell(
+                                      onTap: () {
+                                        Get.to(PaymentWeb(
+                                          url: "https://jayga.io/refund.html",
+                                          appBar: "Policy",
+                                        ));
+                                      },
+                                      child: Text(
+                                        "Cancelation Policy",
+                                        style: TextStyle(
+                                          color: Colors.black,
+                                          fontSize: 18,
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                                Divider(),
-                                InkWell(
-                                  onTap: (){
-                                    Get.to(PaymentWeb(url: "https://jayga.io/refund.html" , appBar: "Policy",));
-                                  },
-                                  child: Text(
-                                    "Cancelation Policy",
-                                    style: TextStyle(
-                                      color: Colors.black,
-                                      fontSize: 18,
-                                    ),
-                                  ),
+                                    InkWell(
+                                        onTap: () {
+                                          Get.to(PaymentWeb(
+                                            url: "https://jayga.io/refund.html",
+                                            appBar: "Policy",
+                                          ));
+                                        },
+                                        child: controller
+                                                    .seeRestriction.value ==
+                                                false
+                                            ? Icon(
+                                                Icons
+                                                    .arrow_drop_down_circle_outlined,
+                                                color: AppColors.textColorGreen,
+                                              )
+                                            : Icon(
+                                                Icons.arrow_circle_up,
+                                                color: AppColors.textColorGreen,
+                                              )),
+                                  ],
                                 ),
                                 Divider(),
                                 Row(
@@ -1352,7 +1496,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                   ],
                                 ),
                                 SizedBox(
-                                  height: 20,
+                                  height: 10,
                                 ),
                               ],
                             ),

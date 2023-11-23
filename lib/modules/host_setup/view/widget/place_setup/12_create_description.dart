@@ -16,6 +16,7 @@ class CreateYourDescription extends GetView<HostController> {
     return  SingleChildScrollView(
       child:
          Container(
+           height: MediaQuery.of(context).size.height *.7,
           color: AppColors.appBackGroundBrn,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -23,7 +24,7 @@ class CreateYourDescription extends GetView<HostController> {
             children: [
 
               Container(
-                height: MediaQuery.of(context).size.height *.7,
+                height: MediaQuery.of(context).size.height *.5,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(40)),

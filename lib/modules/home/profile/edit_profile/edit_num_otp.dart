@@ -189,7 +189,7 @@ class EditNumOTPView extends GetView<HomeController> {
                       child: controller.visibleOTP.value == 1
                           ? Center(child: CircularProgressIndicator())
                           : Text(
-                        "Submit",
+                        "Submitt",
                         style: TextStyle(
                             color: Colors.white,
                             fontSize: 18,

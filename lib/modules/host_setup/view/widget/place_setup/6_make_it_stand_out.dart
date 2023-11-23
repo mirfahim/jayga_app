@@ -43,11 +43,51 @@ class MakeItStandOut extends GetView<HostController> {
                             color: Colors.black),
                       ),
                       Text(
-                        "Add 5 or more photos plus a title and description-we’ll help you out.",
+                        "Add atleast 5 photos plus a title and description-we’ll help you out.",
                         style: TextStyle(
                             fontWeight: FontWeight.normal,
                             fontSize: 20,
                             color: Colors.black54),
+                      ),
+                      SizedBox(height: 20,),
+
+                      Container(
+                        height: Get.height*.2,
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+
+                            Text(
+                              "1. Prepare 5 images of your jayga",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 20,
+                                  color: Colors.black54),
+                            ),
+                            Text(
+                              "2. Add a title for your jayga.",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 20,
+                                  color: Colors.black54),
+                            ),
+                            Text(
+                              "3. Prepare a clear description of your jayga. Tell us every details of locations and services.",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 20,
+                                  color: Colors.black54),
+                            ),
+                            Text(
+                              "4. Add all restrictions",
+                              style: TextStyle(
+                                  fontWeight: FontWeight.normal,
+                                  fontSize: 20,
+                                  color: Colors.black54),
+                            ),
+                          ],
+                        ),
                       ),
 
 

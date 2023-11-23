@@ -13,12 +13,12 @@ class BaseBinding extends Bindings {
           () => BaseController(),
     );
 
-    Get.lazyPut<HomeController>(
-          () => HomeController(),
-    );
+
     Get.lazyPut<BookingController>(
           () => BookingController(),
     );
-
+    Get.lazyPut<HomeController>(
+          () => HomeController(),
+    );
   }
 }

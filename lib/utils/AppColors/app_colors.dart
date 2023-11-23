@@ -10,11 +10,15 @@ class AppColors {
   static Color textColorGrey = Colors.grey;
 
   static Color textColorBlack=Colors.black;
+
   static Color textColorRed=Colors.red;
   static Color containerColor=Color(0xffFAFAFA);
   static Color colorBlue=Colors.blue;
   static  Color appBackGroundBrn =HexColor("#FDF0C3");
+  static  Color redButton =HexColor("#E39292");
+
   static  Color textColorGreen = HexColor("#139175");
+  static  Color greenButton = HexColor("#92E3A9");
   static  Color jaygaTextFldColor = HexColor("#D9F2ED");
   static  Color buttonColorYellow = HexColor("#FFCE4E");
   static  Color jaygaWhite = HexColor("#FFFCF3");

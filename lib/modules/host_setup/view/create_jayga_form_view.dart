@@ -13,6 +13,7 @@ import 'package:jayga/modules/host_setup/view/widget/place_setup/11_describe_you
 import 'package:jayga/modules/host_setup/view/widget/place_setup/12_create_description.dart';
 import 'package:jayga/modules/host_setup/view/widget/place_setup/13_finish_up_and_publish.dart';
 import 'package:jayga/modules/host_setup/view/widget/place_setup/14_full_day_price.dart';
+import 'package:jayga/modules/host_setup/view/widget/place_setup/15_your_place_under_review.dart';
 import 'package:jayga/modules/host_setup/view/widget/place_setup/1_which_of_place_house_or_apartment.dart';
 import 'package:jayga/modules/host_setup/view/widget/place_setup/2_what_type_of_place.dart';
 import 'package:jayga/modules/host_setup/view/widget/place_setup/3_where_is_location.dart';
@@ -22,8 +23,10 @@ import 'package:jayga/modules/host_setup/view/widget/place_setup/6_make_it_stand
 import 'package:jayga/modules/host_setup/view/widget/place_setup/7_what_place_hasto_offer.dart';
 import 'package:jayga/modules/host_setup/view/widget/place_setup/8_do_you_have_restriction.dart';
 import 'package:jayga/modules/host_setup/view/widget/place_setup/9_add_photos_off_your_house.dart';
+import 'package:jayga/modules/host_setup/view/widget/place_setup/experience_setup.dart';
 import 'package:jayga/modules/host_setup/view/widget/tell_us_about_jayga.dart';
 import 'package:jayga/modules/host_setup/view/widget/type_of_property.dart';
+import 'package:jayga/routes/app_pages.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
 
 import '../../../utils/ui_support.dart';
@@ -284,6 +287,8 @@ class CreateJaygaFormView extends GetView<HostController> {
                     ? NidFormView()
                     : controller.pageIndex.value == 2
                         ? TypeOfPropertyFormView()
+                    : controller.pageIndex.value == 21
+                    ? Experiencelanding()
                         : controller.pageIndex.value == 3
                             ? ItEasyToTellJayga()
                             : controller.pageIndex.value == 4
@@ -325,73 +330,76 @@ class CreateJaygaFormView extends GetView<HostController> {
                                                                                 ? CreateYourDescription()
                                                                                 : controller.pageIndex.value == 17
                                                                                     ? FinishUpAndPublish()
-                                                                                    : controller.pageIndex.value == 17
+                                                                                    : controller.pageIndex.value == 18
                                                                                         ? FullDayPrice()
-                                                                                        : FullDayPrice(),
+                                                                                        : controller.pageIndex.value == 19
+                                                                                            ? UnderReview()
+                                                                                            : Container(),
                 SizedBox(
                   height: 30,
                 ),
                 InkWell(
                   onTap: () {
                     if (controller.pageIndex.value == 1) {
-                      controller.pageIndex.value = 2;
-                      // if(controller.nidPic.isEmpty || controller.lister_image.isEmpty || controller.utility_image.isEmpty) {
-                      //   controller.addImage();
-                      //   Get.showSnackbar(Ui.errorSnackBar(
-                      //       message:"Please provide NID, Utility and Your Image as well.", title: 'Error'.tr));
-                      // } else {
-                      //   if(controller.userData.value.nid == null){
-                      //     Get.showSnackbar(Ui.errorSnackBar(
-                      //         message:"Please provide valid NID image", title: 'Error'.tr));
-                      //   }else {
-                      //     controller.pageIndex.value = 2;
-                      //
-                      //   }
-                      // }
+                      //controller.pageIndex.value = 2;
+                      if(controller.nidPic.isEmpty) {
 
-                    } else if (controller.pageIndex.value == 2) {
-                      if(controller.type_of_property.isEmpty) {
                         Get.showSnackbar(Ui.errorSnackBar(
-                            message:"Please select property type", title: 'Error'.tr));
+                            message:"Please provide NID front page", title: 'Error'.tr));
                       } else {
-                        controller.pageIndex.value = 3;
+                        // if(controller.userData.value.nid == null){
+                        //   Get.showSnackbar(Ui.errorSnackBar(
+                        //       message:"Please provide valid NID image", title: 'Error'.tr));
+                        // }else {
+                          controller.pageIndex.value = 2;
+
+                     //   }
                       }
-                    } else if (controller.pageIndex.value == 3) {
+                    } else if (controller.pageIndex.value == 2) {
+                      if (controller.type_of_property.isEmpty) {
+                        Get.showSnackbar(Ui.errorSnackBar(
+                            message: "Please select property type",
+                            title: 'Error'.tr));
+                      } else {
 
-                        controller.pageIndex.value = 4;
+                          controller.pageIndex.value = 3;
 
 
+                      }
+                    }  else if (controller.pageIndex.value == 3) {
+                      controller.pageIndex.value = 4;
                     } else if (controller.pageIndex.value == 4) {
-
-                        controller.pageIndex.value = 5;
-
-
+                      controller.pageIndex.value = 5;
                     } else if (controller.pageIndex.value == 5) {
                       print("my page index is ${controller.pageIndex.value}");
-                      if(controller.house.value == 0) {
+                      if (controller.listingType.value.isEmpty) {
                         Get.showSnackbar(Ui.errorSnackBar(
-                            message:"Please select atleast one place", title: 'Error'.tr));
+                            message: "Please select a type",
+                            title: 'Error'.tr));
                       } else {
                         controller.pageIndex.value = 6;
                       }
-
                     } else if (controller.pageIndex.value == 6) {
-
                       controller.pageIndex.value = 7;
                     } else if (controller.pageIndex.value == 7) {
                       controller.pageIndex.value = 8;
                     } else if (controller.pageIndex.value == 8) {
-                      if(controller.streetAddress.value.text.isEmpty ||controller.zip.value.text.isEmpty) {
+                      if (controller.streetAddress.value.text.isEmpty ||
+                          controller.zip.value.text.isEmpty || controller.districtId.value.isEmpty ) {
                         Get.showSnackbar(Ui.errorSnackBar(
-                            message:"Please fill all the field", title: 'Error'.tr));
+                            message: "Please fill all the field",
+                            title: 'Error'.tr));
                       } else {
                         controller.pageIndex.value = 9;
                       }
                     } else if (controller.pageIndex.value == 9) {
-                      if(controller.numbedRooms.value == 0 && controller.numGuest.value == 0
-                          && controller.numBeds.value == 0 &&controller.numBath.value == 0  ) {
+                      if (controller.numbedRooms.value == 0 &&
+                          controller.numGuest.value == 0 &&
+                          controller.numBeds.value == 0 &&
+                          controller.numBath.value == 0) {
                         Get.showSnackbar(Ui.errorSnackBar(
-                            message:"Please increase atleast a number", title: 'Error'.tr));
+                            message: "Please increase atleast a number",
+                            title: 'Error'.tr));
                       } else {
                         controller.pageIndex.value = 10;
                       }
@@ -402,20 +410,19 @@ class CreateJaygaFormView extends GetView<HostController> {
                     } else if (controller.pageIndex.value == 12) {
                       controller.pageIndex.value = 13;
                     } else if (controller.pageIndex.value == 13) {
-                      if(controller.listingImagesBase64.length < 2) {
+                      if (controller.listingImagesBase64.length < 2) {
                         Get.showSnackbar(Ui.errorSnackBar(
-                            message:"Please add atleast 5 photos", title: 'Error'.tr));
+                            message: "Please add atleast 5 photos",
+                            title: 'Error'.tr));
                       } else {
                         controller.pageIndex.value = 14;
                       }
-
                     } else if (controller.pageIndex.value == 14) {
-                      if(controller.houseTitle.value.text.isEmpty) {
+                      if (controller.houseTitle.value.text.isEmpty) {
                         Get.showSnackbar(Ui.errorSnackBar(
-                            message:"Please give title", title: 'Error'.tr));
+                            message: "Please give title", title: 'Error'.tr));
                       } else {
                         controller.pageIndex.value = 15;
-
                       }
                     } else if (controller.pageIndex.value == 15) {
                       controller.pageIndex.value = 16;
@@ -424,18 +431,18 @@ class CreateJaygaFormView extends GetView<HostController> {
                     } else if (controller.pageIndex.value == 17) {
                       controller.pageIndex.value = 18;
                     } else if (controller.pageIndex.value == 18) {
-
-                      if(controller.listingPrice.value.text.isEmpty) {
+                      if (controller.listingPrice.value.text.isEmpty) {
                         Get.showSnackbar(Ui.errorSnackBar(
-                            message:"Please give an amount", title: 'Error'.tr));
+                            message: "Please give an amount",
+                            title: 'Error'.tr));
                       } else {
-                        controller.addListingController().then((e){
-                          controller.pageIndex.value = 19;
-                        });
+                        controller.addListingController();
                       }
+                    } else if (controller.pageIndex.value == 19) {
+                      controller.refreshController();
 
+                      Get.toNamed(Routes.BASE);
                     }
-
                   },
                   child: Center(
                     child: AnimatedContainer(
@@ -447,13 +454,15 @@ class CreateJaygaFormView extends GetView<HostController> {
                           borderRadius: BorderRadius.circular(50)),
                       alignment: Alignment.center,
                       child: controller.pageIndex.value == 18
-                          ? controller.loading.value == true ? CircularProgressIndicator(): Text(
-                              "Publish",
-                              style: TextStyle(
-                                color: AppColors.backgroundColor,
-                                fontSize: 15,
-                              ),
-                            )
+                          ? controller.loading.value == true
+                              ? CircularProgressIndicator()
+                              : Text(
+                                  "Publish",
+                                  style: TextStyle(
+                                    color: AppColors.backgroundColor,
+                                    fontSize: 15,
+                                  ),
+                                )
                           : Text(
                               "Continue",
                               style: TextStyle(

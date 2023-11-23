@@ -1,19 +1,14 @@
 import 'dart:convert';
-
+import 'package:new_version_plus/new_version_plus.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
-import 'package:jayga/models/profile/profile_model.dart';
-
 import 'package:jayga/modules/A_Base/view/saved_screen/saved_screen.dart';
 import 'package:jayga/modules/home/profile/profile_screen.dart';
-import 'package:jayga/repositories/listing_rep.dart';
-
-
+import 'package:url_launcher/url_launcher_string.dart';
 import '../../../routes/app_pages.dart';
 import '../../booking/view/booking_home_page.dart';
 import '../../booking/view/my_booking_history/my_booking_screen.dart';
-import '../../home/view/home_page_view.dart';
 import 'package:geolocator/geolocator.dart';
 
 class BaseController extends GetxController {
@@ -62,7 +57,25 @@ class BaseController extends GetxController {
       return false;
     }, arguments: index);
   }
-
+  advancedStatusCheck(BuildContext context) async {
+    print("hlw version ________________________");
+    final newVersion = NewVersionPlus(
+      //iOSId: 'com.google.Vespa',
+      androidId: 'com.jayga.app',
+    );
+    var status = await newVersion.getVersionStatus();
+    print("version status ${status!.appStoreLink}");
+    if (status.canUpdate == true) {
+      newVersion.showUpdateDialog(
+        launchMode: LaunchMode.externalApplication,
+        context: context,
+        versionStatus: status,
+        dialogTitle: 'Update Available!',
+        dialogText:
+        'Upgrade Jayga ${status.localVersion} to Jayga ${status.storeVersion}',
+      );
+    }
+  }
   getAddressFromLatLng(double lat, double lng) async {
     String mapApiKey = "AIzaSyAG8IAuH-Yz4b3baxmK1iw81BH5vE4HsSs";
     String _host = 'https://maps.google.com/maps/api/geocode/json';

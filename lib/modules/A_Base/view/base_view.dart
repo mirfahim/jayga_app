@@ -10,6 +10,7 @@ class BaseView extends GetView<BaseController> {
   const BaseView({Key? key}) : super(key: key);
   @override
   Widget build(BuildContext context) {
+    controller.advancedStatusCheck(context);
     return Obx(() {
       return Scaffold(
       appBar:  PreferredSize(
@@ -46,7 +47,7 @@ class BaseView extends GetView<BaseController> {
           ),
           child: SizedBox(
             width: double.infinity,
-            height: 60,
+            height: 70,
             child: Padding(
               padding: const EdgeInsets.symmetric(horizontal: 8.0),
               child: Row(
@@ -65,6 +66,7 @@ class BaseView extends GetView<BaseController> {
                         children: <Widget>[
                           Icon(
                             Icons.search,
+                            size: 30,
                             color: controller.currentIndex.value == 0
                                 ? AppColors.textColorGreen
                                 : Colors.black54,
@@ -100,6 +102,7 @@ class BaseView extends GetView<BaseController> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
+                            size: 30,
                             Icons.favorite_outline,
                             color: controller.currentIndex.value == 1
                                 ? AppColors.textColorGreen
@@ -137,6 +140,7 @@ class BaseView extends GetView<BaseController> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: <Widget>[
                           Icon(
+                            size: 30,
                             Icons.book,
                             color: controller.currentIndex.value == 2
                                 ? AppColors.textColorGreen
@@ -169,12 +173,13 @@ class BaseView extends GetView<BaseController> {
 
                     },
                     child: Container(
-                      width: 100,
+                      width: MediaQuery.of(context).size.width *.2,
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: <Widget>[
                           Icon(
+                            size: 30,
                             Icons.supervised_user_circle_outlined,
                             color: controller.currentIndex.value == 3
                                 ? AppColors.textColorGreen

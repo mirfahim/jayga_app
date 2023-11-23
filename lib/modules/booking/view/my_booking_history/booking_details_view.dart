@@ -1,13 +1,16 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:carousel_slider/carousel_slider.dart';
+import 'package:flutter/foundation.dart';
+import 'package:flutter/gestures.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:jayga/modules/auth/controller/auth_controller.dart';
 import 'package:jayga/modules/booking/view/my_booking_history/give_review.dart';
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
-
+import 'package:intl/intl.dart';
 import '../../controller/booking_controller.dart';
 
 class MyBookingHistoryDetailsView extends GetView<BookingController> {
@@ -43,85 +46,80 @@ class MyBookingHistoryDetailsView extends GetView<BookingController> {
             child:  Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Row(
-                  children: [
-                    Container(
-                        height: MediaQuery.of(context).size.height*.25,
-                        width: MediaQuery.of(context).size.width,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(20),
-                          border: Border.all(
-                              color: Colors.transparent, width: 2),
-                          color: AppColors.appBackGroundBrn,
-                        ),
-                        child: CarouselSlider(
-                          options: CarouselOptions(height: 400.0),
-                          items: data.images.map((i) {
-                            return Builder(
-                              builder: (BuildContext context) {
-                                return Container(
-                                  width: MediaQuery.of(context).size.width,
-                                  margin: EdgeInsets.symmetric(horizontal: 5.0),
-                                  decoration: BoxDecoration(
-                                      color: Colors.transparent
-                                  ),
-                                  child:   CachedNetworkImage(
-                                    imageUrl: "https://jayga.xyz/${index.listingTargetlocation}",
-                                    imageBuilder: (context, imageProvider) =>
-                                        Container(
-                                          decoration: BoxDecoration(
-                                            color: Colors.transparent,
-                                            borderRadius: BorderRadius.circular(20),
-                                            image: DecorationImage(
-                                              image: imageProvider,
-                                              fit: BoxFit.fill,
-                                            ),
-                                          ),
-                                        ),
-                                    placeholder: (context, url) =>
-                                    const Padding(
-                                      padding: EdgeInsets.all(5.0),
-                                      child: Image(
-                                        image: AssetImage(
-                                          'assets/images/jayga_logo.png',
-                                        ),
-                                      ),
-                                    ),
-                                    errorWidget: (context, url, error) =>
-                                    const Padding(
-                                      padding: EdgeInsets.all(5.0),
-                                      child: Image(
-                                        image: AssetImage(
-                                          'assets/images/jayga_logo.png',),
-                                      ),
-                                    ),
-                                  ),
-                                );
-                              },
-                            );
-                          }).toList(),
-                        )
-
+                Container(
+                    height: MediaQuery.of(context).size.height*.25,
+                    width: MediaQuery.of(context).size.width *.9,
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(20),
+                      border: Border.all(
+                          color: Colors.transparent, width: 2),
+                      color: AppColors.appBackGroundBrn,
                     ),
-                    SizedBox(width: 20,),
-                    Container(
-                      width: MediaQuery.of(context).size.width * .7,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Text("Booking Details:",
-                            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: Colors.black54),),
-                          Text("${data.listing.bedNum.toString()} Bed, ${data.listing.bathroomNum.toString()} Bath",
-                            style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),),
-                          Text("Uttara, Dhaka",
-                            style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color:AppColors.textColorGreen),),
-
-                        ],
-                      ),
+                    child: CarouselSlider(
+                      options: CarouselOptions(height: 400.0,),
+                      items: data.listings!.images!.map((i) {
+                        return Builder(
+                          builder: (BuildContext context) {
+                            return Container(
+                              width: MediaQuery.of(context).size.width,
+                              margin: EdgeInsets.symmetric(horizontal: 5.0),
+                              decoration: BoxDecoration(
+                                  color: Colors.transparent
+                              ),
+                              child:   CachedNetworkImage(
+                                imageUrl: "https://new.jayga.io/uploads/listings/${i.listingFilename}",
+                                imageBuilder: (context, imageProvider) =>
+                                    Container(
+                                      decoration: BoxDecoration(
+                                        color: Colors.transparent,
+                                        borderRadius: BorderRadius.circular(20),
+                                        image: DecorationImage(
+                                          image: imageProvider,
+                                          fit: BoxFit.fill,
+                                        ),
+                                      ),
+                                    ),
+                                placeholder: (context, url) =>
+                                const Padding(
+                                  padding: EdgeInsets.all(5.0),
+                                  child: Image(
+                                    image: AssetImage(
+                                      'assets/images/jayga_logo.png',
+                                    ),
+                                  ),
+                                ),
+                                errorWidget: (context, url, error) =>
+                                const Padding(
+                                  padding: EdgeInsets.all(5.0),
+                                  child: Image(
+                                    image: AssetImage(
+                                      'assets/images/jayga_logo.png',),
+                                  ),
+                                ),
+                              ),
+                            );
+                          },
+                        );
+                      }).toList(),
                     )
-                  ],
-                ),
 
+                ),
+                SizedBox(width: 20,),
+                Container(
+                  width: MediaQuery.of(context).size.width * .7,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text("Booking Details:",
+                        style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: Colors.black54),),
+                      Text("${data.listings!.bedNum.toString()} Bed, ${data.listings!.bathroomNum.toString()} Bath",
+                        style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),),
+                      Text("Uttara, Dhaka",
+                        style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color:AppColors.textColorGreen),),
+
+                    ],
+                  ),
+                ),
                 Container(
                   width: MediaQuery.of(context).size.width ,
                   child: Column(
@@ -129,15 +127,15 @@ class MyBookingHistoryDetailsView extends GetView<BookingController> {
                     children: [
                       Text("Check In Time:",
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),),
-                      Text("12:00 PM 12th August 2023",
+                      Text(DateFormat.yMd().add_jm().format(data.listings!.createdAt),
                         style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: Colors.black54),),
                       Text("Check Out Time:",
                         style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),),
-                      Text("12:00 PM 17th August 2023",
+                      Text(DateFormat.yMd().add_jm().format(data.listings!.createdAt),
                         style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: Colors.black54),),
-                      SizedBox(height: 10,),
-                      Text("Want to change the date?",
-                        style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: AppColors.textColorGreen),),
+                      // SizedBox(height: 10,),
+                      // Text("Want to change the date?",
+                      //   style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: AppColors.textColorGreen),),
 
                     ],
                   ),
@@ -148,18 +146,49 @@ class MyBookingHistoryDetailsView extends GetView<BookingController> {
 
                 Text("View on map:",
                   style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: AppColors.textColorGreen),),
-                Container(
-                  // color: AppColors.backgroundColor,
-                  child: Image.asset(
-                    'assets/images/map.png',
-                    height: MediaQuery.of(context).size.height *.2,
-                    width: MediaQuery.of(context).size.width ,
-                  ),
+                Stack(
+                  children: [
+                    SizedBox(
+                      height:
+                      MediaQuery.of(context).size.height *
+                          .4,
+                      width: MediaQuery.of(context).size.width,
+                      child: GoogleMap(
+                          gestureRecognizers: Set()
+                            ..add(Factory<PanGestureRecognizer>(
+                                    () => PanGestureRecognizer()))
+                            ..add(Factory<
+                                VerticalDragGestureRecognizer>(
+                                    () =>
+                                    VerticalDragGestureRecognizer())),
+                          zoomControlsEnabled: true,
+                          scrollGesturesEnabled: true,
+                          initialCameraPosition: CameraPosition(
+                            target: LatLng(
+                                double.parse(data.listings!.lat),
+                                double.parse(data.listings!.long)),
+                            zoom: 20,
+                            //target: LatLng(23.797911, 90.414391),
+                          ),
+                          markers: {
+                            Marker(
+                              markerId:
+                              MarkerId('selected-location'),
+                              position: LatLng(
+                                  double.parse(data.listings!.lat),
+                                  double.parse(data.listings!.long)),
+                              infoWindow: InfoWindow(
+                                title: 'Selected Location',
+                              ),
+                            ),
+                          }),
+                    ),
+                  ],
                 ),
                 SizedBox(height: 10,),
                 Divider(),
                 ListTile(
-                  title: Text("Kaif Shiam", style: TextStyle(fontSize: 22),),
+                  title: Text(data.listings!.listerName, style: TextStyle(fontSize: 22),),
                   subtitle: Text("Hosted by"),
                   trailing: Container(
                     height: 100,
@@ -176,6 +205,42 @@ class MyBookingHistoryDetailsView extends GetView<BookingController> {
                   children: [
                     Icon(Icons.star, color: Colors.orange,),
                     Text("15 host reviews", style: TextStyle(fontSize: 15),),
+                    Spacer(),
+                    InkWell(
+                      onTap: () {
+                        Get.to(GiveReviewScreen(), arguments: [index]);
+                        //  Get.toNamed(Routes.HOME);
+                        //controller.visible.value++;
+                        // controller.loginController();
+                      },
+                      child: AnimatedContainer(
+                        duration: Duration(seconds: 2),
+                        height: controller.visible.value == 1 ? 50 : 40,
+                        width: controller.visible.value == 1 ? 50 : 140,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: Colors.orange),
+
+                            borderRadius: BorderRadius.circular(
+                                controller.visible.value == 1 ? 60 : 50)),
+
+                        alignment: Alignment.center,
+                        child: controller.visible.value == 1
+                            ? Center(child: CircularProgressIndicator())
+                            : Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                              children: [
+                                Text(
+                          "Add Review",
+                          style: TextStyle(
+                                color: AppColors.textColorBlack,
+                                fontSize: 12,
+                          ),
+                        ),
+                                Icon(Icons.add, color: Colors.orange,)
+                              ],
+                            ),
+                      ),
+                    ),
                   ],
                 ),
                 Row(
@@ -184,6 +249,8 @@ class MyBookingHistoryDetailsView extends GetView<BookingController> {
                     Text("Identity Verified", style: TextStyle(fontSize: 15),),
                   ],
                 ),
+
+                SizedBox(height: 10,),
                 InkWell(
                   onTap: () {
                     Get.to(GiveReviewScreen(), arguments: [index]);

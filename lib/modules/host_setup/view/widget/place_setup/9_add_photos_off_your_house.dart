@@ -28,7 +28,7 @@ class AddPhotosOfHouse extends GetView<HostController> {
                 children: [
 
                   Container(
-                    height: MediaQuery.of(context).size.height *.7,
+                    height: MediaQuery.of(context).size.height *.72,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(40)),

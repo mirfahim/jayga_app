@@ -24,7 +24,7 @@ class WhichOfPlace extends GetView<HostController> {
                 children: [
 
                   Container(
-                    height: MediaQuery.of(context).size.height *.7,
+                    height: MediaQuery.of(context).size.height *.82,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(40)),
@@ -58,18 +58,16 @@ class WhichOfPlace extends GetView<HostController> {
                             children: [
                               InkWell(
                                 onTap:(){
-                                  if(controller.house.value == 0){
-                                    controller.house.value = 1;
-                                  }else {
-                                    controller.house.value = 0;
-                                  }
+
+                                    controller.listingType.value = "House";
+
 
                     },
                                 child: Container(
-                                  height: MediaQuery.of(context).size.height *.1,
+                                  height: MediaQuery.of(context).size.height *.122,
                                     width: MediaQuery.of(context).size.width *.3,
                                   decoration: BoxDecoration(
-                                      color: controller.house.value ==  0 ? Colors.white : Colors.green,
+                                      color: controller.listingType.value != "House" ? Colors.white : Colors.green,
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Card(
                                     child: Column(
@@ -83,10 +81,12 @@ class WhichOfPlace extends GetView<HostController> {
                                               borderRadius: BorderRadius.circular(5),
                                               image: DecorationImage(
 
+
                                                 fit: BoxFit.fill,
                                                 image: AssetImage(
 
-                                                  'assets/icons/cabin.png',
+
+                                                  'assets/icons/host/place_type/house.png',
                                                 ),
                                               )),
                                         ),
@@ -98,18 +98,17 @@ class WhichOfPlace extends GetView<HostController> {
                               ),
                               InkWell(
                                   onTap:(){
-                                    if(controller.flat.value == 0){
-                                      controller.flat.value = 1;
-                                    }else {
-                                      controller.flat.value = 0;
-                                    }
+
+                                      controller.listingType.value = "Flat";
+
 
                                   },
+                                  
                              child: Container(
-                                  height: MediaQuery.of(context).size.height *.1,
+                                  height: MediaQuery.of(context).size.height *.12,
                                   width: MediaQuery.of(context).size.width *.3,
                                   decoration: BoxDecoration(
-                                      color: controller.flat.value == 0 ? Colors.white : Colors.green,
+                                      color: controller.listingType.value != "Flat" ? Colors.white : Colors.green,
 
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Card(
@@ -124,7 +123,7 @@ class WhichOfPlace extends GetView<HostController> {
                                               image: DecorationImage(
                                                 fit: BoxFit.fill,
                                                 image: AssetImage(
-                                                  'assets/icons/cabin.png',
+                                                  'assets/icons/host/place_type/apartment.png',
                                                 ),
                                               )),
                                         ),
@@ -140,19 +139,17 @@ class WhichOfPlace extends GetView<HostController> {
                             children: [
                               InkWell(
                                 onTap:(){
-                                  if(controller.cabin.value == 0){
-                                    controller.cabin.value = 1;
-                                  }else {
-                                    controller.cabin.value = 0;
-                                  }
+
+                                    controller.listingType.value = "Cabin";
+
 
                                 },
                                 child:
                               Container(
-                                  height: MediaQuery.of(context).size.height *.1,
+                                  height: MediaQuery.of(context).size.height *.12,
                                   width: MediaQuery.of(context).size.width *.3,
                                   decoration: BoxDecoration(
-                                      color: controller.cabin.value == 0 ? Colors.white : Colors.green,
+                                      color: controller.listingType.value != "Cabin" ? Colors.white : Colors.green,
 
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Card(
@@ -170,7 +167,7 @@ class WhichOfPlace extends GetView<HostController> {
                                                 fit: BoxFit.fill,
                                                 image: AssetImage(
 
-                                                  'assets/icons/cabin.png',
+                                                  'assets/icons/host/place_type/cabin.png',
                                                 ),
                                               )),
                                         ),
@@ -181,19 +178,17 @@ class WhichOfPlace extends GetView<HostController> {
                               )),
                               InkWell(
                                 onTap:(){
-                                  if(controller.lounge.value == 0){
-                                    controller.lounge.value = 1;
-                                  }else {
-                                    controller.lounge.value = 0;
-                                  }
+
+                                    controller.listingType.value = "Lounge";
+
 
                                 },
                                 child:
                               Container(
-                                  height: MediaQuery.of(context).size.height *.1,
+                                  height: MediaQuery.of(context).size.height *.12,
                                   width: MediaQuery.of(context).size.width *.3,
                                   decoration: BoxDecoration(
-                                      color: controller.lounge.value == 0 ? Colors.white : Colors.green,
+                                      color: controller.listingType.value != "Lounge" ? Colors.white : Colors.green,
 
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Card(
@@ -208,7 +203,7 @@ class WhichOfPlace extends GetView<HostController> {
                                               image: DecorationImage(
                                                 fit: BoxFit.fill,
                                                 image: AssetImage(
-                                                  'assets/icons/cabin.png',
+                                                  'assets/icons/host/place_type/lounge.png',
                                                 ),
                                               )),
                                         ),
@@ -224,19 +219,17 @@ class WhichOfPlace extends GetView<HostController> {
                             children: [
                               InkWell(
                                 onTap:(){
-                                  if(controller.farm.value == 0){
-                                    controller.farm.value = 1;
-                                  }else {
-                                    controller.farm.value = 0;
-                                  }
+
+                                    controller.listingType.value = "Farm";
+
 
                                 },
                                 child:
                               Container(
-                                  height: MediaQuery.of(context).size.height *.1,
+                                  height: MediaQuery.of(context).size.height *.12,
                                   width: MediaQuery.of(context).size.width *.3,
                                   decoration: BoxDecoration(
-                                      color: controller.farm.value == 0 ? Colors.white : Colors.green,
+                                      color: controller.listingType.value != "Farm" ? Colors.white : Colors.green,
 
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Card(
@@ -254,7 +247,7 @@ class WhichOfPlace extends GetView<HostController> {
                                                 fit: BoxFit.fill,
                                                 image: AssetImage(
 
-                                                  'assets/icons/cabin.png',
+                                                  'assets/icons/host/place_type/farm.png',
                                                 ),
                                               )),
                                         ),
@@ -265,19 +258,17 @@ class WhichOfPlace extends GetView<HostController> {
                               )),
                               InkWell(
                                 onTap:(){
-                                  if(controller.campsite.value == 0){
-                                    controller.campsite.value = 1;
-                                  }else {
-                                    controller.campsite.value = 0;
-                                  }
+
+                                    controller.listingType.value = "Camp site";
+
 
                                 },
                                 child:
                               Container(
-                                  height: MediaQuery.of(context).size.height *.1,
+                                  height: MediaQuery.of(context).size.height *.12,
                                   width: MediaQuery.of(context).size.width *.3,
                                   decoration: BoxDecoration(
-                                      color: controller.campsite.value == 0 ? Colors.white : Colors.green,
+                                      color:  controller.listingType.value != "Camp site" ? Colors.white : Colors.green,
 
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Card(
@@ -292,7 +283,7 @@ class WhichOfPlace extends GetView<HostController> {
                                               image: DecorationImage(
                                                 fit: BoxFit.fill,
                                                 image: AssetImage(
-                                                  'assets/icons/cabin.png',
+                                                  'assets/icons/host/place_type/camping-tent.png',
                                                 ),
                                               )),
                                         ),
@@ -308,19 +299,17 @@ class WhichOfPlace extends GetView<HostController> {
                             children: [
                               InkWell(
                                 onTap:(){
-                                  if(controller.hotel.value == 0){
-                                    controller.hotel.value = 1;
-                                  }else {
-                                    controller.hotel.value = 0;
-                                  }
+
+                                  controller.listingType.value = "Hotel";
+
 
                                 },
                                 child:
                               Container(
-                                  height: MediaQuery.of(context).size.height *.1,
+                                  height: MediaQuery.of(context).size.height *.12,
                                   width: MediaQuery.of(context).size.width *.3,
                                   decoration: BoxDecoration(
-                                      color: controller.hotel.value == 0 ? Colors.white : Colors.green,
+                                      color: controller.listingType.value != "Hotel" ? Colors.white : Colors.green,
 
                                       borderRadius: BorderRadius.circular(10)),
                                   child: Card(
@@ -338,7 +327,7 @@ class WhichOfPlace extends GetView<HostController> {
                                                 fit: BoxFit.fill,
                                                 image: AssetImage(
 
-                                                  'assets/icons/cabin.png',
+                                                  'assets/icons/host/place_type/hotel.png',
                                                 ),
                                               )),
                                         ),
@@ -347,43 +336,7 @@ class WhichOfPlace extends GetView<HostController> {
                                     ),
                                   )
                               )),
-                              InkWell(
-                                onTap:(){
-                                  if(controller.bedBrk.value == 0){
-                                    controller.bedBrk.value = 1;
-                                  }else {
-                                    controller.bedBrk.value = 0;
-                                  }
 
-                                },
-                                child:
-                              Container(
-                                  height: MediaQuery.of(context).size.height *.1,
-                                  width: MediaQuery.of(context).size.width *.3,
-                                  decoration: BoxDecoration(
-                                      color: controller.bedBrk.value == 0 ? Colors.white : Colors.green,
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Card(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-                                      children: [
-                                        Container(
-                                          height: 30,
-                                          width: 30,
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(5),
-                                              image: DecorationImage(
-                                                fit: BoxFit.fill,
-                                                image: AssetImage(
-                                                  'assets/icons/cabin.png',
-                                                ),
-                                              )),
-                                        ),
-                                        Text("Bed & Breakfast")
-                                      ],
-                                    ),
-                                  )
-                              )),
                             ],
                           ),
 

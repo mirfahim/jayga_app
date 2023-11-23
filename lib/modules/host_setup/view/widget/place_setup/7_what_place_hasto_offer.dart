@@ -58,7 +58,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qwifi.value == 0
@@ -78,7 +78,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/wifi.png',
                                             ),
                                           )),
                                     ),
@@ -96,7 +96,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qTv.value == 0
@@ -116,7 +116,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/television.png',
                                             ),
                                           )),
                                     ),
@@ -139,7 +139,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                               }
                             },
                             child: Container(
-                                height: MediaQuery.of(context).size.height * .1,
+                                height: MediaQuery.of(context).size.height *.12,
                                 width: MediaQuery.of(context).size.width * .3,
                                 decoration: BoxDecoration(
                                     color: controller.qKitchen.value == 0
@@ -159,7 +159,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                             image: DecorationImage(
                                               fit: BoxFit.fill,
                                               image: AssetImage(
-                                                'assets/icons/cabin.png',
+                                                'assets/icons/host/place_offer/kitchen-table.png',
                                               ),
                                             )),
                                       ),
@@ -176,7 +176,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                               }
                             },
                             child: Container(
-                                height: MediaQuery.of(context).size.height * .1,
+                                height: MediaQuery.of(context).size.height *.12,
                                 width: MediaQuery.of(context).size.width * .3,
                                 decoration: BoxDecoration(
                                     color: controller.qwmachine.value == 0
@@ -196,7 +196,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                             image: DecorationImage(
                                               fit: BoxFit.fill,
                                               image: AssetImage(
-                                                'assets/icons/cabin.png',
+                                                'assets/icons/host/place_offer/washing-machine.png',
                                               ),
                                             )),
                                       ),
@@ -218,7 +218,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qfreeParking.value == 0
@@ -238,7 +238,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/parked_car.png',
                                             ),
                                           )),
                                     ),
@@ -256,7 +256,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qbreakFast.value == 0
@@ -276,7 +276,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/wifi.png',
                                             ),
                                           )),
                                     ),
@@ -299,7 +299,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qAirCOn.value == 0
@@ -319,7 +319,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/ac.png',
                                             ),
                                           )),
                                     ),
@@ -337,7 +337,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qWorkSpace.value == 0
@@ -357,7 +357,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/workspace.png',
                                             ),
                                           )),
                                     ),
@@ -387,7 +387,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qPool.value == 0
@@ -407,7 +407,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/pool.png',
                                             ),
                                           )),
                                     ),
@@ -425,7 +425,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qHotTub.value == 0
@@ -445,7 +445,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/hottub.png',
                                             ),
                                           )),
                                     ),
@@ -468,7 +468,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qPatio.value == 0
@@ -488,7 +488,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/patio.png',
                                             ),
                                           )),
                                     ),
@@ -506,7 +506,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qBBqGrill.value == 0
@@ -526,7 +526,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/bbq.png',
                                             ),
                                           )),
                                     ),
@@ -549,7 +549,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qDiningArea.value == 0
@@ -569,7 +569,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/outdoor.png',
                                             ),
                                           )),
                                     ),
@@ -587,7 +587,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qFirePit.value == 0
@@ -607,7 +607,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/fire_pit.png',
                                             ),
                                           )),
                                     ),
@@ -630,7 +630,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qGym.value == 0
@@ -650,7 +650,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/gym.png',
                                             ),
                                           )),
                                     ),
@@ -668,7 +668,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qLakeAccess.value == 0
@@ -688,7 +688,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/lake.png',
                                             ),
                                           )),
                                     ),
@@ -718,7 +718,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qSmokeAlarm.value == 0
@@ -738,7 +738,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/smoke.png',
                                             ),
                                           )),
                                     ),
@@ -756,7 +756,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qFirstAidKit.value == 0
@@ -776,7 +776,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/aid.png',
                                             ),
                                           )),
                                     ),
@@ -799,7 +799,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qFireExtinguisher.value == 0
@@ -819,7 +819,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/fire_ext.png',
                                             ),
                                           )),
                                     ),
@@ -837,7 +837,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                             }
                           },
                           child: Container(
-                              height: MediaQuery.of(context).size.height * .1,
+                              height: MediaQuery.of(context).size.height *.12,
                               width: MediaQuery.of(context).size.width * .3,
                               decoration: BoxDecoration(
                                   color: controller.qCCtv.value == 0
@@ -857,7 +857,7 @@ class WhatPlaceHasToOffer extends GetView<HostController> {
                                           image: DecorationImage(
                                             fit: BoxFit.fill,
                                             image: AssetImage(
-                                              'assets/icons/cabin.png',
+                                              'assets/icons/host/place_offer/cctv.png',
                                             ),
                                           )),
                                     ),

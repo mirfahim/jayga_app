@@ -93,10 +93,11 @@ class LoginView extends GetView<AuthController> {
                   }else {
                     controller.box.value.write('phone', controller.phoneNumCOntroller.value.text);
                     print("my phn no is${controller.phoneNumCOntroller.value.text}");
-                    controller.makeRandomOtpNUm().then((e){
-
-                      Get.offNamed(Routes.OTPPAGE);
-                    });
+                    // controller.makeRandomOtpNUm().then((e){
+                    //
+                    //   Get.offNamed(Routes.OTPPAGE);
+                    // });
+                    controller.loginController();
                     //controller.sendOTP(context);
 
                   }
@@ -128,96 +129,96 @@ class LoginView extends GetView<AuthController> {
                 ),
               ),
               Divider(),
-              InkWell(
-                onTap: () {
-
-                 // Get.toNamed(Routes.REGISTER);
-                  //controller.visible.value++;
-                  // controller.loginController();
-                },
-                child: AnimatedContainer(
-                  duration: Duration(seconds: 2),
-                  height: controller.visibleForGoogle.value == 1 ? 50 : 60,
-                  width: controller.visibleForGoogle.value == 1
-                      ? MediaQuery.of(context).size.width * .5
-                      : MediaQuery.of(context).size.width * .9,
-                  decoration: BoxDecoration(
-                      color: AppColors.jaygaWhite,
-                      borderRadius: BorderRadius.circular(
-                          controller.visibleForGoogle.value == 1 ? 10 : 10)),
-                  alignment: Alignment.center,
-                  child: controller.visibleForGoogle.value == 1
-                      ? Center(child: CircularProgressIndicator())
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 100,
-                              child: Image.asset(
-                                'assets/icons/gmail.png',
-                              ),
-                            ),
-                            SizedBox(width: 20,),
-                            Container(
-                              width: 200,
-                              child: Text(
-                                "Sign In With Gmail",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                ),
-              ),
-              SizedBox(
-                height: 10,
-              ),
-              InkWell(
-                onTap: () {
-                //  Get.toNamed(Routes.OTPPAGE);
-                  //controller.visible.value++;
-                  // controller.loginController();
-                },
-                child: AnimatedContainer(
-                  duration: Duration(seconds: 2),
-                  height: controller.visibleForFB.value == 1 ? 50 : 60,
-                  width: controller.visibleForFB.value == 1
-                      ? MediaQuery.of(context).size.width * .5
-                      : MediaQuery.of(context).size.width * .9,
-                  decoration: BoxDecoration(
-                      color: AppColors.jaygaWhite,
-                      borderRadius: BorderRadius.circular(
-                          controller.visibleForFB.value == 1 ? 10 : 10)),
-                  alignment: Alignment.center,
-                  child: controller.visibleForFB.value == 1
-                      ? Center(child: CircularProgressIndicator())
-                      : Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Container(
-                              width: 100,
-                              child: Image.asset(
-                                'assets/icons/fb.png',
-                              ),
-                            ),
-                            SizedBox(width: 20,),
-                            Container(
-                              width: 200,
-                              child: Text(
-                                "Sign In With Facebook",
-                                style: TextStyle(
-                                  color: Colors.black,
-                                  fontSize: 12,
-                                ),
-                              ),
-                            ),
-                          ],
-                        ),
-                ),
-              ),
+              // InkWell(
+              //   onTap: () {
+              //
+              //    // Get.toNamed(Routes.REGISTER);
+              //     //controller.visible.value++;
+              //     // controller.loginController();
+              //   },
+              //   child: AnimatedContainer(
+              //     duration: Duration(seconds: 2),
+              //     height: controller.visibleForGoogle.value == 1 ? 50 : 60,
+              //     width: controller.visibleForGoogle.value == 1
+              //         ? MediaQuery.of(context).size.width * .5
+              //         : MediaQuery.of(context).size.width * .9,
+              //     decoration: BoxDecoration(
+              //         color: AppColors.jaygaWhite,
+              //         borderRadius: BorderRadius.circular(
+              //             controller.visibleForGoogle.value == 1 ? 10 : 10)),
+              //     alignment: Alignment.center,
+              //     child: controller.visibleForGoogle.value == 1
+              //         ? Center(child: CircularProgressIndicator())
+              //         : Row(
+              //             mainAxisAlignment: MainAxisAlignment.center,
+              //             children: [
+              //               Container(
+              //                 width: 100,
+              //                 child: Image.asset(
+              //                   'assets/icons/gmail.png',
+              //                 ),
+              //               ),
+              //               SizedBox(width: 20,),
+              //               Container(
+              //                 width: 200,
+              //                 child: Text(
+              //                   "Sign In With Gmail",
+              //                   style: TextStyle(
+              //                     color: Colors.black,
+              //                     fontSize: 12,
+              //                   ),
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //   ),
+              // ),
+              // SizedBox(
+              //   height: 10,
+              // ),
+              // InkWell(
+              //   onTap: () {
+              //   //  Get.toNamed(Routes.OTPPAGE);
+              //     //controller.visible.value++;
+              //     // controller.loginController();
+              //   },
+              //   child: AnimatedContainer(
+              //     duration: Duration(seconds: 2),
+              //     height: controller.visibleForFB.value == 1 ? 50 : 60,
+              //     width: controller.visibleForFB.value == 1
+              //         ? MediaQuery.of(context).size.width * .5
+              //         : MediaQuery.of(context).size.width * .9,
+              //     decoration: BoxDecoration(
+              //         color: AppColors.jaygaWhite,
+              //         borderRadius: BorderRadius.circular(
+              //             controller.visibleForFB.value == 1 ? 10 : 10)),
+              //     alignment: Alignment.center,
+              //     child: controller.visibleForFB.value == 1
+              //         ? Center(child: CircularProgressIndicator())
+              //         : Row(
+              //             mainAxisAlignment: MainAxisAlignment.center,
+              //             children: [
+              //               Container(
+              //                 width: 100,
+              //                 child: Image.asset(
+              //                   'assets/icons/fb.png',
+              //                 ),
+              //               ),
+              //               SizedBox(width: 20,),
+              //               Container(
+              //                 width: 200,
+              //                 child: Text(
+              //                   "Sign In With Facebook",
+              //                   style: TextStyle(
+              //                     color: Colors.black,
+              //                     fontSize: 12,
+              //                   ),
+              //                 ),
+              //               ),
+              //             ],
+              //           ),
+              //   ),
+              // ),
             ],
           ),
         );

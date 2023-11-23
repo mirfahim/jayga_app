@@ -82,12 +82,12 @@ class ProfileDetailView extends GetView<HomeController> {
                         child: TextFormField(
                           maxLines: 1,
                           controller: controller.nameController.value,
-                          keyboardType: TextInputType.number,
+                          keyboardType: TextInputType.text,
                           decoration: new InputDecoration(
                             filled: true,
                             fillColor: AppColors.jaygaWhite,
                             focusColor: Colors.white,
-                            labelText: 'Profile Name',
+                            labelText: Get.find<HomeController>().profileData.value.userData!.first.name,
                             // suffixIcon: Icon(
                             //   Icons.email_outlined,
                             // ),

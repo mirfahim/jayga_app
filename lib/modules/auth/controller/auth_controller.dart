@@ -93,7 +93,7 @@ class AuthController extends GetxController {
     final DateTime? picked = await showDatePicker(
       context: context,
       initialDate: selectBirthDate,
-      firstDate: DateTime.now(),
+      firstDate:  DateTime(1900),
       lastDate: DateTime(2100),
     );
     if (picked != null && picked != selectBirthDate) {

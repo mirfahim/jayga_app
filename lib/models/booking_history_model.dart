@@ -1,117 +1,122 @@
 // To parse this JSON data, do
 //
-//     final bookingHistoryModel = bookingHistoryModelFromJson(jsonString);
+//     final bookingHistory = bookingHistoryFromJson(jsonString);
 
 import 'dart:convert';
 
-BookingHistoryModel bookingHistoryModelFromJson(String str) => BookingHistoryModel.fromJson(json.decode(str));
+BookingHistory bookingHistoryFromJson(String str) => BookingHistory.fromJson(json.decode(str));
 
-String bookingHistoryModelToJson(BookingHistoryModel data) => json.encode(data.toJson());
-
-class BookingHistoryModel {
-  List<BookingHistory> bookings;
-
-  BookingHistoryModel({
-    required this.bookings,
-  });
-
-  factory BookingHistoryModel.fromJson(Map<String, dynamic> json) => BookingHistoryModel(
-    bookings: List<BookingHistory>.from(json["bookings"].map((x) => BookingHistory.fromJson(x))),
-  );
-
-  Map<String, dynamic> toJson() => {
-    "bookings": List<dynamic>.from(bookings.map((x) => x.toJson())),
-  };
-}
+String bookingHistoryToJson(BookingHistory data) => json.encode(data.toJson());
 
 class BookingHistory {
-  String bookingId;
-  String userId;
-  String listingId;
-  String listerId;
-  dynamic timeFlag;
-  dynamic timeId;
-  dynamic allDayFlag;
-  String daysStayed;
-  DateTime dateEnter;
-  DateTime dateExit;
-  dynamic payAmount;
-  dynamic paymentFlag;
-  ListingHistory listing;
-  List<Image> images;
+  bool? status;
+  List<Booking>? bookings;
 
   BookingHistory({
-    required this.bookingId,
-    required this.userId,
-    required this.listingId,
-    required this.listerId,
-    required this.timeFlag,
-    required this.timeId,
-    required this.allDayFlag,
-    required this.daysStayed,
-    required this.dateEnter,
-    required this.dateExit,
-    required this.payAmount,
-    required this.paymentFlag,
-    required this.listing,
-    required this.images,
+     this.status,
+     this.bookings,
   });
 
   factory BookingHistory.fromJson(Map<String, dynamic> json) => BookingHistory(
+    status: json["status"],
+    bookings: List<Booking>.from(json["bookings"].map((x) => Booking.fromJson(x))),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "status": status,
+    "bookings": List<dynamic>.from(bookings!.map((x) => x.toJson())),
+  };
+}
+
+class Booking {
+  String? bookingId;
+  String? bookingOrderName;
+  String? transactionId;
+  String? userId;
+  String? listingId;
+  String? listerId;
+  String? shortStayFlag;
+  String? allDayFlag;
+  String? daysStayed;
+  String? dateEnter;
+  String? dateExit;
+  String? tier;
+  String? bookingStatus;
+  String? payAmount;
+  String? paymentFlag;
+  DateTime? createdAt;
+  DateTime? updatedAt;
+  Listings? listings;
+
+  Booking({
+     this.bookingId,
+     this.bookingOrderName,
+     this.transactionId,
+     this.userId,
+     this.listingId,
+     this.listerId,
+     this.shortStayFlag,
+     this.allDayFlag,
+     this.daysStayed,
+     this.dateEnter,
+     this.dateExit,
+     this.tier,
+     this.payAmount,
+     this.paymentFlag,
+     this.createdAt,
+     this.updatedAt,
+     this.listings,
+    this.bookingStatus
+  });
+
+  factory Booking.fromJson(Map<String, dynamic> json) => Booking(
     bookingId: json["booking_id"],
+    bookingOrderName: json["booking_order_name"],
+    transactionId: json["transaction_id"],
     userId: json["user_id"],
     listingId: json["listing_id"],
     listerId: json["lister_id"],
-    timeFlag: json["time_flag"],
-    timeId: json["time_id"],
+    shortStayFlag: json["short_stay_flag"],
     allDayFlag: json["all_day_flag"],
     daysStayed: json["days_stayed"],
-    dateEnter: DateTime.parse(json["date_enter"]),
-    dateExit: DateTime.parse(json["date_exit"]),
+    dateEnter: json["date_enter"],
+    dateExit: json["date_exit"],
+    tier: json["tier"],
+    bookingStatus: json["booking_status"],
     payAmount: json["pay_amount"],
     paymentFlag: json["payment_flag"],
-    listing: ListingHistory.fromJson(json["listing"]),
-    images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+    listings: Listings.fromJson(json["listings"]),
   );
 
   Map<String, dynamic> toJson() => {
     "booking_id": bookingId,
+    "booking_order_name": bookingOrderName,
+    "transaction_id": transactionId,
     "user_id": userId,
     "listing_id": listingId,
     "lister_id": listerId,
-    "time_flag": timeFlag,
-    "time_id": timeId,
+    "short_stay_flag": shortStayFlag,
     "all_day_flag": allDayFlag,
     "days_stayed": daysStayed,
-    "date_enter": "${dateEnter.year.toString().padLeft(4, '0')}-${dateEnter.month.toString().padLeft(2, '0')}-${dateEnter.day.toString().padLeft(2, '0')}",
-    "date_exit": "${dateExit.year.toString().padLeft(4, '0')}-${dateExit.month.toString().padLeft(2, '0')}-${dateExit.day.toString().padLeft(2, '0')}",
+    "date_enter": dateEnter,
+    "date_exit": dateExit,
+    "tier": tier,
+    "booking_status" : bookingStatus,
     "pay_amount": payAmount,
     "payment_flag": paymentFlag,
-    "listing": listing.toJson(),
-    "images": List<dynamic>.from(images.map((x) => x.toJson())),
+    "created_at": createdAt!.toIso8601String(),
+    "updated_at": updatedAt!.toIso8601String(),
+    "listings": listings!.toJson(),
   };
 }
 
-class Image {
-  String listingFilename;
-
-  Image({
-    required this.listingFilename,
-  });
-
-  factory Image.fromJson(Map<String, dynamic> json) => Image(
-    listingFilename: json["listing_filename"],
-  );
-
-  Map<String, dynamic> toJson() => {
-    "listing_filename": listingFilename,
-  };
-}
-
-class ListingHistory {
+class Listings {
   String listingId;
-  String listerId;
+  dynamic listerId;
   String listerName;
+  dynamic nidNumber;
   String guestNum;
   String bedNum;
   String bathroomNum;
@@ -119,9 +124,9 @@ class ListingHistory {
   String listingDescription;
   String fullDayPriceSetByUser;
   String listingAddress;
-  String zipCode;
   String district;
   String town;
+  String zipCode;
   String allowShortStay;
   String describePeaceful;
   String describeUnique;
@@ -129,18 +134,23 @@ class ListingHistory {
   String describeStylish;
   String describeCentral;
   String describeSpacious;
-  String bathroomPrivate;
-  String breakfastAvailability;
-  String roomLock;
-  String whoElseMightBeThere;
+  String privateBathroom;
+  String doorLock;
+  String breakfastIncluded;
+  String unknownGuestEntry;
   String listingType;
-  dynamic lati;
-  dynamic longi;
+  dynamic lat;
+  dynamic long;
+  String isApproved;
+  DateTime createdAt;
+  DateTime updatedAt;
+  List<Image> images;
 
-  ListingHistory({
+  Listings({
     required this.listingId,
     required this.listerId,
     required this.listerName,
+    required this.nidNumber,
     required this.guestNum,
     required this.bedNum,
     required this.bathroomNum,
@@ -148,9 +158,9 @@ class ListingHistory {
     required this.listingDescription,
     required this.fullDayPriceSetByUser,
     required this.listingAddress,
-    required this.zipCode,
     required this.district,
     required this.town,
+    required this.zipCode,
     required this.allowShortStay,
     required this.describePeaceful,
     required this.describeUnique,
@@ -158,19 +168,24 @@ class ListingHistory {
     required this.describeStylish,
     required this.describeCentral,
     required this.describeSpacious,
-    required this.bathroomPrivate,
-    required this.breakfastAvailability,
-    required this.roomLock,
-    required this.whoElseMightBeThere,
+    required this.privateBathroom,
+    required this.doorLock,
+    required this.breakfastIncluded,
+    required this.unknownGuestEntry,
     required this.listingType,
-    required this.lati,
-    required this.longi,
+    required this.lat,
+    required this.long,
+    required this.isApproved,
+    required this.createdAt,
+    required this.updatedAt,
+    required this.images,
   });
 
-  factory ListingHistory.fromJson(Map<String, dynamic> json) => ListingHistory(
+  factory Listings.fromJson(Map<String, dynamic> json) => Listings(
     listingId: json["listing_id"],
     listerId: json["lister_id"],
     listerName: json["lister_name"],
+    nidNumber: json["nid_number"],
     guestNum: json["guest_num"],
     bedNum: json["bed_num"],
     bathroomNum: json["bathroom_num"],
@@ -178,9 +193,9 @@ class ListingHistory {
     listingDescription: json["listing_description"],
     fullDayPriceSetByUser: json["full_day_price_set_by_user"],
     listingAddress: json["listing_address"],
-    zipCode: json["zip_code"],
     district: json["district"],
     town: json["town"],
+    zipCode: json["zip_code"],
     allowShortStay: json["allow_short_stay"],
     describePeaceful: json["describe_peaceful"],
     describeUnique: json["describe_unique"],
@@ -188,19 +203,24 @@ class ListingHistory {
     describeStylish: json["describe_stylish"],
     describeCentral: json["describe_central"],
     describeSpacious: json["describe_spacious"],
-    bathroomPrivate: json["bathroom_private"] ?? "No data",
-    breakfastAvailability: json["breakfast_availability"] ?? "No Data",
-    roomLock: json["room_lock"] ?? "No data",
-    whoElseMightBeThere: json["who_else_might_be_there"] ?? "No Data",
-    listingType: json["listing_type"] ?? "No Data",
-    lati: json["lati"],
-    longi: json["longi"],
+    privateBathroom: json["private_bathroom"],
+    doorLock: json["door_lock"],
+    breakfastIncluded: json["breakfast_included"],
+    unknownGuestEntry: json["unknown_guest_entry"],
+    listingType: json["listing_type"],
+    lat: json["lat"],
+    long: json["long"],
+    isApproved: json["isApproved"],
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+    images: List<Image>.from(json["images"].map((x) => Image.fromJson(x))),
   );
 
   Map<String, dynamic> toJson() => {
     "listing_id": listingId,
     "lister_id": listerId,
     "lister_name": listerName,
+    "nid_number": nidNumber,
     "guest_num": guestNum,
     "bed_num": bedNum,
     "bathroom_num": bathroomNum,
@@ -208,9 +228,9 @@ class ListingHistory {
     "listing_description": listingDescription,
     "full_day_price_set_by_user": fullDayPriceSetByUser,
     "listing_address": listingAddress,
-    "zip_code": zipCode,
     "district": district,
     "town": town,
+    "zip_code": zipCode,
     "allow_short_stay": allowShortStay,
     "describe_peaceful": describePeaceful,
     "describe_unique": describeUnique,
@@ -218,12 +238,92 @@ class ListingHistory {
     "describe_stylish": describeStylish,
     "describe_central": describeCentral,
     "describe_spacious": describeSpacious,
-    "bathroom_private": bathroomPrivate,
-    "breakfast_availability": breakfastAvailability,
-    "room_lock": roomLock,
-    "who_else_might_be_there": whoElseMightBeThere,
+    "private_bathroom": privateBathroom,
+    "door_lock": doorLock,
+    "breakfast_included": breakfastIncluded,
+    "unknown_guest_entry": unknownGuestEntry,
     "listing_type": listingType,
-    "lati": lati,
-    "longi": longi,
+    "lat": lat,
+    "long": long,
+    "isApproved": isApproved,
+    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt.toIso8601String(),
+    "images": List<dynamic>.from(images.map((x) => x.toJson())),
   };
+}
+
+class Image {
+  String listingImgId;
+  String listingId;
+  String listerId;
+  String listingFilename;
+  String listingTargetlocation;
+  DateTime createdAt;
+  DateTime updatedAt;
+
+  Image({
+    required this.listingImgId,
+    required this.listingId,
+    required this.listerId,
+    required this.listingFilename,
+    required this.listingTargetlocation,
+    required this.createdAt,
+    required this.updatedAt,
+  });
+
+  factory Image.fromJson(Map<String, dynamic> json) => Image(
+    listingImgId: json["listing_img_id"],
+    listingId: json["listing_id"],
+    listerId: json["lister_id"],
+    listingFilename: json["listing_filename"]!,
+    listingTargetlocation: json["listing_targetlocation"]!,
+    createdAt: DateTime.parse(json["created_at"]),
+    updatedAt: DateTime.parse(json["updated_at"]),
+  );
+
+  Map<String, dynamic> toJson() => {
+    "listing_img_id": listingImgId,
+    "listing_id": listingId,
+    "lister_id": listerId,
+    "listing_filename": listingFilename,
+    "listing_targetlocation": listingTargetlocation,
+    "created_at": createdAt.toIso8601String(),
+    "updated_at": updatedAt.toIso8601String(),
+  };
+}
+
+enum ListingFilename {
+  H_VBE_RJF_UP_Y0_DM_LM6_ZY4_V_X_YL_HAR8_SJF4_ZB_PWUB_V_CC_PNG,
+  KYO_GT80_JV_DA_CWPA_VD_IVLM_ZH_Y4_H_FH_V_YHQF1_FCTF5_P_PNG,
+  Z7_BF5_FK1_S_HS_K_HB_P4_CNQJN_EEP_XAY_K9_UGU_JY8_XWI_OP_PNG
+}
+
+final listingFilenameValues = EnumValues({
+  "hVbeRjfUpY0DmLM6ZY4vXYlHar8SJF4zbPwubVCc.png": ListingFilename.H_VBE_RJF_UP_Y0_DM_LM6_ZY4_V_X_YL_HAR8_SJF4_ZB_PWUB_V_CC_PNG,
+  "KYOGt80JvDACwpaVdIvlmZhY4hFhVYhqf1fctf5p.png": ListingFilename.KYO_GT80_JV_DA_CWPA_VD_IVLM_ZH_Y4_H_FH_V_YHQF1_FCTF5_P_PNG,
+  "z7Bf5FK1SHsKHbP4CnqjnEEPXayK9uguJY8xwiOP.png": ListingFilename.Z7_BF5_FK1_S_HS_K_HB_P4_CNQJN_EEP_XAY_K9_UGU_JY8_XWI_OP_PNG
+});
+
+enum ListingTargetlocation {
+  LISTINGS_H_VBE_RJF_UP_Y0_DM_LM6_ZY4_V_X_YL_HAR8_SJF4_ZB_PWUB_V_CC_PNG,
+  LISTINGS_KYO_GT80_JV_DA_CWPA_VD_IVLM_ZH_Y4_H_FH_V_YHQF1_FCTF5_P_PNG,
+  LISTINGS_Z7_BF5_FK1_S_HS_K_HB_P4_CNQJN_EEP_XAY_K9_UGU_JY8_XWI_OP_PNG
+}
+
+final listingTargetlocationValues = EnumValues({
+  "listings/hVbeRjfUpY0DmLM6ZY4vXYlHar8SJF4zbPwubVCc.png": ListingTargetlocation.LISTINGS_H_VBE_RJF_UP_Y0_DM_LM6_ZY4_V_X_YL_HAR8_SJF4_ZB_PWUB_V_CC_PNG,
+  "listings/KYOGt80JvDACwpaVdIvlmZhY4hFhVYhqf1fctf5p.png": ListingTargetlocation.LISTINGS_KYO_GT80_JV_DA_CWPA_VD_IVLM_ZH_Y4_H_FH_V_YHQF1_FCTF5_P_PNG,
+  "listings/z7Bf5FK1SHsKHbP4CnqjnEEPXayK9uguJY8xwiOP.png": ListingTargetlocation.LISTINGS_Z7_BF5_FK1_S_HS_K_HB_P4_CNQJN_EEP_XAY_K9_UGU_JY8_XWI_OP_PNG
+});
+
+class EnumValues<T> {
+  Map<String, T> map;
+  late Map<T, String> reverseMap;
+
+  EnumValues(this.map);
+
+  Map<T, String> get reverse {
+    reverseMap = map.map((k, v) => MapEntry(v, k));
+    return reverseMap;
+  }
 }

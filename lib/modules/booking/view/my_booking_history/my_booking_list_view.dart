@@ -1,3 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
+import 'package:carousel_slider/carousel_slider.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -33,12 +35,64 @@ class MyBookingListHISTORY extends GetView<BookingController> {
 
                       children: [
                         Container(
-                          // color: AppColors.backgroundColor,
-                          child: Image.asset(
-                            'assets/images/demo_room1.png',
-                            // height: MediaQuery.of(context).size.height *.5,
-                            // width: MediaQuery.of(context).size.width *.9,
-                          ),
+                            height: MediaQuery.of(context).size.height*.25,
+                            width: MediaQuery.of(context).size.width,
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(20),
+                              border: Border.all(
+                                  color: Colors.transparent, width: 2),
+                              color: AppColors.appBackGroundBrn,
+                            ),
+                            child: CarouselSlider(
+                              options: CarouselOptions(height: 400.0),
+                              items: controller.historyListModel.value.bookings![index].listings!.images.map((i) {
+
+                                return Builder(
+                                  builder: (BuildContext context) {
+                                    return Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      margin: EdgeInsets.symmetric(horizontal: 5.0),
+                                      decoration: BoxDecoration(
+                                          color: Colors.transparent
+                                      ),
+                                      child:   CachedNetworkImage(
+                                        //imageUrl: "http://new.jayga.xyz/uploads/listings/66dGWkgYLX5JyZGg0uHTv9N8M1bGhcCtBNzsX3MD.jpg",
+                                        imageUrl: "https://new.jayga.io/uploads/listings/${i.listingFilename}",
+                                        imageBuilder: (context, imageProvider) =>
+                                            Container(
+                                              decoration: BoxDecoration(
+                                                color: Colors.transparent,
+                                                borderRadius: BorderRadius.circular(20),
+                                                image: DecorationImage(
+                                                  image: imageProvider,
+                                                  fit: BoxFit.fill,
+                                                ),
+                                              ),
+                                            ),
+                                        placeholder: (context, url) =>
+                                        const Padding(
+                                          padding: EdgeInsets.all(5.0),
+                                          child: Image(
+                                            image: AssetImage(
+                                              'assets/images/jayga_logo.png',
+                                            ),
+                                          ),
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                        const Padding(
+                                          padding: EdgeInsets.all(5.0),
+                                          child: Image(
+                                            image: AssetImage(
+                                              'assets/images/jayga_logo.png',),
+                                          ),
+                                        ),
+                                      ),
+                                    );
+                                  },
+                                );
+                              }).toList(),
+                            )
+
                         ),
 
                         Positioned(
@@ -53,7 +107,7 @@ class MyBookingListHISTORY extends GetView<BookingController> {
                                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
-                                    Text(data.listing.listingAddress, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),),
+                                    Text(data.listings!.listingTitle, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),),
                                     Row(
 
                                       children: [
@@ -64,7 +118,7 @@ class MyBookingListHISTORY extends GetView<BookingController> {
 
                                   ],
                                 ),
-                                Text(data.listing.listingDescription, style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: Colors.white),),
+                                Text(data.listings!.listingDescription, style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: Colors.white),),
 
 
                               ],

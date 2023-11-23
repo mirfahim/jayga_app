@@ -16,7 +16,8 @@ class NidFormView extends GetView<HostController> {
 //index1
   @override
   Widget build(BuildContext context) {
-    return SingleChildScrollView(child: Obx(() {
+    return SingleChildScrollView(
+        child: Obx(() {
       return Container(
         color: AppColors.appBackGroundBrn,
         child: Column(
@@ -24,7 +25,7 @@ class NidFormView extends GetView<HostController> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Container(
-              height: MediaQuery.of(context).size.height * 1.2,
+              height: MediaQuery.of(context).size.height * 1.5,
               decoration: BoxDecoration(
                   color: Colors.white, borderRadius: BorderRadius.circular(40)),
               child: Padding(
@@ -164,10 +165,112 @@ class NidFormView extends GetView<HostController> {
                     SizedBox(
                       height: 30,
                     ),
+
                     Row(
                       children: [
                         Text(
                           "2.",
+                          style: TextStyle(
+                              fontWeight: FontWeight.normal,
+                              fontSize: 15,
+                              color: Colors.black),
+                        ),
+                        SizedBox(
+                          width: 5,
+                        ),
+                        Container(
+                          height: Get.size.height * .25,
+                          width: Get.size.width * .75,
+                          padding: const EdgeInsets.only(
+                              top: 10, bottom: 14, left: 20, right: 20),
+                          margin: const EdgeInsets.only(
+                              left: 15, right: 15, top: 10, bottom: 10),
+                          decoration: BoxDecoration(
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                            border:
+                            Border.all(color: AppColors.jaygaTextFldColor),
+                            boxShadow: [
+                              BoxShadow(
+                                  color:
+                                  const Color(0xFF652981).withOpacity(0.2),
+                                  blurRadius: 2,
+                                  offset: const Offset(0, 2)),
+                            ],
+                            //   border: Border.all(color: Get.theme.focusColor.withOpacity(0.05))
+                          ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.stretch,
+                            children: [
+                              Text(
+                                "NID Back Image".tr,
+                                style: Get.textTheme.bodyText1,
+                                textAlign: TextAlign.start,
+                              ),
+                              const SizedBox(
+                                height: 5,
+                              ),
+                              GestureDetector(
+                                onTap: () {
+                                  showPopup(context, 'nid_back');
+                                  // controller.getImage(ImageSource.camera, 'nid_front');
+                                  // controller.readNId();
+                                  // controller.readNId();
+                                },
+                                child: controller.nid_back.value.isNotEmpty
+                                    ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(10),
+                                  child: Image.memory(
+                                    base64Decode(
+                                      controller.nid_back.value,
+                                    ),
+                                    height: Get.size.width * .4,
+                                    width: Get.size.width * .7,
+                                    fit: BoxFit.fill,
+                                  ),
+                                )
+                                    : Stack(
+                                  children: [
+                                    Image.asset(
+                                      'assets/images/nid.png',
+                                      height: Get.size.width * .3,
+                                      width: Get.size.width * .6,
+                                      color: AppColors.textColorGrey,
+                                    ),
+                                    Positioned(
+                                        bottom: 10,
+                                        right: 80,
+                                        child: Container(
+                                          decoration: BoxDecoration(
+                                              color: AppColors
+                                                  .jaygaTextFldColor,
+                                              borderRadius:
+                                              BorderRadius.circular(
+                                                  50)),
+                                          child: Padding(
+                                            padding: EdgeInsets.all(8.0),
+                                            child: Icon(
+                                              Icons.camera_alt,
+                                              color: AppColors
+                                                  .textColorWhite,
+                                            ),
+                                          ),
+                                        ))
+                                  ],
+                                ),
+                              )
+                            ],
+                          ),
+                        ),
+                      ],
+                    ),
+                    SizedBox(
+                      height: 30,
+                    ),
+                    Row(
+                      children: [
+                        Text(
+                          "4.",
                           style: TextStyle(
                               fontWeight: FontWeight.normal,
                               fontSize: 15,

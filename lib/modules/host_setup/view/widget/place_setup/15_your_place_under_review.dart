@@ -14,8 +14,7 @@ class UnderReview extends GetView<HostController> {
   @override
   Widget build(BuildContext context) {
     return  SingleChildScrollView(
-      child: Obx(() {
-        return Container(
+      child:  Container(
           color: AppColors.appBackGroundBrn,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
@@ -57,9 +56,8 @@ class UnderReview extends GetView<HostController> {
               ),
             ],
           ),
-        );
+        ),
 
-      }),
     );
 
   }
