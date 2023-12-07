@@ -25,7 +25,7 @@ class ShareSomeInfoAboutBedWash extends GetView<HostController> {
                 children: [
 
                   Container(
-                    height: MediaQuery.of(context).size.height *.75,
+                    height: MediaQuery.of(context).size.height *.7,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(40)),

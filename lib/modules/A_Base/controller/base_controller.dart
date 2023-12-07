@@ -5,6 +5,7 @@ import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'package:jayga/modules/A_Base/view/saved_screen/saved_screen.dart';
 import 'package:jayga/modules/home/profile/profile_screen.dart';
+import 'package:shrink_sidemenu/shrink_sidemenu.dart';
 import 'package:url_launcher/url_launcher_string.dart';
 import '../../../routes/app_pages.dart';
 import '../../booking/view/booking_home_page.dart';
@@ -16,9 +17,12 @@ class BaseController extends GetxController {
   final landingPage = 1.obs;
   final currentIndex = 0.obs;
   final address = "".obs;
+  final isOpened = false.obs;
+  final scaffoldKey = GlobalKey<ScaffoldState>().obs;
   GeolocatorService geolocatorService = GeolocatorService();
   final categoryDataLoaded = false.obs;
-
+  final gsideMenuKey = GlobalKey<SideMenuState>().obs;
+  final endSideMenuKey = GlobalKey<SideMenuState>().obs;
 
   List<Widget> pages = [
     ExplorePageView(),
@@ -56,6 +60,30 @@ class BaseController extends GetxController {
       }
       return false;
     }, arguments: index);
+  }
+  toggleMenu([bool end = false]) {
+    if (end) {
+      final _state = endSideMenuKey.value.currentState;
+      if (_state!.isOpened) {
+        _state.closeSideMenu();
+      } else {
+        _state.openSideMenu();
+      }
+    } else {
+      final _state = gsideMenuKey.value.currentState!;
+      if (_state.isOpened) {
+        _state.closeSideMenu();
+      } else {
+        _state.openSideMenu();
+      }
+    }
+  }
+  void openDrawer() {
+    scaffoldKey.value.currentState!.openDrawer();
+  }
+
+  void closeDrawer() {
+    scaffoldKey.value.currentState!.openEndDrawer();
   }
   advancedStatusCheck(BuildContext context) async {
     print("hlw version ________________________");

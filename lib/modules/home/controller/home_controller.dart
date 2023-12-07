@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 import 'dart:io';
 import 'dart:math';
+import 'package:jayga/models/profile/cover_image_model.dart';
 import 'package:url_launcher/url_launcher.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_image_compress/flutter_image_compress.dart';
@@ -55,45 +56,44 @@ class HomeController extends GetxController {
   final AAcyprus = false.obs;
 
   final AAGeorgia = false.obs;
-  final AAIndia= false.obs;
-  final AAIndonesia= false.obs;
-  final  AAIran = false.obs;
-  final  AAIraq= false.obs;
-  final  AAIsrael= false.obs;
-  final  AAJapan= false.obs;
-  final  AAJordan= false.obs;
-  final AAKazakhstan= false.obs;
-  final  AAKuwait= false.obs;
-  final  AAKyrgyzstan= false.obs;
-  final AALaos= false.obs;
-  final  AALebanon= false.obs;
-  final  AAMalaysia= false.obs;
-  final  AAMaldives= false.obs;
-  final  AAMongolia= false.obs;
-  final   AABurma= false.obs;
-  final  AANepal= false.obs;
-  final AANorthKorea= false.obs;
-  final AAOman= false.obs;
-  final AAPakistan= false.obs;
-  final  AAPalestine= false.obs;
-  final  AAPhilippines= false.obs;
-  final AAQatar= false.obs;
-  final  AASaudi= false.obs;
-  final  AASingapore= false.obs;
-  final  AAsk = false.obs;
-  final  AASriLanka= false.obs;
-  final  AASyria= false.obs;
-  final  AATaiwan= false.obs;
-  final AATajikistan= false.obs;
-  final AAThailand= false.obs;
-  final AAtimor= false.obs;
-  final AATurkey= false.obs;
-  final AATurkmenistan= false.obs;
-  final AAue= false.obs;
-  final AAUzbekistan= false.obs;
-  final AAVietnam= false.obs;
-  final AAYemen= false.obs;
-
+  final AAIndia = false.obs;
+  final AAIndonesia = false.obs;
+  final AAIran = false.obs;
+  final AAIraq = false.obs;
+  final AAIsrael = false.obs;
+  final AAJapan = false.obs;
+  final AAJordan = false.obs;
+  final AAKazakhstan = false.obs;
+  final AAKuwait = false.obs;
+  final AAKyrgyzstan = false.obs;
+  final AALaos = false.obs;
+  final AALebanon = false.obs;
+  final AAMalaysia = false.obs;
+  final AAMaldives = false.obs;
+  final AAMongolia = false.obs;
+  final AABurma = false.obs;
+  final AANepal = false.obs;
+  final AANorthKorea = false.obs;
+  final AAOman = false.obs;
+  final AAPakistan = false.obs;
+  final AAPalestine = false.obs;
+  final AAPhilippines = false.obs;
+  final AAQatar = false.obs;
+  final AASaudi = false.obs;
+  final AASingapore = false.obs;
+  final AAsk = false.obs;
+  final AASriLanka = false.obs;
+  final AASyria = false.obs;
+  final AATaiwan = false.obs;
+  final AATajikistan = false.obs;
+  final AAThailand = false.obs;
+  final AAtimor = false.obs;
+  final AATurkey = false.obs;
+  final AATurkmenistan = false.obs;
+  final AAue = false.obs;
+  final AAUzbekistan = false.obs;
+  final AAVietnam = false.obs;
+  final AAYemen = false.obs;
 
   //image
   final formKey = GlobalKey<FormState>();
@@ -102,14 +102,18 @@ class HomeController extends GetxController {
   final visibleForFB = 0.obs;
   final visibleOTP = 0.obs;
   final visibleRegister = 0.obs;
-  final  fcmToken = "".obs;
+  final fcmToken = "".obs;
 
   final profileModel = ProfileModel().obs;
+  final coverPhotoModel = GetCoverImage().obs;
   final selectedProfileFile = File('').obs;
+  final selectedCoverFile = File('').obs;
   final editPhnLoad = 0.obs;
   final profileImagesList = <File>[].obs;
   final profileImagesBase64 = <String>[].obs;
   final profile_image = "".obs;
+  final cover_image = "".obs;
+  final coverImageString = "".obs;
   var selectedImagePath = ''.obs;
   var selectedImageSize = ''.obs;
   // Crop code
@@ -125,6 +129,7 @@ class HomeController extends GetxController {
   void onInit() {
     profileController();
     pinErrorController = StreamController<ErrorAnimationType>();
+    getCoverPhoto();
     super.onInit();
   }
 
@@ -137,7 +142,7 @@ class HomeController extends GetxController {
   void onClose() {
     super.onClose();
   }
-
+//
   Future<void> makePhoneCall(String phoneNumber) async {
     final Uri launchUri = Uri(
       scheme: 'tel',
@@ -145,34 +150,36 @@ class HomeController extends GetxController {
     );
     await launchUrl(launchUri);
   }
-  sendOtpWithMuthoFun() async{
-
-    AuthRepository().sendOtpWithMuthoFun(phoneNumCOntroller.value.text, otpNum.value.toString() ).then((e) async{
+//
+  sendOtpWithMuthoFun() async {
+    AuthRepository()
+        .sendOtpWithMuthoFun(
+            phoneNumCOntroller.value.text, otpNum.value.toString())
+        .then((e) async {
       print("hlw muthofun1");
-      if(e['message']== "SMS queued successfully!"){
+      if (e['message'] == "SMS queued successfully!") {
         print("hlw muthofun2");
 
         Get.toNamed(Routes.EDITNUMOTP);
-
-      }else {
+      } else {
         print("hlw muthofun3");
-
       }
 
       print("my login data $e");
-
-
     });
   }
-
-  makeRandomOtpNUm(){
+//
+  makeRandomOtpNUm() {
     var rng = new Random();
-    otpNum.value =  rng.nextInt(900000) + 100000;
+    otpNum.value = rng.nextInt(900000) + 100000;
     print("my otp code is ${otpNum.value}");
-    sendOtpWithMuthoFun() ;
+    sendOtpWithMuthoFun();
   }
+//
   profileController() async {
-    ListingRep().getProfile(Get.find<AuthService>().currentUser.value.user!.userId).then((e) async {
+    ListingRep()
+        .getProfile(Get.find<AuthService>().currentUser.value.user!.userId)
+        .then((e) async {
       print("my profile data ${e.userData![0].name}");
       if (e != null) {
         profileData.value = e;
@@ -184,46 +191,105 @@ class HomeController extends GetxController {
       }
     });
   }
-  addProfileImage(userId){
+
+  //
+  addProfileImage(userId) {
     print("profile image add called");
-    ListingRep().uploadUserImage(imageFile: selectedProfileFile.value, userID: userId ).then((value) {
-      if( value["messege"]== "User avatar uploaded"){
+    ListingRep()
+        .uploadUserImage(imageFile: selectedProfileFile.value, userID: userId)
+        .then((value) {
+      if (value["messege"] == "User avatar uploaded") {
         profileController();
         Get.showSnackbar(Ui.successSnackBar(
-            message: "User Profile picture updated", title: 'Error'));
+            message: "User Profile picture updated", title: 'Success'));
       }
-
     });
   }
-  editProfileController({String? id, }) {
- print("user id is $id");
-    ListingRep().editProfileRep(
+//
+  addCoverImage(userId) {
+    print("cover image add called");
+    ListingRep()
+        .uploadUserCoverImage(imageFile: selectedProfileFile.value, userID: userId)
+        .then((value) {
+      if (value["messege"] == "User Cover photo uploaded") {
+        getCoverPhoto();
+        Get.showSnackbar(Ui.successSnackBar(
+            message: "User Cover picture updated", title: 'Success'));
+      }
+    });
+  }
+  //
+  getCoverPhoto(){
+    ListingRep()
+        .getCoverImage(id: Get.find<AuthService>().currentUser.value.user!.userId.toString())
+        .then((e) async {
 
-      user_address: Get.find<HomeController>().profileData.value.userData!.first.userAddress,
-      user_dob: Get.find<HomeController>().profileData.value.userData!.first.userDob.toString(),
-      user_email: Get.find<HomeController>().profileData.value.userData!.first.email,
-      user_name: nameController.value.text.isNotEmpty ? nameController.value.text : Get.find<HomeController>().profileData.value.userData!.first.name,
-      user_nid: Get.find<HomeController>().profileData.value.userData!.first.userNid.isNum ? Get.find<HomeController>().profileData.value.userData!.first.userNid : "1111111",
-      phone: phoneNumCOntroller.value.text.isNotEmpty ?phoneNumCOntroller.value.text : Get.find<HomeController>().profileData.value.userData!.first.phone,
-    ).then((value) {
+      if (e != null) {
+        coverPhotoModel.value = e ;
+        coverImageString.value = coverPhotoModel.value.messege!.first.userFilename!;
+
+      } else {
+        print("error ++++++++++++++");
+      }
+    });
+  }
+  editProfileController({
+    String? id,
+  }) {
+    print("user id is $id");
+    ListingRep()
+        .editProfileRep(
+      user_address: Get.find<HomeController>()
+          .profileData
+          .value
+          .userData!
+          .first
+          .userAddress,
+      user_dob: Get.find<HomeController>()
+          .profileData
+          .value
+          .userData!
+          .first
+          .userDob
+          .toString(),
+      user_email:
+          Get.find<HomeController>().profileData.value.userData!.first.email,
+      user_name: nameController.value.text.isNotEmpty
+          ? nameController.value.text
+          : Get.find<HomeController>().profileData.value.userData!.first.name,
+      user_nid: Get.find<HomeController>()
+              .profileData
+              .value
+              .userData!
+              .first
+              .userNid
+              .isNum
+          ? Get.find<HomeController>().profileData.value.userData!.first.userNid
+          : "1111111",
+      phone: phoneNumCOntroller.value.text.isNotEmpty
+          ? phoneNumCOntroller.value.text
+          : Get.find<HomeController>().profileData.value.userData!.first.phone,
+    )
+        .then((value) {
       print("edit profile response is $value");
-      if (value["messege"] ==
-          "User information updated") {
+      if (value["messege"] == "User information updated") {
         Get.find<HomeController>().profileController();
-      Get.toNamed(Routes.BASE);}
+        Get.toNamed(Routes.BASE);
+      }
     });
   }
-
-
-  appReview()async{
+//
+  appReview() async {
     if (await inAppReview.isAvailable()) {
-    inAppReview.requestReview();
+      inAppReview.requestReview();
     }
   }
-
-
-
-  void getImage(ImageSource imageSource, String type, String id,) async {
+//
+  void getImage(
+    ImageSource imageSource,
+    String type,
+    String id,
+  ) async {
     selectedImagePath = ''.obs;
     selectedImageSize = ''.obs;
 
@@ -248,6 +314,7 @@ class HomeController extends GetxController {
           sourcePath: selectedImagePath.value,
           maxWidth: 512,
           maxHeight: 512,
+          aspectRatioPresets: type == "cover" ? [CropAspectRatioPreset.ratio16x9] : [CropAspectRatioPreset.square],
           compressFormat: ImageCompressFormat.jpg);
       cropImagePath.value = cropImageFile!.path;
       cropImageSize.value =
@@ -276,13 +343,24 @@ class HomeController extends GetxController {
       if (type == 'profile') {
         profile_image.value = base64Encode(bytes);
 
-        print("utility image is ${profile_image.value}");
+        print("profile image is ${profile_image.value}");
         selectedProfileFile.value = File(targetPath);
 
         profileImagesList.add(selectedProfileFile.value);
         profileImagesBase64.add(base64Encode(bytes));
-        addProfileImage(Get.find<AuthService>().currentUser.value.user!.userId.toString());
+        addProfileImage(
+            Get.find<AuthService>().currentUser.value.user!.userId.toString());
+      }
+      if (type == 'cover') {
+        profile_image.value = base64Encode(bytes);
 
+        print("profile image is ${profile_image.value}");
+        selectedProfileFile.value = File(targetPath);
+
+        profileImagesList.add(selectedProfileFile.value);
+        profileImagesBase64.add(base64Encode(bytes));
+        addCoverImage(
+            Get.find<AuthService>().currentUser.value.user!.userId.toString());
       }
     } else {
       Get.snackbar('Error', 'No image selected',

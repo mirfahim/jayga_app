@@ -114,7 +114,7 @@ class ProfileListing {
     bathroomNum: json["bathroom_num"],
     listingTitle: json["listing_title"],
     listingDescription: json["listing_description"],
-    fullDayPriceSetByUser: json["full_day_price_set_by_user"],
+    fullDayPriceSetByUser: json["full_day_price_set_by_user"] ?? "0.0",
     listingAddress: json["listing_address"],
     district: json["district"],
     town: json["town"],

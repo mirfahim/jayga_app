@@ -25,18 +25,16 @@ class DoYouHaveAnyRestriction extends GetView<HostController> {
                 children: [
 
                   Container(
-                    height: MediaQuery.of(context).size.height *.8,
+                    height: MediaQuery.of(context).size.height *.7,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(40)),
                     child: Padding(
-                      padding: const EdgeInsets.all(40.0),
+                      padding: const EdgeInsets.all(30.0),
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          SizedBox(
-                            height: 10,
-                          ),
+
                           Text(
                             "Do you have any restrictions?",
                             style: TextStyle(
@@ -286,7 +284,7 @@ class DoYouHaveAnyRestriction extends GetView<HostController> {
                                 ),)
                             ],
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 10,),
                           Text(
                             "Anything specific requirements for the guest?",
                             style: TextStyle(
@@ -294,9 +292,9 @@ class DoYouHaveAnyRestriction extends GetView<HostController> {
                                 fontSize: 18,
                                 color: Colors.black),
                           ),
-                          SizedBox(height: 20,),
+                          SizedBox(height: 10,),
                           Padding(
-                            padding: const EdgeInsets.all(16.0),
+                            padding: const EdgeInsets.all(10.0),
 
                             child: TextFormField(
 
@@ -306,7 +304,8 @@ class DoYouHaveAnyRestriction extends GetView<HostController> {
                                 filled: true,
                                 fillColor: AppColors.jaygaWhite,
                                 focusColor: Colors.white,
-                                labelText: 'The gate will be off within 12AM, No entry after 12AM',
+                                labelText: 'Input Restriction',
+                                hintText: "The gate will be off within 12AM, No entry after 12AM",
                                 // suffixIcon: Icon(
                                 //   Icons.email_outlined,
                                 // ),

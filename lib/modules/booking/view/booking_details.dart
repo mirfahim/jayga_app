@@ -14,6 +14,7 @@ import 'package:jayga/modules/booking/view/my_booking_history/review_list_view.d
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:video_player/video_player.dart';
 import '../../../routes/app_pages.dart';
 import '../../../services/location_service.dart';
 import 'my_booking_history/payment_webview.dart';
@@ -241,6 +242,15 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                     ),
                                     InkWell(
                                       onTap: () {
+                                        if (controller.seeVideo.value ==
+                                            false) {
+                                          controller.seeVideo.value = true;
+                                          controller.playVideoController();
+                                        } else {
+                                          controller.videoController.dispose();
+                                          controller.seeVideo.value = false;
+                                        }
+
                                         //  Get.toNamed(Routes.HOME);
                                         //controller.visible.value++;
                                         // controller.loginController();
@@ -250,12 +260,18 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                         height: 20,
                                         width: 100,
                                         decoration: BoxDecoration(
-                                            color: Colors.grey,
+                                            color: AppColors.textColorGreen,
                                             borderRadius:
                                                 BorderRadius.circular(50)),
                                         alignment: Alignment.center,
-                                        child: Text(
-                                          "3D Tour",
+                                        child:  controller.seeVideo.value == true ?Text(
+                                          "Hide Video",
+                                          style: TextStyle(
+                                            color: AppColors.backgroundColor,
+                                            fontSize: 14,
+                                          ),
+                                        ): Text(
+                                          "See Video",
                                           style: TextStyle(
                                             color: AppColors.backgroundColor,
                                             fontSize: 14,
@@ -265,6 +281,43 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                     ),
                                   ],
                                 ),
+                                SizedBox(
+                                  height: 10,
+                                ),
+                                controller.seeVideo.value == true
+                                    ? Column(
+                                        children: [
+                                          Center(
+                                            child: AspectRatio(
+                                              aspectRatio: controller
+                                                  .videoController
+                                                  .value
+                                                  .aspectRatio,
+                                              child: VideoPlayer(
+                                                  controller.videoController),
+                                            ),
+                                          ),
+                                          InkWell(
+                                              onTap: () {
+
+                                                if (controller.videoController.value.isPlaying) {
+                                                  controller.videoController.pause();
+                                                  print("video pause");
+                                                } else {
+                                                  controller.videoController.play();
+                                                  print("video play");
+                                                }
+                                              },
+                                              child: controller.videoController.value.isPlaying ? Icon(
+                                                Icons.pause,
+                                                size: 30,
+                                              ):Icon(
+                                                Icons.play_arrow_outlined,
+                                                size: 30,
+                                              ) )
+                                        ],
+                                      )
+                                    : Container(),
                                 SizedBox(
                                   height: 10,
                                 ),
@@ -914,13 +967,13 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                             itemCount: controller
                                                 .getReview.value.length,
                                             itemBuilder: (BuildContext c, i) {
-                                              var data =
+                                              var reviewdata =
                                                   controller.getReview[i];
                                               return ListTile(
                                                 title: Row(
                                                   children: [
                                                     Text(
-                                                      data.userName ??
+                                                      reviewdata.userName ??
                                                           "No Data",
                                                       style: TextStyle(
                                                           fontSize: 16),
@@ -935,7 +988,8 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                                       DateFormat.yMd()
                                                           .add_jm()
                                                           .format(
-                                                            data.createdAt,
+                                                            reviewdata
+                                                                .createdAt,
                                                           ),
                                                       style: TextStyle(
                                                           fontSize: 15,
@@ -945,7 +999,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                                               Colors.black54),
                                                     ),
                                                     Text(
-                                                      data.description,
+                                                      reviewdata.description,
                                                       style: TextStyle(
                                                           fontSize: 15,
                                                           fontWeight:
@@ -954,43 +1008,119 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                                     ),
                                                   ],
                                                 ),
-                                                leading: Container(
-                                                  height: 100,
-                                                  width: 100,
-                                                  decoration: BoxDecoration(
-                                                    shape: BoxShape.circle,
-                                                    color: AppColors
-                                                        .textColorGreen,
-                                                  ),
-                                                  child: Icon(
-                                                    Icons.verified_user,
-                                                    color: Colors.white,
-                                                    size: 30,
-                                                  ),
-                                                  // color: AppColors.backgroundColor,
-                                                ),
+                                                leading: Obx(() {
+                                                  return Container(
+                                                    height: 70,
+                                                    width: 70,
+                                                    decoration: BoxDecoration(
+                                                      shape: BoxShape.circle,
+                                                    ),
+                                                    child: CachedNetworkImage(
+                                                      //imageUrl: "http://new.jaygaheight: MediaQuery.of(context).size.height *.12/uploads/listings/66dGWkgYLX5JyZGg0uHTv9N8M1bGhcCtBNzsX3MD.jpg",
+                                                      imageUrl:
+                                                          "https://new.jayga.io/uploads/useravatars/${controller.getUserImage(reviewdata.userId)}",
+                                                      imageBuilder: (context,
+                                                              imageProvider) =>
+                                                          Container(
+                                                        decoration:
+                                                            BoxDecoration(
+                                                          color: Colors
+                                                              .transparent,
+                                                          borderRadius:
+                                                              BorderRadius
+                                                                  .circular(20),
+                                                          image:
+                                                              DecorationImage(
+                                                            image:
+                                                                imageProvider,
+                                                            fit: BoxFit.cover,
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      placeholder:
+                                                          (context, url) =>
+                                                              const Padding(
+                                                        padding:
+                                                            EdgeInsets.all(5.0),
+                                                        child: Image(
+                                                          image: AssetImage(
+                                                            'assets/images/jayga_logo.png',
+                                                          ),
+                                                        ),
+                                                      ),
+                                                      errorWidget: (context,
+                                                              url, error) =>
+                                                          const Padding(
+                                                        padding:
+                                                            EdgeInsets.all(5.0),
+                                                        child: Image(
+                                                          image: AssetImage(
+                                                            'assets/images/jayga_logo.png',
+                                                          ),
+                                                        ),
+                                                      ),
+                                                    ),
+                                                    // color: AppColors.backgroundColor,
+                                                  );
+                                                }),
                                               );
                                             })),
                                 Divider(
                                   thickness: 1,
                                 ),
-                                ListTile(
-                                  title: Text(
-                                    data.listerName,
-                                    style: TextStyle(fontSize: 22),
-                                  ),
-                                  subtitle: Text("Hosted by"),
-                                  trailing: Container(
-                                    height: 100,
-                                    width: 100,
-                                    decoration: BoxDecoration(
+                                Obx(() {
+                                  return ListTile(
+                                    title: Text(
+                                      data.listerName,
+                                      style: TextStyle(fontSize: 22),
+                                    ),
+                                    subtitle: Text("Hosted by"),
+                                    trailing: Container(
+                                      height: 70,
+                                      width: 70,
+                                      decoration: BoxDecoration(
                                         shape: BoxShape.circle,
-                                        image: DecorationImage(
+                                      ),
+                                      child: CachedNetworkImage(
+                                        //imageUrl: "http://new.jaygaheight: MediaQuery.of(context).size.height *.12/uploads/listings/66dGWkgYLX5JyZGg0uHTv9N8M1bGhcCtBNzsX3MD.jpg",
+                                        imageUrl:
+                                            "https://new.jayga.io/uploads/useravatars/${controller.getListerImage(data.listerId)}",
+                                        imageBuilder:
+                                            (context, imageProvider) =>
+                                                Container(
+                                          decoration: BoxDecoration(
+                                            color: Colors.transparent,
+                                            borderRadius:
+                                                BorderRadius.circular(20),
+                                            image: DecorationImage(
+                                              image: imageProvider,
+                                              fit: BoxFit.cover,
+                                            ),
+                                          ),
+                                        ),
+                                        placeholder: (context, url) =>
+                                            const Padding(
+                                          padding: EdgeInsets.all(5.0),
+                                          child: Image(
                                             image: AssetImage(
-                                                "assets/images/kaif.png"))),
-                                    // color: AppColors.backgroundColor,
-                                  ),
-                                ),
+                                              'assets/images/jayga_logo.png',
+                                            ),
+                                          ),
+                                        ),
+                                        errorWidget: (context, url, error) =>
+                                            const Padding(
+                                          padding: EdgeInsets.all(5.0),
+                                          child: Image(
+                                            image: AssetImage(
+                                              'assets/images/jayga_logo.png',
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      // color: AppColors.backgroundColor,
+                                    ),
+                                  );
+                                }),
                                 Row(
                                   children: [
                                     Icon(
@@ -1016,6 +1146,7 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                   ],
                                 ),
                                 Divider(),
+
                                 InkWell(
                                   onTap: () {
                                     controller.makePhoneCall("01764314845");
@@ -1137,118 +1268,178 @@ class MakeBookingDetailsView extends GetView<BookingController> {
                                 Container(
                                     margin: EdgeInsets.all(8),
                                     child: Table(
-
                                       border: TableBorder.all(),
-                                      columnWidths: const <int, TableColumnWidth>{
+                                      columnWidths: const <int,
+                                          TableColumnWidth>{
                                         0: IntrinsicColumnWidth(),
                                         1: FlexColumnWidth(),
                                         2: FlexColumnWidth(),
                                       },
-                                      defaultVerticalAlignment: TableCellVerticalAlignment.middle,
+                                      defaultVerticalAlignment:
+                                          TableCellVerticalAlignment.middle,
                                       children: <TableRow>[
                                         TableRow(
                                           decoration: BoxDecoration(
                                             color: AppColors.textColorGreen,
-
-
                                           ),
                                           children: <Widget>[
                                             Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text("Company", style: TextStyle(color: AppColors.textColorGreen),),
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                "Company",
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .textColorGreen),
+                                              ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text("Price", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text("Price",
+                                                  style: TextStyle(
+                                                      color: AppColors
+                                                          .textColorBlack,
+                                                      fontSize: 12)),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text("Cancellation policy", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text("Cancellation policy",
+                                                  style: TextStyle(
+                                                      color: AppColors
+                                                          .textColorBlack,
+                                                      fontSize: 12)),
                                             ),
-
-
-
                                           ],
                                         ),
                                         TableRow(
-                                          decoration: BoxDecoration(
-
-
-                                          ),
+                                          decoration: BoxDecoration(),
                                           children: <Widget>[
                                             Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text("1. Jayga LTD", style: TextStyle(color: AppColors.textColorGreen),),
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                "1. Jayga LTD",
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .textColorGreen),
+                                              ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text("Price", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text("Price",
+                                                  style: TextStyle(
+                                                      color: AppColors
+                                                          .textColorBlack,
+                                                      fontSize: 12)),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text("Cancellation policy", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Icon(
+                                                Icons.check,
+                                                color: Colors.green,
+                                              ),
                                             ),
-
-
-
-                                          ],
-                                        ),
-                                        TableRow(
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text("2. Obokash", style: TextStyle(color: AppColors.textColorGreen),),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text("Price", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text("Cancellation policy", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
-                                            ),
-
-                                          ],
-                                        ),
-                                        TableRow(
-                                          children: <Widget>[
-                                            Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text("3. GoZayaan", style: TextStyle(color: AppColors.textColorGreen),),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text("Price", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
-                                            ),
-                                            Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text("Cancellation policy", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
-                                            ),
-
                                           ],
                                         ),
                                         TableRow(
                                           children: <Widget>[
                                             Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text("4. ShareTrip", style: TextStyle(color: AppColors.textColorGreen),),
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                "2. Obokash",
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .textColorGreen),
+                                              ),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text("Price", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text("Price",
+                                                  style: TextStyle(
+                                                      color: AppColors
+                                                          .textColorBlack,
+                                                      fontSize: 12)),
                                             ),
                                             Padding(
-                                              padding: const EdgeInsets.all(4.0),
-                                              child: Text("Cancellation policy", style: TextStyle(color: AppColors.textColorBlack, fontSize: 12)),
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Icon(
+                                                Icons.check,
+                                                color: Colors.green,
+                                              ),
                                             ),
-
                                           ],
                                         ),
-
-
+                                        TableRow(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                "3. GoZayaan",
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .textColorGreen),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text("Price",
+                                                  style: TextStyle(
+                                                      color: AppColors
+                                                          .textColorBlack,
+                                                      fontSize: 12)),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Icon(
+                                                Icons.check,
+                                                color: Colors.green,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                        TableRow(
+                                          children: <Widget>[
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text(
+                                                "4. Air BNB",
+                                                style: TextStyle(
+                                                    color: AppColors
+                                                        .textColorGreen),
+                                              ),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Text("Price",
+                                                  style: TextStyle(
+                                                      color: AppColors
+                                                          .textColorBlack,
+                                                      fontSize: 12)),
+                                            ),
+                                            Padding(
+                                              padding:
+                                                  const EdgeInsets.all(4.0),
+                                              child: Icon(
+                                                Icons.check,
+                                                color: Colors.green,
+                                              ),
+                                            ),
+                                          ],
+                                        ),
                                       ],
-                                    )
-                                ),
+                                    )),
                                 SizedBox(
                                   height: 20,
                                 ),

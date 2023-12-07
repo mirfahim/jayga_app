@@ -16,11 +16,25 @@ class SplashscreenController extends GetxController {
     print('SplashscreenController.onInit');
   //Get.find<BookingController>().filterdListingController();
     Timer(const Duration(seconds: 3), () {
-
       if (Get.find<AuthService>().currentUser.value.user == null) {
-        Get.offAllNamed(Routes.LANDING);
-      } else {
-        Get.offAllNamed(Routes.BASE);
+        Get.offAllNamed(Routes.LANDING);}
+      else {
+        if (Get
+            .find<AuthService>()
+            .currentUser
+            .value
+            .user!
+            .email == null || Get
+            .find<AuthService>()
+            .currentUser
+            .value
+            .user!
+            .name == null) {
+          Get.offAllNamed(Routes.LANDING);
+        }
+        else {
+          Get.offAllNamed(Routes.BASE);
+        }
       }
     });
 

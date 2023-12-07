@@ -46,72 +46,73 @@ class WhatTypeOfPropertyHasToOfferView extends GetView<HostController> {
                       ),
                       Row(
                         children: [
-                          Container(
-                            height: MediaQuery.of(context).size.height * .15,
-                            width: MediaQuery.of(context).size.width * .85,
-                            decoration: BoxDecoration(
-                                color: AppColors.jaygaTextFldColor,
-                                borderRadius: BorderRadius.circular(20)),
-                            child: Padding(
-                              padding: const EdgeInsets.all(16.0),
-                              child: Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceAround,
-                                children: [
-                                  InkWell(
-                                      onTap: () {
-                                        if (controller.entirePlace.value == 0) {
-                                          controller.entirePlace.value = 1;
-                                        } else {
-                                          controller.entirePlace.value = 0;
-                                        }
-                                      },
-                                      child: Container(
-                                        height:
-                                            MediaQuery.of(context).size.height *
-                                                .1,
-                                        width:
-                                            MediaQuery.of(context).size.width *
-                                                .6,
-                                        child: Column(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          crossAxisAlignment:
-                                              CrossAxisAlignment.start,
-                                          children: [
-                                            Text(
-                                              "An entire place",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                  fontSize: 16,
-                                                  color: Colors.black),
-                                            ),
-                                            Text(
-                                              "Guests have the whole place to themselves",
-                                              style: TextStyle(
-                                                  fontWeight: FontWeight.normal,
-                                                  fontSize: 12,
-                                                  color: Colors.black54),
-                                            ),
-                                          ],
-                                        ),
-                                      )),
-                                  controller.entirePlace.value == 1
-                                      ? Container(
-                                          height: 40,
-                                          width: 40,
-                                          decoration: BoxDecoration(
-                                              borderRadius:
-                                                  BorderRadius.circular(20),
-                                              image: DecorationImage(
-                                                fit: BoxFit.fill,
-                                                image: AssetImage(
-                                                  'assets/icons/tick.png',
-                                                ),
-                                              )),
-                                        )
-                                      : Container(),
-                                ],
+                          InkWell(
+                            onTap: (){
+                              if (controller.entirePlace.value == 0) {
+                                controller.entirePlace.value = 1;
+                              } else {
+                                controller.entirePlace.value = 0;
+                              }
+                },
+                            child: Container(
+                              height: MediaQuery.of(context).size.height * .15,
+                              width: MediaQuery.of(context).size.width * .85,
+                              decoration: BoxDecoration(
+                                  color: AppColors.jaygaTextFldColor,
+                                  borderRadius: BorderRadius.circular(20)),
+                              child: Padding(
+                                padding: const EdgeInsets.all(16.0),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceAround,
+                                  children: [
+                                    Container(
+                                      height:
+                                          MediaQuery.of(context).size.height *
+                                              .1,
+                                      width:
+                                          MediaQuery.of(context).size.width *
+                                              .6,
+                                      child: Column(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.start,
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          Text(
+                                            "An entire place",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                                fontSize: 16,
+                                                color: Colors.black),
+                                          ),
+                                          Text(
+                                            "Guests have the whole place to themselves",
+                                            style: TextStyle(
+                                                fontWeight: FontWeight.normal,
+                                                fontSize: 12,
+                                                color: Colors.black54),
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                    controller.entirePlace.value == 1
+                                        ? Container(
+                                            height: 40,
+                                            width: 40,
+                                            decoration: BoxDecoration(
+                                                borderRadius:
+                                                    BorderRadius.circular(20),
+                                                image: DecorationImage(
+                                                  fit: BoxFit.fill,
+                                                  image: AssetImage(
+                                                    'assets/icons/tick.png',
+                                                  ),
+                                                )),
+                                          )
+                                        : Container(),
+                                  ],
+                                ),
                               ),
                             ),
                           ),

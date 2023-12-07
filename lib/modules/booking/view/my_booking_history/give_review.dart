@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:jayga/modules/auth/controller/auth_controller.dart';
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
@@ -46,12 +47,40 @@ class GiveReviewScreen extends GetView<BookingController> {
                 Row(
                   children: [
                     Container(
+                      height: Get.height*.1,
+                      width: Get.width*.2,
                       // color: AppColors.backgroundColor,
-                      child: Image.asset(
-                        'assets/images/demo_room1.png',
-                        height: MediaQuery.of(context).size.height * .2,
-                        width: MediaQuery.of(context).size.width * .2,
-                      ),
+                      child: CachedNetworkImage(
+                        imageUrl: "https://new.jayga.io/uploads/listings/${data.listings!.images.first.listingFilename}",
+                        imageBuilder: (context, imageProvider) =>
+                            Container(
+                              decoration: BoxDecoration(
+                                color: Colors.transparent,
+                                borderRadius: BorderRadius.circular(20),
+                                image: DecorationImage(
+                                  image: imageProvider,
+                                  fit: BoxFit.fill,
+                                ),
+                              ),
+                            ),
+                        placeholder: (context, url) =>
+                        const Padding(
+                          padding: EdgeInsets.all(5.0),
+                          child: Image(
+                            image: AssetImage(
+                              'assets/images/jayga_logo.png',
+                            ),
+                          ),
+                        ),
+                        errorWidget: (context, url, error) =>
+                        const Padding(
+                          padding: EdgeInsets.all(5.0),
+                          child: Image(
+                            image: AssetImage(
+                              'assets/images/jayga_logo.png',),
+                          ),
+                        ),
+                      )
                     ),
                     SizedBox(
                       width: 20,
@@ -76,7 +105,7 @@ class GiveReviewScreen extends GetView<BookingController> {
                                 color: Colors.black),
                           ),
                           Text(
-                            "Uttara, Dhaka",
+                            data.listings!.listingAddress!,
                             style: TextStyle(
                                 fontWeight: FontWeight.normal,
                                 fontSize: 18,

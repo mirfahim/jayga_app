@@ -24,6 +24,7 @@ import 'package:jayga/modules/home/profile/edit_profile/edit_num_otp.dart';
 import 'package:jayga/modules/home/profile/edit_profile/edit_number.dart';
 import 'package:jayga/modules/home/profile/edit_profile/profile_details_edit.dart';
 import 'package:jayga/modules/home/profile/profile_screen.dart';
+import 'package:jayga/modules/home/profile/travel_profile/travel_profile.dart';
 import 'package:jayga/modules/home/view/home_page_view.dart';
 import 'package:jayga/modules/host_setup/binding/host_binding.dart';
 import 'package:jayga/modules/host_setup/view/create_own_jayga.dart';
@@ -50,8 +51,6 @@ import '../modules/group_tour/view/tour_package_list_view.dart';
 import '../modules/host_setup/view/create_jayga_form_view.dart';
 import '../modules/host_setup/view/host_setting/listing_title_des_edit.dart';
 
-
-
 part 'app_routes.dart';
 
 class AppPages {
@@ -67,202 +66,193 @@ class AppPages {
     ),
     GetPage(
       name: _Paths.SPLASHSCREEN,
-      page: () =>  SplashscreenView(),
+      page: () => SplashscreenView(),
       binding: SplashscreenBinding(),
     ),
     GetPage(
       name: _Paths.EXPERIENCELANDING,
-      page: () =>  ExperienceSetupLanding(),
+      page: () => ExperienceSetupLanding(),
       binding: HostBinding(),
     ),
-
     GetPage(
       name: _Paths.NOTIFICATIONLIST,
-      page: () =>  NotificationListView(),
+      page: () => NotificationListView(),
       binding: BaseBinding(),
     ),
     GetPage(
       name: _Paths.HOSTPROFILESETTING,
-      page: () =>  HostProfileSetting(),
+      page: () => HostProfileSetting(),
       binding: HostBinding(),
     ),
-
-    // GetPage(
-    //   name: _Paths.HOME,
-    //   page: () =>  ExplorePageView(),
-    //   binding: HomeBinding(),
-    // ),
     GetPage(
       name: _Paths.EXPLORE,
-      page: () =>  ExplorePageView(),
+      page: () => ExplorePageView(),
       binding: BookingBinding(),
     ),
     GetPage(
       name: _Paths.BASE,
-      page: () =>  BaseView(),
+      page: () => BaseView(),
       binding: BaseBinding(),
     ),
     GetPage(
       name: _Paths.SAVEDSCREEN,
-      page: () =>  SavedView(),
+      page: () => SavedView(),
       binding: BaseBinding(),
     ),
     GetPage(
       name: _Paths.CREATEJAYGAFORM,
-      page: () =>  CreateJaygaFormView(),
+      page: () => CreateJaygaFormView(),
       binding: HostBinding(),
     ),
     GetPage(
       name: _Paths.CREATEOWNJAYGA,
-      page: () =>  CreateOwnJaygaView(),
+      page: () => CreateOwnJaygaView(),
       binding: HostBinding(),
     ),
-
     GetPage(
       name: _Paths.MAKEBOOKINGDETAILS,
-      page: () =>  MakeBookingDetailsView(),
+      page: () => MakeBookingDetailsView(),
       binding: BookingBinding(),
     ),
     GetPage(
       name: _Paths.SEARCHPAGE,
-      page: () =>  SearchListing(),
+      page: () => SearchListing(),
       binding: BookingBinding(),
     ),
-
     GetPage(
       name: _Paths.CONFIRMANDPAY,
-      page: () =>  ConfirmAndPayView(),
+      page: () => ConfirmAndPayView(),
       binding: BookingBinding(),
     ),
     GetPage(
       name: _Paths.MYBOOKING,
-      page: () =>  MyBookingView(),
+      page: () => MyBookingView(),
       binding: BaseBinding(),
     ),
     GetPage(
       name: _Paths.REGISTER,
-      page: () =>  RegisterView(),
+      page: () => RegisterView(),
       binding: AuthBinding(),
     ),
     GetPage(
       name: _Paths.LANDING,
-      page: () =>  LandingView(),
+      page: () => LandingView(),
       binding: BaseBinding(),
     ),
     GetPage(
       name: _Paths.BOOKINGDETAILSHISTORY,
-      page: () =>  MyBookingHistoryDetailsView(),
+      page: () => MyBookingHistoryDetailsView(),
       binding: BaseBinding(),
     ),
-
     GetPage(
       name: _Paths.PROFILE,
-      page: () =>  ProfileView(),
+      page: () => ProfileView(),
       binding: BaseBinding(),
     ),
-
     GetPage(
       name: _Paths.OTPPAGE,
-      page: () =>  OTPView(),
+      page: () => OTPView(),
       binding: AuthBinding(),
     ),
     GetPage(
       name: _Paths.EDITLISTINGNAME,
-      page: () =>  EditListingTITLEANDOTHERS(),
+      page: () => EditListingTITLEANDOTHERS(),
       binding: HostBinding(),
     ),
     GetPage(
       name: _Paths.EDITLISTINGTYPE,
-      page: () =>  ListingTypeEdit(),
+      page: () => ListingTypeEdit(),
       binding: HostBinding(),
     ),
     GetPage(
       name: _Paths.PACKAGEINCLUDE,
-      page: () =>  PackageIncludes(),
+      page: () => PackageIncludes(),
       binding: GroupTourBinding(),
     ),
     GetPage(
       name: _Paths.BOOKGROUPTOUR,
-      page: () =>  BookGroupTour(),
+      page: () => BookGroupTour(),
       binding: GroupTourBinding(),
     ),
     GetPage(
       name: _Paths.VISTEDCOUNTRY,
-      page: () =>  VisitedCountry(),
+      page: () => VisitedCountry(),
       binding: HomeBinding(),
     ),
     GetPage(
       name: _Paths.VISTEDBD,
-      page: () =>  VisitedBangladesh(),
+      page: () => VisitedBangladesh(),
       binding: HomeBinding(),
     ),
     GetPage(
       name: _Paths.COMMUNITYHOME,
-      page: () =>  CommunityHomePage(),
+      page: () => CommunityHomePage(),
       binding: CommunityBinding(),
     ),
-
     GetPage(
       name: _Paths.GROUPTOURDETAILS,
-      page: () =>  GroupTourDetails(),
+      page: () => GroupTourDetails(),
       binding: GroupTourBinding(),
     ),
     GetPage(
       name: _Paths.PROFILELISTING,
-      page: () =>  ProfileListingList(),
+      page: () => ProfileListingList(),
       binding: HostBinding(),
     ),
     GetPage(
       name: _Paths.PAYHOME,
-      page: () =>  PaymentHomePage(),
+      page: () => PaymentHomePage(),
       binding: PaymentBinding(),
     ),
     GetPage(
       name: _Paths.ADDIMAGEEDITLISTING,
-      page: () =>  AddImageEditListing(),
+      page: () => AddImageEditListing(),
       binding: HostBinding(),
     ),
     GetPage(
       name: _Paths.LISTINGMAP,
-      page: () =>  ListingMapView(),
+      page: () => ListingMapView(),
       binding: BookingBinding(),
     ),
     GetPage(
       name: _Paths.GROUPTOURLIST,
-      page: () =>  GroupTourPackageListView(),
+      page: () => GroupTourPackageListView(),
       binding: GroupTourBinding(),
     ),
-
     GetPage(
       name: _Paths.PROFILEDETAIL,
-      page: () =>  ProfileDetailView(),
+      page: () => ProfileDetailView(),
+      binding: HomeBinding(),
+    ),
+    GetPage(
+      name: _Paths.TRAVELPROFILE,
+      page: () => TravelProfileView(),
       binding: HomeBinding(),
     ),
     GetPage(
       name: _Paths.PROFILEDETAIL,
-      page: () =>  ProfileDetailView(),
+      page: () => ProfileDetailView(),
       binding: HomeBinding(),
     ),
     GetPage(
       name: _Paths.EDITLOCATION,
-      page: () =>  LocationEdit(),
+      page: () => LocationEdit(),
       binding: HostBinding(),
     ),
     GetPage(
       name: _Paths.EDITAMENITIES,
-      page: () =>   EditListingAmenities(),
+      page: () => EditListingAmenities(),
       binding: HostBinding(),
     ),
     GetPage(
       name: _Paths.EDITRESTRICTION,
-      page: () =>   EditListingRestrictions(),
+      page: () => EditListingRestrictions(),
       binding: HostBinding(),
     ),
     GetPage(
       name: _Paths.EDITNUMOTP,
-      page: () =>  EditNumOTPView(),
+      page: () => EditNumOTPView(),
       binding: HomeBinding(),
     ),
-
   ];
 }

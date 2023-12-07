@@ -139,8 +139,8 @@ class Listings {
   String breakfastIncluded;
   String unknownGuestEntry;
   String listingType;
-  dynamic lat;
-  dynamic long;
+  String lat;
+  String long;
   String isApproved;
   DateTime createdAt;
   DateTime updatedAt;
@@ -191,7 +191,7 @@ class Listings {
     bathroomNum: json["bathroom_num"],
     listingTitle: json["listing_title"],
     listingDescription: json["listing_description"],
-    fullDayPriceSetByUser: json["full_day_price_set_by_user"],
+    fullDayPriceSetByUser: json["full_day_price_set_by_user"] ?? "0.0",
     listingAddress: json["listing_address"],
     district: json["district"],
     town: json["town"],
@@ -208,8 +208,8 @@ class Listings {
     breakfastIncluded: json["breakfast_included"],
     unknownGuestEntry: json["unknown_guest_entry"],
     listingType: json["listing_type"],
-    lat: json["lat"],
-    long: json["long"],
+    lat: json["lat"] ?? "0.0000",
+    long: json["long"] ?? "0.0000",
     isApproved: json["isApproved"],
     createdAt: DateTime.parse(json["created_at"]),
     updatedAt: DateTime.parse(json["updated_at"]),

@@ -62,7 +62,7 @@ class GiveHouseTitle extends GetView<HostController> {
                             filled: true,
                             fillColor: AppColors.jaygaWhite,
                             focusColor: Colors.white,
-                            labelText: 'Lovely 2 bed apartment near, uttara sector 7 park',
+                            labelText: 'Input Title',
                             // suffixIcon: Icon(
                             //   Icons.email_outlined,
                             // ),

@@ -55,7 +55,7 @@ class HostProfileSetting extends GetView<HostController> {
                     ),
                   ),
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       Get.toNamed(Routes.PROFILELISTING);
                     },
                     child: Container(
@@ -90,7 +90,6 @@ class HostProfileSetting extends GetView<HostController> {
                       ),
                     ),
                   ),
-
                   SizedBox(
                     height: 10,
                   ),
@@ -99,14 +98,14 @@ class HostProfileSetting extends GetView<HostController> {
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                   ),
                   InkWell(
-                    onTap: (){
+                    onTap: () {
                       Get.toNamed(Routes.CREATEJAYGAFORM);
                     },
                     child: ListTile(
                       title: Text(
                         "Create listing",
-                        style:
-                            TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
+                        style: TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 14),
                       ),
                       leading: Container(
                         height: MediaQuery.of(context).size.height * .05,
@@ -119,7 +118,6 @@ class HostProfileSetting extends GetView<HostController> {
                       trailing: Icon(Icons.arrow_forward_ios_outlined),
                     ),
                   ),
-
                   SizedBox(
                     height: 10,
                   ),
@@ -127,148 +125,370 @@ class HostProfileSetting extends GetView<HostController> {
                     "You have ${controller.historyList.value.where((element) => element.bookingStatus == "0").length} booking request",
                     style: TextStyle(fontWeight: FontWeight.bold, fontSize: 14),
                   ),
-                  controller.historyList.value.where((element) => element.bookingStatus == "0").toList().isEmpty ? Container():
+                  controller.historyList.value
+                          .where((element) => element.bookingStatus == "0")
+                          .toList()
+                          .isEmpty
+                      ? Container()
+                      : SizedBox(
+                          height: 20,
+                        ),
                   Container(
-                    height: MediaQuery.of(context).size.height * .6,
+                    height: MediaQuery.of(context).size.height * .4,
                     child: ListView.builder(
-                        itemCount: controller.historyList.value.where((element) => element.bookingStatus == "0").length,
+                        scrollDirection: Axis.horizontal,
+                        itemCount: controller.historyList.value
+                            .where((element) => element.bookingStatus == "0")
+                            .length,
                         itemBuilder: (BuildContext context, index) {
-                          var data = controller.historyList.value.where((element) => element.bookingStatus == "0").toList()[index];
-                          return Container(
-                            height: MediaQuery.of(context).size.height * .4,
-                            width: MediaQuery.of(context).size.width,
-                            decoration: BoxDecoration(
-                              border: Border.all(color: Colors.grey),
-                              color: Colors.white,
-                              borderRadius: BorderRadius.circular(10),
-                            ),
+                          var data = controller.historyList.value
+                              .where((element) => element.bookingStatus == "0")
+                              .toList()[index];
+                          return Card(
                             child: Container(
-                              height: MediaQuery.of(context).size.height * .12,
-                              width: MediaQuery.of(context).size.width,
+                              height: MediaQuery.of(context).size.height * .3,
+                              width: MediaQuery.of(context).size.width * .7,
+                              decoration: BoxDecoration(
+                                border: Border.all(color: Colors.grey),
+                                color: Colors.white,
+                                borderRadius: BorderRadius.circular(5),
+                              ),
                               child: Padding(
-                                padding: const EdgeInsets.all(8.0),
+                                padding: const EdgeInsets.all(2.0),
                                 child: Column(
                                   mainAxisAlignment:
-                                      MainAxisAlignment.spaceAround,
+                                      MainAxisAlignment.spaceBetween,
                                   children: [
-                                    ListTile(
-                                      title:  Text(
-                                        "Booking Request",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14),
-                                      ),
-                                      subtitle:  Text(
-                                        data.listings!.listingTitle!,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 12),
-                                      ),
-                                      trailing: Text(DateFormat.yMd().add_jm().format( data.createdAt!,), style: TextStyle(fontSize: 10),),
+                                    Text(
+                                      "Booking Request",
+                                      style: TextStyle(
+                                          fontWeight: FontWeight.bold,
+                                          fontSize: 14),
                                     ),
-
-                                    ListTile(
-                                      title: Text(
-                                        data.bookingOrderName!,
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14),
-                                      ),
-                                      subtitle: Text(
-                                        "Checkin ${data.dateEnter} and checkout ${data.dateExit}",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.normal,
-                                            fontSize: 14),
-                                      ),
-                                      trailing: Text(
-                                        "Show details",
-                                        style: TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 14),
-                                      ),
-                                    ),
-                                    Row(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.spaceAround,
-                                      children: [
-                                        InkWell(
-                                          onTap: () {
-                                            showDialog(
-                                                context: context,
-                                                builder: (context) {
-                                                  return AlertDialog(
-                                                    content: Text('Are you sure you want to decline?'),
-                                                    actions: [
-                                                      ElevatedButton(
-                                                        onPressed: () => Navigator.of(context).pop(false),
-                                                        //return false when click on "NO"
-                                                        child:Text('No'),
-                                                      ),
-
-                                                      ElevatedButton(
-                                                        onPressed: () {
-                                                          controller.changeBookingStatus(booking_id: data.bookingId, booking_status: 2);
-                                                        },
-                                                        //return true when click on "Yes"
-                                                        child:Text('Yes'),
-                                                      ),
-                                                    ],
-                                                  );
-                                                }
-                                            );
-
+                                    RichText(
+                                        text: TextSpan(
+                                            text: "Booking Placed at ",
+                                            style: TextStyle(
+                                                color: Colors.black54,
+                                                fontSize: 12),
+                                            children: [
+                                          TextSpan(
+                                              text:
+                                                  '${DateFormat.yMd().add_jm().format(data.updatedAt!)}',
+                                              style: TextStyle(
+                                                  color: Colors.red,
+                                                  fontSize: 15)),
+                                        ])),
+                                    Container(
+                                        margin: EdgeInsets.all(8),
+                                        child: Table(
+                                          border: TableBorder.all(),
+                                          columnWidths: const <int,
+                                              TableColumnWidth>{
+                                            0: IntrinsicColumnWidth(),
+                                            1: FlexColumnWidth(),
                                           },
-                                          child: Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                .06,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                .3,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                              color: AppColors.redButton,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
+                                          defaultVerticalAlignment:
+                                              TableCellVerticalAlignment.middle,
+                                          children: <TableRow>[
+                                            TableRow(
+                                              decoration: BoxDecoration(
+                                                color: AppColors.textColorGreen,
+                                              ),
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Text(
+                                                    "Info Title",
+                                                    style: TextStyle(
+                                                        color: AppColors
+                                                            .jaygaWhite),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Text("Information",
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .jaygaWhite,
+                                                          fontSize: 12)),
+                                                ),
+                                              ],
                                             ),
-                                            child:
-                                                Center(child: Text("Decline")),
-                                          ),
-                                        ),
-                                        InkWell(
-                                          onTap: () {
-                                            controller.changeBookingStatus(booking_id: data.bookingId, booking_status: 1);
-                                          },
-                                          child: Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height *
-                                                .06,
-                                            width: MediaQuery.of(context)
-                                                    .size
-                                                    .width *
-                                                .3,
-                                            decoration: BoxDecoration(
-                                              border: Border.all(
-                                                  color: Colors.grey),
-                                              color: AppColors.greenButton,
-                                              borderRadius:
-                                                  BorderRadius.circular(10),
+                                            TableRow(
+                                              decoration: BoxDecoration(
+                                                color: AppColors.jaygaWhite,
+                                              ),
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Text(
+                                                    "Listing Title",
+                                                    style: TextStyle(
+                                                      color: AppColors
+                                                          .textColorBlack,
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Text(
+                                                      data.listings!
+                                                          .listingTitle!,
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .textColorBlack,
+                                                          fontSize: 12)),
+                                                ),
+                                              ],
                                             ),
-                                            child:
-                                                Center(child: Text("Accept")),
+                                            TableRow(
+                                              decoration: BoxDecoration(
+                                                color: AppColors.jaygaWhite,
+                                              ),
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Text(
+                                                    "Customer Name",
+                                                    style: TextStyle(
+                                                      color: AppColors
+                                                          .textColorBlack,
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Text(
+                                                      data.bookingOrderName!,
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .textColorBlack,
+                                                          fontSize: 12)),
+                                                ),
+                                              ],
+                                            ),
+                                            TableRow(
+                                              decoration: BoxDecoration(
+                                                color: AppColors.jaygaWhite,
+                                              ),
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Text(
+                                                    "Customer mobile",
+                                                    style: TextStyle(
+                                                      color: AppColors
+                                                          .textColorBlack,
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Text("00000000000",
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .textColorBlack,
+                                                          fontSize: 12)),
+                                                ),
+                                              ],
+                                            ),
+                                            TableRow(
+                                              decoration: BoxDecoration(
+                                                color: AppColors.jaygaWhite,
+                                              ),
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Text(
+                                                    "Check in",
+                                                    style: TextStyle(
+                                                      color: AppColors
+                                                          .textColorBlack,
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Text(
+                                                      DateFormat.yMd().format(
+                                                          DateTime.parse(
+                                                              data.dateEnter!)),
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .textColorBlack,
+                                                          fontSize: 12)),
+                                                ),
+                                              ],
+                                            ),
+                                            TableRow(
+                                              decoration: BoxDecoration(
+                                                color: AppColors.jaygaWhite,
+                                              ),
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Text(
+                                                    "Check out",
+                                                    style: TextStyle(
+                                                      color: AppColors
+                                                          .textColorBlack,
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Text(
+                                                      DateFormat.yMd().format(
+                                                          DateTime.parse(
+                                                              data.dateExit!)),
+                                                      style: TextStyle(
+                                                          color: AppColors
+                                                              .textColorBlack,
+                                                          fontSize: 12)),
+                                                ),
+                                              ],
+                                            ),
+                                            TableRow(
+                                              decoration: BoxDecoration(
+                                                color: AppColors.jaygaWhite,
+                                              ),
+                                              children: <Widget>[
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(4.0),
+                                                  child: Text(
+                                                    "Total Stay",
+                                                    style: TextStyle(
+                                                      color: AppColors
+                                                          .textColorBlack,
+                                                      fontSize: 12,
+                                                    ),
+                                                  ),
+                                                ),
+                                                Padding(
+                                                    padding:
+                                                        const EdgeInsets.all(
+                                                            4.0),
+                                                    child: Text(
+                                                        data.daysStayed!,
+                                                        style: TextStyle(
+                                                            color: AppColors
+                                                                .textColorBlack,
+                                                            fontSize: 12))),
+                                              ],
+                                            ),
+                                          ],
+                                        )),
+                                    Container(
+                                      width: Get.width * .5,
+                                      child: Row(
+                                        mainAxisAlignment:
+                                            MainAxisAlignment.spaceAround,
+                                        children: [
+                                          InkWell(
+                                            onTap: () {
+                                              showDialog(
+                                                  context: context,
+                                                  builder: (context) {
+                                                    return AlertDialog(
+                                                      content: Text(
+                                                          'Are you sure you want to decline?'),
+                                                      actions: [
+                                                        ElevatedButton(
+                                                          onPressed: () =>
+                                                              Navigator.of(
+                                                                      context)
+                                                                  .pop(false),
+                                                          //return false when click on "NO"
+                                                          child: Text('No'),
+                                                        ),
+                                                        ElevatedButton(
+                                                          onPressed: () {
+                                                            controller.changeBookingStatus(
+                                                                booking_id: data
+                                                                    .bookingId,
+                                                                booking_status:
+                                                                    2);
+                                                          },
+                                                          //return true when click on "Yes"
+                                                          child: Text('Yes'),
+                                                        ),
+                                                      ],
+                                                    );
+                                                  });
+                                            },
+                                            child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  .04,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  .2,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                                color: AppColors.redButton,
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: Center(
+                                                  child: Text("Decline")),
+                                            ),
                                           ),
-                                        ),
-                                      ],
+                                          InkWell(
+                                            onTap: () {
+                                              controller.changeBookingStatus(
+                                                  booking_id: data.bookingId,
+                                                  booking_status: 1);
+                                            },
+                                            child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  .04,
+                                              width: MediaQuery.of(context)
+                                                      .size
+                                                      .width *
+                                                  .2,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                                color: AppColors.greenButton,
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child:
+                                                  Center(child: Text("Accept")),
+                                            ),
+                                          ),
+                                        ],
+                                      ),
                                     ),
                                     Text(
                                       "Guests will be arriving for late check-in for a stay of ${data.daysStayed} days",
                                       style: TextStyle(
                                           fontWeight: FontWeight.bold,
-                                          fontSize: 14,
+                                          fontSize: 12,
                                           color: Colors.green),
                                     ),
                                   ],
@@ -288,99 +508,347 @@ class HostProfileSetting extends GetView<HostController> {
                   SizedBox(
                     height: 10,
                   ),
-                  controller.historyList.value.where((element) => element.bookingStatus == "1").toList().isEmpty ? Text("No reservation yet"):
-                  Container(
-                    height: MediaQuery.of(context).size.height * .5,
-                    width: MediaQuery.of(context).size.width,
-                    decoration: BoxDecoration(
-                      border: Border.all(color: Colors.grey),
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(10),
-                    ),
-                    child: Container(
-                      height: MediaQuery.of(context).size.height * .15,
-                      width: MediaQuery.of(context).size.width,
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceAround,
-                          children: [
-                            Text(
-                              "Overview",
-                              style: TextStyle(
-                                  fontWeight: FontWeight.bold, fontSize: 18),
-                            ),
-                            Container(
-                              height: MediaQuery.of(context).size.height * .35,
-                              child: ListView.builder(
-                                  itemCount: controller.historyList.value.where((element) => element.bookingStatus == "1").length,
-                                  itemBuilder: (BuildContext context, index) {
-                                    var data = controller.historyList.value.where((element) => element.bookingStatus == "1").toList()[index];
-                                    return Card(
-                                      child: Container(
-                                        height: MediaQuery.of(context).size.height * .3,
-                                        width: MediaQuery.of(context).size.width,
-                                        decoration: BoxDecoration(
-                                          border: Border.all(color: Colors.grey),
-                                          color: Colors.white,
-                                          borderRadius: BorderRadius.circular(10),
-                                        ),
-                                        child: Container(
-                                          height: MediaQuery.of(context).size.height * .09,
-                                          width: MediaQuery.of(context).size.width,
-                                          child: Padding(
-                                            padding: const EdgeInsets.all(8.0),
-                                            child: Column(
-                                              mainAxisAlignment:
-                                              MainAxisAlignment.spaceAround,
-                                              children: [
-                                                Text(
-                                                  "Reservation",
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 14),
-                                                ),
-                                                ListTile(
-                                                  title: Text(
-                                                    data.listings!.listingTitle!,
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 14),
+                  controller.historyList.value
+                          .where((element) => element.bookingStatus == "1")
+                          .toList()
+                          .isEmpty
+                      ? Text("No reservation yet")
+                      : Container(
+                          height: MediaQuery.of(context).size.height * .7,
+                          width: MediaQuery.of(context).size.width,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Colors.grey),
+                            color: Colors.white,
+                            borderRadius: BorderRadius.circular(10),
+                          ),
+                          child: Container(
+                            height: MediaQuery.of(context).size.height * .7,
+                            width: MediaQuery.of(context).size.width,
+                            child: Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Column(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceAround,
+                                children: [
+                                  Text(
+                                    "Overview",
+                                    style: TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 18),
+                                  ),
+                                  Container(
+                                    height:
+                                        MediaQuery.of(context).size.height * .5,
+                                    child: ListView.builder(
+                                        itemCount: controller.historyList.value
+                                            .where((element) =>
+                                                element.bookingStatus == "1")
+                                            .length,
+                                        itemBuilder:
+                                            (BuildContext context, index) {
+                                          var data = controller
+                                              .historyList.value
+                                              .where((element) =>
+                                                  element.bookingStatus == "1")
+                                              .toList()[index];
+                                          return Card(
+                                            child: Container(
+                                              height: MediaQuery.of(context)
+                                                      .size
+                                                      .height *
+                                                  .3,
+                                              width: MediaQuery.of(context)
+                                                  .size
+                                                  .width,
+                                              decoration: BoxDecoration(
+                                                border: Border.all(
+                                                    color: Colors.grey),
+                                                color: Colors.white,
+                                                borderRadius:
+                                                    BorderRadius.circular(10),
+                                              ),
+                                              child: Container(
+                                                height: MediaQuery.of(context)
+                                                        .size
+                                                        .height *
+                                                    .09,
+                                                width: MediaQuery.of(context)
+                                                    .size
+                                                    .width,
+                                                child: Padding(
+                                                  padding:
+                                                      const EdgeInsets.all(8.0),
+                                                  child: Column(
+                                                    mainAxisAlignment:
+                                                        MainAxisAlignment
+                                                            .spaceAround,
+                                                    children: [
+                                                      Text(
+                                                        "Reservation",
+                                                        style: TextStyle(
+                                                            fontWeight:
+                                                                FontWeight.bold,
+                                                            fontSize: 14),
+                                                      ),
+                                                      Container(
+                                                          margin:
+                                                              EdgeInsets.all(8),
+                                                          child: Table(
+                                                            border: TableBorder
+                                                                .all(),
+                                                            columnWidths: const <
+                                                                int,
+                                                                TableColumnWidth>{
+                                                              0: IntrinsicColumnWidth(),
+                                                              1: FlexColumnWidth(),
+                                                            },
+                                                            defaultVerticalAlignment:
+                                                                TableCellVerticalAlignment
+                                                                    .middle,
+                                                            children: <
+                                                                TableRow>[
+                                                              TableRow(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: AppColors
+                                                                      .textColorGreen,
+                                                                ),
+                                                                children: <
+                                                                    Widget>[
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            4.0),
+                                                                    child: Text(
+                                                                      "Info Title",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              AppColors.jaygaWhite),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            4.0),
+                                                                    child: Text(
+                                                                        "Information",
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                AppColors.jaygaWhite,
+                                                                            fontSize: 12)),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              TableRow(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: AppColors
+                                                                      .jaygaWhite,
+                                                                ),
+                                                                children: <
+                                                                    Widget>[
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            4.0),
+                                                                    child: Text(
+                                                                      "Listing Title",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              AppColors.textColorBlack),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            4.0),
+                                                                    child: Text(
+                                                                        data.listings!
+                                                                            .listingTitle!,
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                AppColors.textColorBlack,
+                                                                            fontSize: 12)),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              TableRow(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: AppColors
+                                                                      .jaygaWhite,
+                                                                ),
+                                                                children: <
+                                                                    Widget>[
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            4.0),
+                                                                    child: Text(
+                                                                      "Customer Name",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              AppColors.textColorBlack),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            4.0),
+                                                                    child: Text(
+                                                                        data
+                                                                            .bookingOrderName!,
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                AppColors.textColorBlack,
+                                                                            fontSize: 12)),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              TableRow(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: AppColors
+                                                                      .jaygaWhite,
+                                                                ),
+                                                                children: <
+                                                                    Widget>[
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            4.0),
+                                                                    child: Text(
+                                                                      "Customer mobile",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              AppColors.textColorBlack),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            4.0),
+                                                                    child: Text(
+                                                                        "00000000000",
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                AppColors.textColorBlack,
+                                                                            fontSize: 12)),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              TableRow(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: AppColors
+                                                                      .jaygaWhite,
+                                                                ),
+                                                                children: <
+                                                                    Widget>[
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            4.0),
+                                                                    child: Text(
+                                                                      "Check in",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              AppColors.textColorBlack),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            4.0),
+                                                                    child: Text(
+                                                                        DateFormat.yMd().format(DateTime.parse(data
+                                                                            .dateEnter!)),
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                AppColors.textColorBlack,
+                                                                            fontSize: 12)),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              TableRow(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: AppColors
+                                                                      .jaygaWhite,
+                                                                ),
+                                                                children: <
+                                                                    Widget>[
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            4.0),
+                                                                    child: Text(
+                                                                      "Check out",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              AppColors.textColorBlack),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            4.0),
+                                                                    child: Text(
+                                                                        DateFormat.yMd().format(DateTime.parse(data
+                                                                            .dateExit!)),
+                                                                        style: TextStyle(
+                                                                            color:
+                                                                                AppColors.textColorBlack,
+                                                                            fontSize: 12)),
+                                                                  ),
+                                                                ],
+                                                              ),
+                                                              TableRow(
+                                                                decoration:
+                                                                    BoxDecoration(
+                                                                  color: AppColors
+                                                                      .jaygaWhite,
+                                                                ),
+                                                                children: <
+                                                                    Widget>[
+                                                                  Padding(
+                                                                    padding:
+                                                                        const EdgeInsets.all(
+                                                                            4.0),
+                                                                    child: Text(
+                                                                      "Total Stay",
+                                                                      style: TextStyle(
+                                                                          color:
+                                                                              AppColors.textColorBlack),
+                                                                    ),
+                                                                  ),
+                                                                  Padding(
+                                                                      padding:
+                                                                          const EdgeInsets.all(
+                                                                              4.0),
+                                                                      child: Text(
+                                                                          data
+                                                                              .daysStayed!,
+                                                                          style: TextStyle(
+                                                                              color: AppColors.textColorBlack,
+                                                                              fontSize: 12))),
+                                                                ],
+                                                              ),
+                                                            ],
+                                                          )),
+                                                    ],
                                                   ),
-                                                  subtitle: Text(
-                                                    "Checkin ${data.dateEnter} and checkout ${data.dateExit}",
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.normal,
-                                                        fontSize: 14),
-                                                  ),
-                                                  trailing: Text(
-                                                    "Show details",
-                                                    style: TextStyle(
-                                                        fontWeight: FontWeight.bold,
-                                                        fontSize: 14),
-                                                  ),
                                                 ),
-
-                                                Text(
-                                                  "Guests will be arriving for late check-in for a stay of ${data.daysStayed} days",
-                                                  style: TextStyle(
-                                                      fontWeight: FontWeight.bold,
-                                                      fontSize: 14,
-                                                      color: Colors.green),
-                                                ),
-                                              ],
+                                              ),
                                             ),
-                                          ),
-                                        ),
-                                      ),
-                                    );
-                                  }),
+                                          );
+                                        }),
+                                  ),
+                                ],
+                              ),
                             ),
-                          ],
+                          ),
                         ),
-                      ),
-                    ),
-                  ),
                 ],
               ),
             ),

@@ -64,7 +64,7 @@ class CreateYourDescription extends GetView<HostController> {
                             filled: true,
                             fillColor: AppColors.jaygaWhite,
                             focusColor: Colors.white,
-                            labelText: 'Great view, along the main road, easy transportation',
+                            labelText: 'Input Description',
                             // suffixIcon: Icon(
                             //   Icons.email_outlined,
                             // ),

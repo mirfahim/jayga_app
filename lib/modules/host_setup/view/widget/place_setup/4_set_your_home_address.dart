@@ -23,7 +23,7 @@ class SetHomeAddress extends GetView<HostController> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                height: MediaQuery.of(context).size.height * .8,
+                height: MediaQuery.of(context).size.height * .7,
                 decoration: BoxDecoration(
                     color: Colors.white,
                     borderRadius: BorderRadius.circular(40)),
@@ -32,9 +32,7 @@ class SetHomeAddress extends GetView<HostController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      SizedBox(
-                        height: 10,
-                      ),
+
                       Text(
                         "Set your home address",
                         style: TextStyle(

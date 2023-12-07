@@ -7,7 +7,7 @@ import 'package:jayga/modules/auth/controller/auth_controller.dart';
 import 'package:jayga/modules/booking/controller/booking_controller.dart';
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/utils/AppColors/app_colors.dart';
-
+import 'package:intl/intl.dart';
 import '../../../../routes/app_pages.dart';
 
 class MyBookingListHISTORY extends GetView<BookingController> {
@@ -31,7 +31,7 @@ class MyBookingListHISTORY extends GetView<BookingController> {
                     onTap: (){
                       Get.toNamed(Routes.BOOKINGDETAILSHISTORY, arguments: [index]);
                     },
-                    child: Stack(
+                    child: Column(
 
                       children: [
                         Container(
@@ -94,37 +94,59 @@ class MyBookingListHISTORY extends GetView<BookingController> {
                             )
 
                         ),
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+                              Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  Text(data.listings!.listingTitle, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.black),),
+                                  Row(
 
-                        Positioned(
-                          bottom: 10,
+                                    children: [
+                                      Icon(Icons.star,color: Colors.orange,),
+                                      Text("5.0", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.orange)),
+                                    ],
+                                  ),
 
-                          child: Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                Row(
-                                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                  crossAxisAlignment: CrossAxisAlignment.start,
-                                  children: [
-                                    Text(data.listings!.listingTitle, style: TextStyle(fontWeight: FontWeight.bold, fontSize: 18, color: Colors.white),),
-                                    Row(
+                                ],
+                              ),
+                              RichText(
+                                overflow: TextOverflow.ellipsis,
+                                text: TextSpan(
+                                    children: [
+                                  TextSpan(
+                                    text: "Checkin ",
+                                    style:TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black54),
+                                  ),
+                                  TextSpan(
+                                    text: " ${DateFormat.yMd().format(DateTime.parse(data.dateEnter!))}",
+                                    style:
+                                    Theme.of(context).textTheme.subtitle1,
+                                  ),
+                                      TextSpan(
+                                        text: " Checkout ",
+                                        style:TextStyle(fontWeight: FontWeight.bold, fontSize: 12, color: Colors.black54),
+                                      ),
+                                      TextSpan(
+                                        text: " ${DateFormat.yMd()
+                                            .format(DateTime.parse(data.dateExit!))}",
+                                        style:
+                                        Theme.of(context).textTheme.subtitle1,
+                                      ),
+                                ]),
+                              )
 
-                                      children: [
-                                        Icon(Icons.star,color: Colors.orange,),
-                                        Text("5.0", style: TextStyle(fontWeight: FontWeight.bold, fontSize: 16, color: Colors.orange)),
-                                      ],
-                                    ),
-
-                                  ],
-                                ),
-                                Text(data.listings!.listingDescription, style: TextStyle(fontWeight: FontWeight.normal, fontSize: 18, color: Colors.white),),
 
 
-                              ],
-                            ),
+                            ],
                           ),
                         ),
+
+
 
 
                       ],

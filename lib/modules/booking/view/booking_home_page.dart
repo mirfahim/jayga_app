@@ -57,76 +57,8 @@ class ExplorePageView extends GetView<BookingController> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          InkWell(
-                            onTap: (){
-                              Get.toNamed(Routes.LISTINGMAP);
-                            },
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'assets/icons/mapblack.png',
-                                  height: MediaQuery.of(context).size.height *.04,
-                                  width: MediaQuery.of(context).size.width *.08,
-                                  color: AppColors.textColorGreen,
 
-                                ),
-                                Text("Jayga Map")
-                              ],
-                            ),
-                          ),
 
-                          InkWell(
-                            onTap: (){
-                              Get.toNamed(Routes.GROUPTOURLIST);
-                            },
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'assets/icons/group.png',
-                                  height: MediaQuery.of(context).size.height *.04,
-                                  width: MediaQuery.of(context).size.width *.08,
-                                  color: AppColors.textColorGreen,
-                                ),
-                                Text("Group Tour")
-                              ],
-                            ),
-                          ),
-                          Column(
-                            children: [
-                              Image.asset(
-                                'assets/icons/packages.png',
-                                height: MediaQuery.of(context).size.height *.04,
-                                width: MediaQuery.of(context).size.width *.08,
-                                color: AppColors.textColorGreen,
-                              ),
-                              Text("Packages")
-                            ],
-                          ),
-                          InkWell(
-                            onTap: (){
-                              Get.toNamed(Routes.COMMUNITYHOME);
-                            },
-                            child: Column(
-                              children: [
-                                Image.asset(
-                                  'assets/icons/community.png',
-                                  height: MediaQuery.of(context).size.height *.04,
-                                  width: MediaQuery.of(context).size.width *.08,
-                                  color: AppColors.textColorGreen,
-                                ),
-                                Text("Community")
-                              ],
-                            ),
-                          ),
-                        ],
-                      ),
-                      SizedBox(
-                        height: 10,
-                      ),
-                      Divider(),
                       Text(
                         "Find your next place to stay",
                         style: TextStyle(
@@ -138,443 +70,8 @@ class ExplorePageView extends GetView<BookingController> {
                         height: 10,
                       ),
 
-                      Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            "Search Listings?",
-                            style: TextStyle(
-                                fontSize: 20,
-                                color: Colors.black54,
-                                fontWeight: FontWeight.bold),
-                          ),
-                          InkWell(
-                            onTap: (){
-                              Get.toNamed(Routes.SEARCHPAGE);
-                            },
-                            child: Image.asset(
-                              'assets/icons/filter.png',
-                              // height: MediaQuery.of(context).size.height *.5,
-                              // width: MediaQuery.of(context).size.width *.9,
-                            ),
-                          ),
-                        ],
-                      ),
-                      Obx(
-                        () {
-                          return Container(
-                            height: MediaQuery.of(context).size.height *.07,
-                            width: MediaQuery.of(context).size.width ,
-                            child: SingleChildScrollView(
-                              scrollDirection: Axis.horizontal,
-                              child: Row(
-                                children: [
-                                  controller.districtName.value == "" ? Container(): Card(
-                                    color: AppColors.buttonColorYellow,
-                                    child: AnimatedContainer(
-                                      duration: Duration(seconds: 2),
-                                      height:  30,
-                                      width: MediaQuery.of(context).size.width *.2,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.buttonColorYellow,
-                                          borderRadius: BorderRadius.circular(
-                                              controller.searchLoad.value == 1 ? 60 : 40)),
-                                      alignment: Alignment.center,
-                                      child:  Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context).size.width*.12,
-                                            child: Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "${controller.districtName.value}",
-                                              style: TextStyle(
-                                                color: AppColors.backgroundColor,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                              onTap: (){
-                                                controller.districtName.value = "";
-                                              },
-                                              child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  controller.areaName.value == "" ? Container():Card(
-                                    color: AppColors.buttonColorYellow,
-                                    child: AnimatedContainer(
-                                      duration: Duration(seconds: 2),
-                                      height:  30,
-                                      width: MediaQuery.of(context).size.width *.2,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.buttonColorYellow,
-                                          borderRadius: BorderRadius.circular(
-                                              controller.searchLoad.value == 1 ? 60 : 40)),
-                                      alignment: Alignment.center,
-                                      child:  Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context).size.width*.12,
-                                            child: Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "${controller.areaName.value}",
-                                              style: TextStyle(
-                                                color: AppColors.backgroundColor,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                              onTap: (){
-                                                controller.areaName.value = "";
-                                              },
-                                              child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  controller.shortStay.value == 0 ? Container():Card(
-                                    color: AppColors.buttonColorYellow,
-                                    child: AnimatedContainer(
-                                      duration: Duration(seconds: 2),
-                                      height:  30,
-                                      width: MediaQuery.of(context).size.width *.2,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.buttonColorYellow,
-                                          borderRadius: BorderRadius.circular(
-                                              controller.searchLoad.value == 1 ? 60 : 40)),
-                                      alignment: Alignment.center,
-                                      child:  Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context).size.width*.12,
-                                            child: Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "Short Stay",
-                                              style: TextStyle(
-                                                color: AppColors.backgroundColor,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                              onTap: (){
-                                                controller.searchPetsInt.value = 0;
-                                                controller.searchPets.value = false;
-
-                                              },
-                                              child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  controller.searchGymInt.value == 0 ? Container():Card(
-                                    color: AppColors.buttonColorYellow,
-                                    child: AnimatedContainer(
-                                      duration: Duration(seconds: 2),
-                                      height:  30,
-                                      width: MediaQuery.of(context).size.width *.2,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.buttonColorYellow,
-                                          borderRadius: BorderRadius.circular(
-                                              controller.searchLoad.value == 1 ? 60 : 40)),
-                                      alignment: Alignment.center,
-                                      child:  Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context).size.width*.12,
-                                            child: Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "Gym",
-                                              style: TextStyle(
-                                                color: AppColors.backgroundColor,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                              onTap: (){
-                                                controller.searchGymInt.value = 0;
-                                                controller.searchGym.value = false;
-
-                                              },
-                                              child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  controller.searchPoolInt.value == 0 ? Container():Card(
-                                    color: AppColors.buttonColorYellow,
-                                    child: AnimatedContainer(
-                                      duration: Duration(seconds: 2),
-                                      height:  30,
-                                      width: MediaQuery.of(context).size.width *.2,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.buttonColorYellow,
-                                          borderRadius: BorderRadius.circular(
-                                              controller.searchLoad.value == 1 ? 60 : 40)),
-                                      alignment: Alignment.center,
-                                      child:  Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context).size.width*.12,
-                                            child: Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "Pool",
-                                              style: TextStyle(
-                                                color: AppColors.backgroundColor,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                              onTap: (){
-                                                controller.searchPoolInt.value = 0;
-                                                controller.searchPool.value = false;
-                                              },
-                                              child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  controller.searchAcInt.value == 0 ? Container():Card(
-                                    color: AppColors.buttonColorYellow,
-                                    child: AnimatedContainer(
-                                      duration: Duration(seconds: 2),
-                                      height:  30,
-                                      width: MediaQuery.of(context).size.width *.2,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.buttonColorYellow,
-                                          borderRadius: BorderRadius.circular(
-                                              controller.searchLoad.value == 1 ? 60 : 40)),
-                                      alignment: Alignment.center,
-                                      child:  Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context).size.width*.12,
-                                            child: Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "AC",
-                                              style: TextStyle(
-                                                color: AppColors.backgroundColor,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                              onTap: (){
-                                                controller.searchAcInt.value = 0;
-                                                controller.searchAc.value = false;
-                                              },
-                                              child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  controller.searchParkingInt.value == 0 ? Container():Card(
-                                    color: AppColors.buttonColorYellow,
-                                    child: AnimatedContainer(
-                                      duration: Duration(seconds: 2),
-                                      height:  30,
-                                      width: MediaQuery.of(context).size.width *.2,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.buttonColorYellow,
-                                          borderRadius: BorderRadius.circular(
-                                              controller.searchLoad.value == 1 ? 60 : 40)),
-                                      alignment: Alignment.center,
-                                      child:  Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context).size.width*.12,
-                                            child: Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "Parking",
-                                              style: TextStyle(
-                                                color: AppColors.backgroundColor,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                              onTap: (){
-                                                controller.searchParkingInt.value = 0;
-                                                controller.searchParking.value = false;
-                                              },
-                                              child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  controller.searchWorkSpaceInt.value == 0 ? Container():Card(
-                                    color: AppColors.buttonColorYellow,
-                                    child: AnimatedContainer(
-                                      duration: Duration(seconds: 2),
-                                      height:  30,
-                                      width: MediaQuery.of(context).size.width *.2,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.buttonColorYellow,
-                                          borderRadius: BorderRadius.circular(
-                                              controller.searchLoad.value == 1 ? 60 : 40)),
-                                      alignment: Alignment.center,
-                                      child:  Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context).size.width*.12,
-                                            child: Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "WorkSpace",
-                                              style: TextStyle(
-                                                color: AppColors.backgroundColor,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                              onTap: (){
-                                                controller.searchWorkSpaceInt.value = 0;
-                                                controller.searchWorkSpace.value = false;
-
-                                              },
-                                              child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  controller.searchNightInt.value == 0 ? Container():Card(
-                                    color: AppColors.buttonColorYellow,
-                                    child: AnimatedContainer(
-                                      duration: Duration(seconds: 2),
-                                      height:  30,
-                                      width: MediaQuery.of(context).size.width *.2,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.buttonColorYellow,
-                                          borderRadius: BorderRadius.circular(
-                                              controller.searchLoad.value == 1 ? 60 : 40)),
-                                      alignment: Alignment.center,
-                                      child:  Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context).size.width*.12,
-                                            child: Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "Night Entry",
-                                              style: TextStyle(
-                                                color: AppColors.backgroundColor,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                              onTap: (){
-                                                controller.searchNightInt.value = 0;
-                                                controller.searchNightEntry.value = false;
-
-                                              },
-                                              child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  controller.searchPetsInt.value == 0 ? Container():Card(
-                                    color: AppColors.buttonColorYellow,
-                                    child: AnimatedContainer(
-                                      duration: Duration(seconds: 2),
-                                      height:  30,
-                                      width: MediaQuery.of(context).size.width *.2,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.buttonColorYellow,
-                                          borderRadius: BorderRadius.circular(
-                                              controller.searchLoad.value == 1 ? 60 : 40)),
-                                      alignment: Alignment.center,
-                                      child:  Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context).size.width*.12,
-                                            child: Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "Pets",
-                                              style: TextStyle(
-                                                color: AppColors.backgroundColor,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
-                                              onTap: (){
-                                                controller.searchPetsInt.value = 0;
-                                                controller.searchPets.value = false;
-
-                                              },
-                                              child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-                                  controller.searchAddiInt.value == 0 ? Container():Card(
-                                    color: AppColors.buttonColorYellow,
-                                    child: AnimatedContainer(
-                                      duration: Duration(seconds: 2),
-                                      height:  30,
-                                      width: MediaQuery.of(context).size.width *.2,
-                                      decoration: BoxDecoration(
-                                          color: AppColors.buttonColorYellow,
-                                          borderRadius: BorderRadius.circular(
-                                              controller.searchLoad.value == 1 ? 60 : 40)),
-                                      alignment: Alignment.center,
-                                      child:  Row(
-                                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          SizedBox(
-                                            width: MediaQuery.of(context).size.width*.12,
-                                            child: Text(
-                                              overflow: TextOverflow.ellipsis,
-                                              "Guest",
-                                              style: TextStyle(
-                                                color: AppColors.backgroundColor,
-                                                fontSize: 12,
-                                              ),
-                                            ),
-                                          ),
-                                          InkWell(
 
 
-
-
-
-
-                                              onTap: (){
-                                                controller.searchAddiInt.value = 0;
-                                                controller.searchAddiGuest.value = false;
-
-                                              },
-                                              child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
-                                        ],
-                                      ),
-                                    ),
-                                  ),
-
-                                ],
-                              ),
-                            ),
-                          );
-                        }
-                      ),
-
-                      SizedBox(
-                        height: 20,
-                      ),
                       Container(
                         height: 50,
                         decoration: BoxDecoration(
@@ -608,11 +105,18 @@ class ExplorePageView extends GetView<BookingController> {
                               ),
                             ),
                           ),
+                          trailing:  InkWell(
+                            onTap: (){
+                              Get.toNamed(Routes.SEARCHPAGE);
+                            },
+                            child: Icon(Icons.filter_list, size: 35,)
+                          ),
 
                         ),
                       ),
+
                       SizedBox(
-                        height: 10,
+                        height: 20,
                       ),
                       Center(
                         child: InkWell(
@@ -625,7 +129,7 @@ class ExplorePageView extends GetView<BookingController> {
                           child: AnimatedContainer(
                             duration: Duration(seconds: 2),
                             height: controller.searchLoad.value == 1 ? 40 : 45,
-                            width: controller.searchLoad.value == 1 ? 50 : 140,
+                            width: controller.searchLoad.value == 1 ? Get.width *.6 : Get.width *.8,
                             decoration: BoxDecoration(
                                 color: AppColors.textColorGreen,
                                 borderRadius: BorderRadius.circular(
@@ -637,12 +141,490 @@ class ExplorePageView extends GetView<BookingController> {
                               "Search",
                               style: TextStyle(
                                 color: AppColors.backgroundColor,
-                                fontSize: 12,
+                                fontWeight: FontWeight.bold,
+                                fontSize: 16,
                               ),
                             ),
                           ),
                         ),
                       ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceAround,
+                        children: [
+                          Container(
+                            color: Colors.grey,
+                            height: 0.5,
+                            width: Get.width *.4,
+                          ),
+                          Text(
+                            "or",
+                            style: TextStyle(
+                                fontSize: 14,
+                                color: Colors.black54,
+                                fontWeight: FontWeight.normal),
+                          ),
+                         Container(
+                           color: Colors.grey,
+                           height: 0.5,
+                           width: Get.width *.4,
+                         )
+                        ],
+                      ),
+                      InkWell(
+                        onTap:(){
+                          Get.toNamed(Routes.LISTINGMAP);
+                        },
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+
+                            Text(
+                              "Find all listings near your area ",
+                              style: TextStyle(
+                                  fontSize: 14,
+                                  color: AppColors.textColorGreen,
+                                  fontWeight: FontWeight.bold),
+                            ),
+                            Image.asset(
+                              'assets/icons/mapblack.png',
+                              height: MediaQuery.of(context).size.height *.04,
+                              width: MediaQuery.of(context).size.width *.08,
+                              color: AppColors.textColorGreen,
+
+                            ),
+                          ],
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10,
+                      ),
+                      Obx(
+                              () {
+                            return Container(
+                              height: MediaQuery.of(context).size.height *.06,
+                              width: MediaQuery.of(context).size.width ,
+                              child: SingleChildScrollView(
+                                scrollDirection: Axis.horizontal,
+                                child: Row(
+                                  children: [
+                                    controller.districtName.value == "" ? Container(): AnimatedContainer(
+                                      duration: Duration(seconds: 2),
+                                      height: MediaQuery.of(context).size.width *.1,
+                                      width: MediaQuery.of(context).size.width *.25,
+                                      decoration: BoxDecoration(
+                                          color: AppColors.jaygaWhite,
+                                          border: Border.all(color: Colors.grey),
+                                          borderRadius: BorderRadius.circular(
+                                              controller.searchLoad.value == 1 ? 60 : 40)),
+
+                                      child:  Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width*.14,
+                                              child: Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "${controller.districtName.value}",
+                                                style: TextStyle(
+                                                  color: AppColors.textColorBlack,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                                onTap: (){
+                                                  controller.districtName.value = "";
+                                                },
+                                                child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    controller.areaName.value == "" ? Container():AnimatedContainer(
+                                      duration: Duration(seconds: 2),
+                                      height: MediaQuery.of(context).size.width *.1,
+                                      width: MediaQuery.of(context).size.width *.25,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.grey),
+                                          color: AppColors.jaygaWhite,
+                                          borderRadius: BorderRadius.circular(
+                                              controller.searchLoad.value == 1 ? 60 : 40)),
+                                      alignment: Alignment.center,
+                                      child:  Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width*.14,
+                                              child: Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "${controller.areaName.value}",
+                                                style: TextStyle(
+                                                  color: AppColors.textColorBlack,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                                onTap: (){
+                                                  controller.areaName.value = "";
+                                                },
+                                                child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    controller.shortStay.value == 0 ? Container():AnimatedContainer(
+                                      duration: Duration(seconds: 2),
+                                      height: MediaQuery.of(context).size.width *.1,
+                                      width: MediaQuery.of(context).size.width *.25,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.grey),
+                                          color: AppColors.jaygaWhite,
+                                          borderRadius: BorderRadius.circular(
+                                              controller.searchLoad.value == 1 ? 60 : 40)),
+                                      alignment: Alignment.center,
+                                      child:  Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width*.14,
+                                              child: Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "Short Stay",
+                                                style: TextStyle(
+                                                  color: AppColors.textColorBlack,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                                onTap: (){
+                                                  controller.shortStay.value = 0;
+                                                  controller.searchShortStay.value = false;
+
+                                                },
+                                                child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    controller.searchGymInt.value == 0 ? Container():AnimatedContainer(
+                                      duration: Duration(seconds: 2),
+                                      height: MediaQuery.of(context).size.width *.1,
+                                      width: MediaQuery.of(context).size.width *.25,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.grey),
+                                          color: AppColors.jaygaWhite,
+                                          borderRadius: BorderRadius.circular(
+                                              controller.searchLoad.value == 1 ? 60 : 40)),
+
+                                      child:  Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width*.14,
+                                              child: Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "Gym",
+                                                style: TextStyle(
+                                                  color: AppColors.textColorBlack,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                                onTap: (){
+                                                  controller.searchGymInt.value = 0;
+                                                  controller.searchGym.value = false;
+
+                                                },
+                                                child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    controller.searchPoolInt.value == 0 ? Container():AnimatedContainer(
+                                      duration: Duration(seconds: 2),
+                                      height: MediaQuery.of(context).size.width *.1,
+                                      width: MediaQuery.of(context).size.width *.25,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.grey),
+                                          color: AppColors.jaygaWhite,
+                                          borderRadius: BorderRadius.circular(
+                                              controller.searchLoad.value == 1 ? 60 : 40)),
+                                      alignment: Alignment.center,
+                                      child:  Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width*.14,
+                                              child: Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "Pool",
+                                                style: TextStyle(
+                                                  color: AppColors.textColorBlack,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                                onTap: (){
+                                                  controller.searchPoolInt.value = 0;
+                                                  controller.searchPool.value = false;
+                                                },
+                                                child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    controller.searchAcInt.value == 0 ? Container():AnimatedContainer(
+                                      duration: Duration(seconds: 2),
+                                      height: MediaQuery.of(context).size.width *.1,
+                                      width: MediaQuery.of(context).size.width *.25,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.grey),
+                                          color: AppColors.jaygaWhite,
+                                          borderRadius: BorderRadius.circular(
+                                              controller.searchLoad.value == 1 ? 60 : 40)),
+                                      alignment: Alignment.center,
+                                      child:  Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width*.12,
+                                              child: Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "AC",
+                                                style: TextStyle(
+                                                  color: AppColors.textColorBlack,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                                onTap: (){
+                                                  controller.searchAcInt.value = 0;
+                                                  controller.searchAc.value = false;
+                                                },
+                                                child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    controller.searchParkingInt.value == 0 ? Container():AnimatedContainer(
+                                      duration: Duration(seconds: 2),
+                                      height: MediaQuery.of(context).size.width *.1,
+                                      width: MediaQuery.of(context).size.width *.25,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.grey),
+                                          color: AppColors.jaygaWhite,
+                                          borderRadius: BorderRadius.circular(
+                                              controller.searchLoad.value == 1 ? 60 : 40)),
+                                      alignment: Alignment.center,
+                                      child:  Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width*.14,
+                                              child: Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "Parking",
+                                                style: TextStyle(
+                                                  color: AppColors.textColorBlack,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                                onTap: (){
+                                                  controller.searchParkingInt.value = 0;
+                                                  controller.searchParking.value = false;
+                                                },
+                                                child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    controller.searchWorkSpaceInt.value == 0 ? Container():AnimatedContainer(
+                                      duration: Duration(seconds: 2),
+                                      height: MediaQuery.of(context).size.width *.1,
+                                      width: MediaQuery.of(context).size.width *.25,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.grey),
+                                          color: AppColors.jaygaWhite,
+                                          borderRadius: BorderRadius.circular(
+                                              controller.searchLoad.value == 1 ? 60 : 40)),
+                                      alignment: Alignment.center,
+                                      child:  Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width*.14,
+                                              child: Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "WorkSpace",
+                                                style: TextStyle(
+                                                  color: AppColors.textColorBlack,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                                onTap: (){
+                                                  controller.searchWorkSpaceInt.value = 0;
+                                                  controller.searchWorkSpace.value = false;
+
+                                                },
+                                                child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    controller.searchNightInt.value == 0 ? Container():AnimatedContainer(
+                                      duration: Duration(seconds: 2),
+                                      height: MediaQuery.of(context).size.width *.1,
+                                      width: MediaQuery.of(context).size.width *.25,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.grey),
+                                          color: AppColors.jaygaWhite,
+                                          borderRadius: BorderRadius.circular(
+                                              controller.searchLoad.value == 1 ? 60 : 40)),
+                                      alignment: Alignment.center,
+                                      child:  Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width*.15,
+                                              child: Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "Night Entry",
+                                                style: TextStyle(
+                                                  color: AppColors.textColorBlack,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                                onTap: (){
+                                                  controller.searchNightInt.value = 0;
+                                                  controller.searchNightEntry.value = false;
+
+                                                },
+                                                child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    controller.searchPetsInt.value == 0 ? Container():AnimatedContainer(
+                                      duration: Duration(seconds: 2),
+                                      height: MediaQuery.of(context).size.width *.1,
+                                      width: MediaQuery.of(context).size.width *.25,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.grey),
+                                          color: AppColors.jaygaWhite,
+                                          borderRadius: BorderRadius.circular(
+                                              controller.searchLoad.value == 1 ? 60 : 40)),
+                                      alignment: Alignment.center,
+                                      child:  Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width*.14,
+                                              child: Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "Pets",
+                                                style: TextStyle(
+                                                  color: AppColors.textColorBlack,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+                                                onTap: (){
+                                                  controller.searchPetsInt.value = 0;
+                                                  controller.searchPets.value = false;
+
+                                                },
+                                                child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+                                    controller.searchAddiInt.value == 0 ? Container():AnimatedContainer(
+                                      duration: Duration(seconds: 2),
+                                      height: MediaQuery.of(context).size.width *.1,
+                                      width: MediaQuery.of(context).size.width *.25,
+                                      decoration: BoxDecoration(
+                                          border: Border.all(color: Colors.grey),
+                                          color: AppColors.jaygaWhite,
+                                          borderRadius: BorderRadius.circular(
+                                              controller.searchLoad.value == 1 ? 60 : 40)),
+                                      alignment: Alignment.center,
+                                      child:  Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Row(
+                                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            SizedBox(
+                                              width: MediaQuery.of(context).size.width*.14,
+                                              child: Text(
+                                                overflow: TextOverflow.ellipsis,
+                                                "Guest",
+                                                style: TextStyle(
+                                                  color: AppColors.textColorBlack,
+                                                  fontSize: 12,
+                                                ),
+                                              ),
+                                            ),
+                                            InkWell(
+
+
+
+
+
+
+                                                onTap: (){
+                                                  controller.searchAddiInt.value = 0;
+                                                  controller.searchAddiGuest.value = false;
+
+                                                },
+                                                child: Icon(Icons.cancel, color: AppColors.textColorGreen,))
+                                          ],
+                                        ),
+                                      ),
+                                    ),
+
+                                  ],
+                                ),
+                              ),
+                            );
+                          }
+                      ),
+
                       SizedBox(
                         height: 20,
                       ),
@@ -730,7 +712,7 @@ class ExplorePageView extends GetView<BookingController> {
                                             onTap: (){
                                               print("index is $index");
                                               controller.getReviewController(data.listingId);
-
+                                              controller.getUserImage("15");
                                                controller.listingDataguestNum.value = data.guestNum;
                                               controller.listingDatabedNum.value= data.bedNum;
                                               controller.listingDatabathroomNum.value= data.bathroomNum;
@@ -1343,6 +1325,7 @@ class ExplorePageView extends GetView<BookingController> {
                                             onTap: (){
                                               print("index is $index");
                                               controller.getReviewController(data.listingId);
+                                              controller.getUserImage(data.listerId!.toString());
 
                                               controller.listingDataguestNum.value = data.guestNum;
                                               controller.listingDatabedNum.value= data.bedNum;

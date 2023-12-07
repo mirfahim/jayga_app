@@ -16,6 +16,9 @@ abstract class Routes {
   static const EDITNUMOTP = _Paths.EDITNUMOTP;
   static const BROWSEJOB = _Paths.BROWSEJOB;
   static const GROUPTOURDETAILS = _Paths.GROUPTOURDETAILS;
+  static const TRAVELPROFILE = _Paths.TRAVELPROFILE;
+
+
 
   static const CONTRACTORLISTVIEW = _Paths.CONTRACTORLISTVIEW;
   static const EXPLORE = _Paths.EXPLORE;
@@ -88,6 +91,7 @@ abstract class _Paths {
   static const EXPERIENCELANDING = '/experience-landing';
   static const PROFILE = '/profile';
   static const PACKAGEINCLUDE = '/package-include';
+  static const TRAVELPROFILE = '/ravel-profile';
 
   static const HOSTPROFILESETTING = '/host-setting';
   static const NOTIFICATIONLIST = '/notification-list';

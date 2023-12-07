@@ -16,6 +16,9 @@ class ApiUrl {
   static String getListerProfileListing = '$baseUrl/profile/listings/';
   static String addListingImage = '$baseUrl/add/listing-images';
   static String addUserImage = '$baseUrl/update/user/avatar';
+  static String getCoverImage = '$baseUrl/user/get-cover/';
+  static String getUserImage = '$baseUrl/user/avatars/';
+  static String addCoverPhoto = '$baseUrl/user/set-cover';
 
   static String addListingNIDImage = '$baseUrl/listing-nid/upload';
   static String deleteListingImage = '$baseUrl/listing/image/delete/';

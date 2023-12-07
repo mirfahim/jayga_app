@@ -23,7 +23,7 @@ class CommunityHomePage extends GetView<CommunityController> {
 
   @override
   Widget build(BuildContext context) {
-    return  Scaffold(
+    return Scaffold(
       appBar: PreferredSize(
         preferredSize: Size.fromHeight(70.0), // here the desired height
         child: Column(
@@ -44,9 +44,7 @@ class CommunityHomePage extends GetView<CommunityController> {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: AppColors.textColorGreen,
-        onPressed: (){
-
-        },
+        onPressed: () {},
         child: Icon(Icons.add),
       ),
       body: Center(
@@ -68,43 +66,58 @@ class CommunityHomePage extends GetView<CommunityController> {
                     Column(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        _AvatarImage(item.user.imageUrl),
-                SizedBox(height: 40,),
-                badges.Badge(
-                  badgeStyle: badges.BadgeStyle(
-                    badgeColor: AppColors.redButton,
-                    borderRadius: BorderRadius.circular(0),
-                  ),
-                  badgeContent: Text("5", style: TextStyle(color: Colors.white),),
+                        InkWell(
+                          onTap: (){
+                            Get.toNamed(Routes.TRAVELPROFILE);
+                          },
+                            child: _AvatarImage(item.user.imageUrl)),
+                        SizedBox(
+                          height: 40,
+                        ),
+                        badges.Badge(
+                          badgeStyle: badges.BadgeStyle(
+                            badgeColor: AppColors.redButton,
+                            borderRadius: BorderRadius.circular(0),
+                          ),
+                          badgeContent: Text(
+                            "5",
+                            style: TextStyle(color: Colors.white),
+                          ),
                           child: Container(
-                            height: Get.height*.05,
-                            width: Get.width*.1,
+                            height: Get.height * .05,
+                            width: Get.width * .1,
                             child: Image.asset(
                               'assets/icons/point.png',
                               height: 70,
                             ),
                           ),
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(
+                          height: 20,
+                        ),
                         badges.Badge(
                           badgeStyle: badges.BadgeStyle(
                             badgeColor: AppColors.redButton,
                             borderRadius: BorderRadius.circular(0),
                           ),
-                          badgeContent: Text("5", style: TextStyle(color: Colors.white),),
+                          badgeContent: Text(
+                            "5",
+                            style: TextStyle(color: Colors.white),
+                          ),
                           child: Image.asset(
                             'assets/icons/award.png',
-                            height: Get.height*.05,
-                            width: Get.width*.1,
+                            height: Get.height * .05,
+                            width: Get.width * .1,
                           ),
                         ),
-                        SizedBox(height: 20,),
+                        SizedBox(
+                          height: 20,
+                        ),
                         Image.asset(
                           'assets/icons/facebook.png',
-                          height: Get.height*.05,
-                          width: Get.width*.1,
+                          height: Get.height * .05,
+                          width: Get.width * .1,
                         ),
-
                       ],
                     ),
                     const SizedBox(width: 16),
@@ -118,22 +131,22 @@ class CommunityHomePage extends GetView<CommunityController> {
                             children: [
                               Expanded(
                                   child: RichText(
-                                    overflow: TextOverflow.ellipsis,
-                                    text: TextSpan(children: [
-                                      TextSpan(
-                                        text: item.user.fullName,
-                                        style: const TextStyle(
-                                            fontWeight: FontWeight.bold,
-                                            fontSize: 16,
-                                            color: Colors.black),
-                                      ),
-                                      TextSpan(
-                                        text: " @${item.user.userName}",
-                                        style:
+                                overflow: TextOverflow.ellipsis,
+                                text: TextSpan(children: [
+                                  TextSpan(
+                                    text: item.user.fullName,
+                                    style: const TextStyle(
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 16,
+                                        color: Colors.black),
+                                  ),
+                                  TextSpan(
+                                    text: " @${item.user.userName}",
+                                    style:
                                         Theme.of(context).textTheme.subtitle1,
-                                      ),
-                                    ]),
-                                  )),
+                                  ),
+                                ]),
+                              )),
                               Text('· 5m',
                                   style: Theme.of(context).textTheme.subtitle1),
                               const Padding(
@@ -169,7 +182,6 @@ class CommunityHomePage extends GetView<CommunityController> {
   }
 }
 
-
 class _AvatarImage extends StatelessWidget {
   final String url;
   const _AvatarImage(this.url, {Key? key}) : super(key: key);
@@ -197,8 +209,8 @@ class _ActionsRow extends StatelessWidget {
           iconTheme: const IconThemeData(color: Colors.grey, size: 18),
           textButtonTheme: TextButtonThemeData(
               style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(Colors.grey),
-              ))),
+            foregroundColor: MaterialStateProperty.all(Colors.grey),
+          ))),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
@@ -239,11 +251,11 @@ class FeedItem {
 
   FeedItem(
       {this.content,
-        this.imageUrl,
-        required this.user,
-        this.commentsCount = 0,
-        this.likesCount = 0,
-        this.retweetsCount = 0});
+      this.imageUrl,
+      required this.user,
+      this.commentsCount = 0,
+      this.likesCount = 0,
+      this.retweetsCount = 0});
 }
 
 class User {
@@ -252,10 +264,10 @@ class User {
   final String userName;
 
   User(
-      this.fullName,
-      this.userName,
-      this.imageUrl,
-      );
+    this.fullName,
+    this.userName,
+    this.imageUrl,
+  );
 }
 
 final List<User> _users = [
@@ -284,7 +296,7 @@ final List<User> _users = [
 final List<FeedItem> _feedItems = [
   FeedItem(
     content:
-    "A son asked his father (a programmer) why the sun rises in the east, and sets in the west. His response? It works, don’t touch!",
+        "A son asked his father (a programmer) why the sun rises in the east, and sets in the west. His response? It works, don’t touch!",
     user: _users[0],
     imageUrl: "https://picsum.photos/id/1000/960/540",
     likesCount: 100,
@@ -299,14 +311,14 @@ final List<FeedItem> _feedItems = [
   FeedItem(
       user: _users[0],
       content:
-      "How many programmers does it take to change a light bulb? None, that’s a hardware problem.",
+          "How many programmers does it take to change a light bulb? None, that’s a hardware problem.",
       likesCount: 50,
       commentsCount: 22,
       retweetsCount: 30),
   FeedItem(
       user: _users[1],
       content:
-      "Programming today is a race between software engineers striving to build bigger and better idiot-proof programs, and the Universe trying to produce bigger and better idiots. So far, the Universe is winning.",
+          "Programming today is a race between software engineers striving to build bigger and better idiot-proof programs, and the Universe trying to produce bigger and better idiots. So far, the Universe is winning.",
       imageUrl: "https://picsum.photos/id/1002/960/540",
       likesCount: 500,
       commentsCount: 202,

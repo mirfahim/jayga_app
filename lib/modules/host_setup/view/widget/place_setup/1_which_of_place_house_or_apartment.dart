@@ -24,7 +24,7 @@ class WhichOfPlace extends GetView<HostController> {
                 children: [
 
                   Container(
-                    height: MediaQuery.of(context).size.height *.82,
+                    height: MediaQuery.of(context).size.height *.7,
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(40)),
@@ -138,44 +138,83 @@ class WhichOfPlace extends GetView<HostController> {
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               InkWell(
-                                onTap:(){
+                                  onTap:(){
 
-                                    controller.listingType.value = "Cabin";
+                                    controller.listingType.value = "Hotel";
 
 
-                                },
-                                child:
-                              Container(
-                                  height: MediaQuery.of(context).size.height *.12,
-                                  width: MediaQuery.of(context).size.width *.3,
-                                  decoration: BoxDecoration(
-                                      color: controller.listingType.value != "Cabin" ? Colors.white : Colors.green,
+                                  },
+                                  child:
+                                  Container(
+                                      height: MediaQuery.of(context).size.height *.12,
+                                      width: MediaQuery.of(context).size.width *.3,
+                                      decoration: BoxDecoration(
+                                          color: controller.listingType.value != "Hotel" ? Colors.white : Colors.green,
 
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Card(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
+                                          borderRadius: BorderRadius.circular(10)),
+                                      child: Card(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
 
-                                      children: [
-                                        Container(
-                                          height: 30,
-                                          width: 30,
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(5),
-                                              image: DecorationImage(
+                                          children: [
+                                            Container(
+                                              height: 30,
+                                              width: 30,
+                                              decoration: BoxDecoration(
+                                                  borderRadius: BorderRadius.circular(5),
+                                                  image: DecorationImage(
 
-                                                fit: BoxFit.fill,
-                                                image: AssetImage(
+                                                    fit: BoxFit.fill,
+                                                    image: AssetImage(
 
-                                                  'assets/icons/host/place_type/cabin.png',
-                                                ),
-                                              )),
+                                                      'assets/icons/host/place_type/hotel.png',
+                                                    ),
+                                                  )),
+                                            ),
+                                            Text("Hotel")
+                                          ],
                                         ),
-                                        Text("Cabin")
-                                      ],
-                                    ),
-                                  )
-                              )),
+                                      )
+                                  )),
+                              // InkWell(
+                              //   onTap:(){
+                              //
+                              //       controller.listingType.value = "Cabin";
+                              //
+                              //
+                              //   },
+                              //   child:
+                              // Container(
+                              //     height: MediaQuery.of(context).size.height *.12,
+                              //     width: MediaQuery.of(context).size.width *.3,
+                              //     decoration: BoxDecoration(
+                              //         color: controller.listingType.value != "Cabin" ? Colors.white : Colors.green,
+                              //
+                              //         borderRadius: BorderRadius.circular(10)),
+                              //     child: Card(
+                              //       child: Column(
+                              //         mainAxisAlignment: MainAxisAlignment.center,
+                              //
+                              //         children: [
+                              //           Container(
+                              //             height: 30,
+                              //             width: 30,
+                              //             decoration: BoxDecoration(
+                              //                 borderRadius: BorderRadius.circular(5),
+                              //                 image: DecorationImage(
+                              //
+                              //                   fit: BoxFit.fill,
+                              //                   image: AssetImage(
+                              //
+                              //                     'assets/icons/host/place_type/cabin.png',
+                              //                   ),
+                              //                 )),
+                              //           ),
+                              //           Text("Cabin")
+                              //         ],
+                              //       ),
+                              //     )
+                              // )),
                               InkWell(
                                 onTap:(){
 
@@ -294,51 +333,7 @@ class WhichOfPlace extends GetView<HostController> {
                               )),
                             ],
                           ),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
-                            children: [
-                              InkWell(
-                                onTap:(){
 
-                                  controller.listingType.value = "Hotel";
-
-
-                                },
-                                child:
-                              Container(
-                                  height: MediaQuery.of(context).size.height *.12,
-                                  width: MediaQuery.of(context).size.width *.3,
-                                  decoration: BoxDecoration(
-                                      color: controller.listingType.value != "Hotel" ? Colors.white : Colors.green,
-
-                                      borderRadius: BorderRadius.circular(10)),
-                                  child: Card(
-                                    child: Column(
-                                      mainAxisAlignment: MainAxisAlignment.center,
-
-                                      children: [
-                                        Container(
-                                          height: 30,
-                                          width: 30,
-                                          decoration: BoxDecoration(
-                                              borderRadius: BorderRadius.circular(5),
-                                              image: DecorationImage(
-
-                                                fit: BoxFit.fill,
-                                                image: AssetImage(
-
-                                                  'assets/icons/host/place_type/hotel.png',
-                                                ),
-                                              )),
-                                        ),
-                                        Text("Hotel")
-                                      ],
-                                    ),
-                                  )
-                              )),
-
-                            ],
-                          ),
 
 
 

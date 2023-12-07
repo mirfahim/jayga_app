@@ -35,23 +35,31 @@ class LoginModel {
 class User {
   int userId;
   String phone;
+  String? name;
+  String? email;
   String authToken;
 
   User({
     required this.userId,
     required this.phone,
+     this.name,
+     this.email,
     required this.authToken,
   });
 
   factory User.fromJson(Map<String, dynamic> json) => User(
     userId: json["user_id"],
     phone: json["phone"],
+    email: json["email"],
+    name: json["name"],
     authToken: json["authToken"],
   );
 
   Map<String, dynamic> toJson() => {
     "user_id": userId,
     "phone": phone,
+    "name":name,
+    "email":email,
     "authToken": authToken,
   };
 }

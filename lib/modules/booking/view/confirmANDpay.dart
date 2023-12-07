@@ -757,7 +757,7 @@ class ConfirmAndPayView extends GetView<BookingController> {
                                           title: 'Error'.tr));
                                     } else {
                                       //controller.makeBookingController(context, lister_id: data.listerId, listing_id: data.listingId);
-                                      controller.makeBookingController(context, listing_id: data.listingId ,  amount: int.parse(data.fullDayPriceSetByUser) * controller.getDateDifferenceNum() );
+                                      controller.makeBookingController(context, listing_id: data.listingId , lister_id: data.listerId, amount: int.parse(data.fullDayPriceSetByUser) * controller.getDateDifferenceNum() );
                                      // controller.getPaymentUrl();
                                     }
                                   } else {

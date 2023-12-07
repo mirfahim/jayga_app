@@ -8,26 +8,20 @@ import 'package:jayga/models/AreaModel.dart';
 import 'package:jayga/models/district_model.dart';
 import 'package:jayga/models/get_review_model.dart';
 import 'package:jayga/models/listing/filtered_listing_model.dart';
+import 'package:jayga/models/profile/cover_image_model.dart';
+import 'package:jayga/models/profile/image_model.dart';
 import 'package:jayga/models/profile/profile_model.dart';
-
 import 'package:jayga/modules/booking/view/my_booking_history/payment_webview.dart';
-import 'package:jayga/modules/home/controller/home_controller.dart';
-import 'package:jayga/repositories/auth/auth_rep.dart';
 import 'package:jayga/services/auth_services.dart';
-//import 'package:syncfusion_flutter_datepicker/datepicker.dart';
 import 'dart:collection';
-
 import 'package:table_calendar/table_calendar.dart';
-
-import 'package:jayga/modules/A_Base/view/saved_screen/saved_screen.dart';
-
 import 'package:intl/intl.dart';
 import 'package:url_launcher/url_launcher.dart';
 import '../../../models/booking_history_model.dart';
 import '../../../repositories/listing_rep.dart';
 import '../../../routes/app_pages.dart';
 import '../../../utils/ui_support.dart';
-import '../../home/view/home_page_view.dart';
+import 'package:video_player/video_player.dart';
 
 class BookingController extends GetxController {
   //TODO: Implement BaseController
@@ -41,6 +35,7 @@ class BookingController extends GetxController {
   final listingDatalistingAddress = "".obs;
   final listingDatadistrict = "".obs;
   final listingDatatown = "".obs;
+  final totalStay = "".obs;
   final listingDatazipCode = "".obs;
   final listingDataallowShortStay = "".obs;
   final listingDatadescribePeaceful = "".obs;
@@ -117,16 +112,19 @@ class BookingController extends GetxController {
   final areaName = "".obs;
   final districtArea = "".obs;
   var scrollController = ScrollController().obs;
-
+  late VideoPlayerController videoController;
   final searchString = "".obs;
   // final listingData = <Listing>[].obs;
-  CalendarFormat calendarFormat = CalendarFormat.month;
-  DateTime focusedDay = DateTime.now();
-  DateTime? selectedDay;
+  final calendarFormat = CalendarFormat.month.obs;
+  final focusedDay = DateTime.now().obs;
+  final selectedDay = DateTime.now().obs;
   DateTime selectedCheckinDate = DateTime.now();
   DateTime selectedCheckoutDate = DateTime.now();
   var startDate = ''.obs;
   var endDate = ''.obs;
+  final userPhotoModel = GetUserImage().obs;
+  final profile_image = "".obs;
+  final lister_image = "".obs;
   final searchShortStay = false.obs;
   final searchGym = false.obs;
   final searchGymInt = 0.obs;
@@ -155,8 +153,18 @@ class BookingController extends GetxController {
   final allowShortStay = "0".obs;
   final searchGuestNo = "0".obs;
   final searchBedNo = "0".obs;
+  final seeVideo = false.obs;
   var myFormat = DateFormat('yyyy-MM-dd');
   //date
+  final disabledDates = [
+    DateTime(2023, 12, 8),
+    DateTime(2023, 12, 15),
+    DateTime(2023, 12, 16),
+    DateTime(2023, 12, 20),
+    DateTime(2023, 12, 31),
+    DateTime(2023, 12, 30),
+    // Add more dates as needed
+  ].obs;
   var phoneNum = ''.obs;
   var selectedDate = ''.obs;
   var dateCount = ''.obs;
@@ -182,6 +190,7 @@ class BookingController extends GetxController {
   @override
   void onClose() {
     super.onClose();
+    super.onClose();
   }
 
   // listingController() async {
@@ -200,12 +209,65 @@ class BookingController extends GetxController {
   //     }
   //   });
   // }
+  bool isDateDisabled(DateTime day) {
+    // Check if the date is in the list of disabled dates
+    return [
+      DateTime(2023, 12, 8),
+      DateTime(2023, 12, 15),
+    ].contains(day);
+  }
+
+  playVideoController() {
+    videoController = VideoPlayerController.networkUrl(
+      Uri.parse(
+          'https://flutter.github.io/assets-for-api-docs/assets/videos/bee.mp4'),
+    )..initialize().then((_) {
+        print("Video Initialized Successfully!");
+        // Ensure the first frame is shown after the video is initialized
+        videoController.play();
+        videoController.setLooping(true);
+        update();
+      }).catchError((error) {
+        print("Error initializing video: $error");
+      });
+
+    videoController.addListener(() {
+      update();
+    });
+  }
+
   getStoredData() {
     listingData.value = GetStorage()
         .read('listing')!
         .map((e) => FilteredListing.fromJson(e))
         .toList()
         .cast<FilteredListing>();
+  }
+
+  String getUserImage(id) {
+    ListingRep().getUserImage(id: id).then((e) async {
+      if (e != null) {
+        userPhotoModel.value = e;
+        profile_image.value = userPhotoModel.value.messege!.first.userFilename!;
+        print("my user imag is _________ ${profile_image.value}");
+      } else {
+        print("error ++++++++++++++");
+      }
+    });
+    return profile_image.value;
+  }
+
+  String getListerImage(id) {
+    ListingRep().getUserImage(id: id).then((e) async {
+      if (e != null) {
+        userPhotoModel.value = e;
+        lister_image.value = userPhotoModel.value.messege!.first.userFilename!;
+        print("my lister imag is _________ ${lister_image.value}");
+      } else {
+        print("error ++++++++++++++");
+      }
+    });
+    return lister_image.value;
   }
 
   Future<void> checkInternetConnectivity() async {
@@ -270,22 +332,25 @@ class BookingController extends GetxController {
         listingData.value = e.filteredListing;
         print("total listing +++++++++++++++${listingData.value.length}");
         await box.value.write('listing', listingData.value);
-        listingData.value.forEach((element) {
-          markers.value.add(
-            Marker(
-                markerId: MarkerId(
-                  element.listingId.toString(),
-                ),
-                position: LatLng(
-                    double.parse(element.lat), double.parse(element.long)),
-                infoWindow: InfoWindow(
-                  title: element.listingTitle,
-                ),
-                onTap: () {
-                  Get.toNamed(Routes.MAKEBOOKINGDETAILS, arguments: [element]);
-                }),
-          );
-        });
+        listingData
+          ..forEach((element) {
+            markers
+              ..add(
+                Marker(
+                    markerId: MarkerId(
+                      element.listingId.toString(),
+                    ),
+                    position: LatLng(
+                        double.parse(element.lat), double.parse(element.long)),
+                    infoWindow: InfoWindow(
+                      title: element.listingTitle,
+                    ),
+                    onTap: () {
+                      Get.toNamed(Routes.MAKEBOOKINGDETAILS,
+                          arguments: [element]);
+                    }),
+              );
+          });
 
         // Get.offAllNamed(Routes.BASE);
       } else {
@@ -309,12 +374,10 @@ class BookingController extends GetxController {
       print("my ssl pay url is $e");
       if (e["response"]["status"] == "SUCCESS") {
         Get.off(() => PaymentWeb(
-
-          listerID: listerID.toString(),
+              listerID: listerID.toString(),
               listingID: listingID.toString(),
               amount: amount.toString(),
               bookingID: booking_id.toString(),
-
               url: e["response"]["GatewayPageURL"],
               appBar: "Payment",
             ));
@@ -387,17 +450,17 @@ class BookingController extends GetxController {
       }
     });
   }
+
   paymentStatus({listingId, listerID, bookingId, pay}) async {
     visible.value++;
     ListingRep()
         .paymentStatus(
-        listerId: listerID.toString(),
-        booking_id: bookingId.toString(),
-        listingId: listingId.toString(),
-        pay_amount: pay.toString())
+            listerId: listerID.toString(),
+            booking_id: bookingId.toString(),
+            listingId: listingId.toString(),
+            pay_amount: pay.toString())
         .then((e) async {
       print("paYMWNT status changed $e");
-
     });
   }
 
@@ -423,7 +486,8 @@ class BookingController extends GetxController {
     visible.value++;
     ListingRep()
         .makeBooking(
-      date_enter: selectedCheckinDate.toString() ,
+            listerID: lister_id,
+            date_enter: selectedCheckinDate.toString(),
             date_exit: selectedCheckoutDate.toString(),
             message: messageController.value.text,
             guestNum: guestNum.value.toString(),
@@ -431,6 +495,7 @@ class BookingController extends GetxController {
             phone: profileData.value.userData!.first.phone,
             name: profileData.value.userData!.first.name,
             amount: amount.toString(),
+            daysStay: totalStay.value,
             trans_id: "${DateTime.now().millisecond}listing$listing_id",
             listingID: listing_id.toString(),
             userId: Get.find<AuthService>()
@@ -447,7 +512,6 @@ class BookingController extends GetxController {
         getPaymentUrl(
           listingID: e["booking_details"]["listing_id"],
           listerID: e["booking_details"]["lister_id"],
-
           booking_id: e["booking_details"]["id"],
           amount: e["booking_details"]["pay_amount"],
           trans_id: e["booking_details"]["transaction_id"],
@@ -542,6 +606,8 @@ class BookingController extends GetxController {
   getDateDifferenceNum() {
     final difference =
         selectedCheckoutDate.difference(selectedCheckinDate).inDays;
+    totalStay.value = difference.toString();
+
     return difference;
   }
 

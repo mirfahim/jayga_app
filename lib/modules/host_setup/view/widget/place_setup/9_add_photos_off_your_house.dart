@@ -69,7 +69,7 @@ class AddPhotosOfHouse extends GetView<HostController> {
 
                                 Container(
                                   height: MediaQuery.of(context).size.height * .1,
-                                  width: MediaQuery.of(context).size.width * .8,
+                                  width: MediaQuery.of(context).size.width * .75,
                                   decoration: BoxDecoration(
                                       color: AppColors.jaygaTextFldColor,
                                       borderRadius: BorderRadius.circular(20)),
@@ -104,7 +104,7 @@ class AddPhotosOfHouse extends GetView<HostController> {
 
                                 Container(
                                   height: MediaQuery.of(context).size.height * .1,
-                                  width: MediaQuery.of(context).size.width * .8,
+                                  width: MediaQuery.of(context).size.width * .75,
                                   decoration: BoxDecoration(
                                       color: AppColors.jaygaTextFldColor,
                                       borderRadius: BorderRadius.circular(20)),

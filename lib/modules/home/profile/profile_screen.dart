@@ -1,13 +1,8 @@
-import 'dart:convert';
-import 'package:countries_world_map/countries_world_map.dart';
-import 'package:countries_world_map/data/maps/world_map.dart';
-import 'package:bangladesh/bangladesh.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:get/get.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:jayga/modules/auth/controller/auth_controller.dart';
 import 'package:jayga/modules/booking/view/my_booking_history/payment_webview.dart';
 import 'package:jayga/modules/home/controller/home_controller.dart';
 import 'package:jayga/routes/app_pages.dart';
@@ -57,87 +52,157 @@ class ProfileView extends GetView<HomeController> {
                           mainAxisAlignment: MainAxisAlignment.start,
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
+                            Container(
+                              height: MediaQuery.of(context).size.height * .3,
+                              child: Stack(
+                                children: [
+                                  Padding(
+                                    padding:
+                                        const EdgeInsets.only(bottom: 40.0),
+                                    child: InkWell(
+                                      onTap: () {
+                                        showPopup(context, 'cover');
+                                      },
+                                      child: Container(
+                                        height:
+                                            MediaQuery.of(context).size.height,
+                                        decoration: BoxDecoration(
+                                          borderRadius: BorderRadius.only(
+                                            bottomLeft: Radius.elliptical(
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.5,
+                                                100.0),
+                                            bottomRight: Radius.elliptical(
+                                                MediaQuery.of(context)
+                                                        .size
+                                                        .width *
+                                                    0.5,
+                                                100.0),
+                                          ),
+                                          image: DecorationImage(
+                                            fit: BoxFit.cover,
+                                            image: controller.coverImageString
+                                                    .value.isNotEmpty
+                                                ? NetworkImage(
+                                                    "https://new.jayga.io/uploads/usercovers/${controller.coverImageString.value}")
+                                                : NetworkImage(
+                                                    'https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250'),
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.topCenter,
+                                    child: Stack(
+                                      children: [
+                                        Padding(
+                                          padding: const EdgeInsets.only(
+                                              left: 10, top: 10),
+                                          child: Align(
+                                            alignment: Alignment.topCenter,
+                                            child: Text(
+                                              Get.find<HomeController>()
+                                                  .profileData
+                                                  .value
+                                                  .userData!
+                                                  .first
+                                                  .name,
+                                              style: TextStyle(
+                                                  color: Colors.white,
+                                                  fontSize: 25,
+                                                  fontWeight: FontWeight.bold),
+                                            ),
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                  Align(
+                                    alignment: Alignment.bottomCenter,
+                                    child: Row(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        CircleAvatar(
+                                          radius: 20,
+                                          backgroundColor: Colors.white,
+                                          child: Icon(
+                                            Icons.star,
+                                            size: 30,
+                                            color: Colors.orange,
+                                          ),
+                                        ),
+                                        InkWell(
+                                          onTap: () {
+                                            showPopup(context, 'profile');
+                                          },
+                                          child: CircleAvatar(
+                                            radius: 70,
+                                            child: CachedNetworkImage(
+                                              imageUrl: Get.find<
+                                                          HomeController>()
+                                                      .profileData
+                                                      .value
+                                                      .userPictures!
+                                                      .isEmpty
+                                                  ? "https://www.gravatar.com/avatar/2c7d99fe281ecd3bcd65ab915bac6dd5?s=250"
+                                                  : "https://new.jayga.io/uploads/useravatars/${Get.find<HomeController>().profileData.value.userPictures!.first.userFilename}",
+                                              imageBuilder:
+                                                  (context, imageProvider) =>
+                                                      Container(
+                                                decoration: BoxDecoration(
+                                                  color: Colors.transparent,
+                                                  borderRadius:
+                                                      BorderRadius.circular(20),
+                                                  image: DecorationImage(
+                                                    image: imageProvider,
+                                                    fit: BoxFit.fill,
+                                                  ),
+                                                ),
+                                              ),
+                                              placeholder: (context, url) =>
+                                                  const Padding(
+                                                padding: EdgeInsets.all(5.0),
+                                                child: Image(
+                                                  image: AssetImage(
+                                                    'assets/images/jayga_logo.png',
+                                                  ),
+                                                ),
+                                              ),
+                                              errorWidget:
+                                                  (context, url, error) =>
+                                                      const Padding(
+                                                padding: EdgeInsets.all(5.0),
+                                                child: Image(
+                                                  image: AssetImage(
+                                                    'assets/images/jayga_logo.png',
+                                                  ),
+                                                ),
+                                              ),
+                                            ),
+                                          ),
+                                        ),
+                                        CircleAvatar(
+                                          radius: 20,
+                                          backgroundColor: Colors.white,
+                                          child: Icon(
+                                            Icons.filter,
+                                            size: 30,
+                                            color: AppColors.textColorGreen,
+                                          ),
+                                        ),
+                                      ],
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                             SizedBox(
-                              height: 20,
+                              height: 10,
                             ),
-                            Text(
-                              "Profile",
-                              style: TextStyle(
-                                  fontSize: 40,
-                                  color: Colors.black,
-                                  fontWeight: FontWeight.bold),
-                            ),
-                            SizedBox(
-                              height: 20,
-                            ),
-                            // ListTile(
-                            //   leading: InkWell(
-                            //     onTap: () {
-                            //       showPopup(context, 'profile');
-                            //     },
-                            //     // child:   Container(
-                            //     //             width: MediaQuery.of(context)
-                            //     //                     .size
-                            //     //                     .width *
-                            //     //                 .1,
-                            //     //             height: MediaQuery.of(context)
-                            //     //                     .size
-                            //     //                     .height *
-                            //     //                 .15,
-                            //     //             margin: EdgeInsets.symmetric(
-                            //     //                 horizontal: 5.0),
-                            //     //             decoration: BoxDecoration(
-                            //     //                 borderRadius:
-                            //     //                 BorderRadius.circular(40),
-                            //     //                 color: Colors.transparent),
-                            //     //             child: CachedNetworkImage(
-                            //     //               imageUrl:
-                            //     //                   "https://new.jayga.xyz/uploads/useravatars/${controller.profileData.value.userPictures!.first.userFilename}",
-                            //     //               imageBuilder:
-                            //     //                   (context, imageProvider) =>
-                            //     //                       Container(
-                            //     //                 decoration: BoxDecoration(
-                            //     //                   color: Colors.transparent,
-                            //     //                   borderRadius:
-                            //     //                       BorderRadius.circular(20),
-                            //     //                   image: DecorationImage(
-                            //     //                     image: imageProvider,
-                            //     //                     fit: BoxFit.fill,
-                            //     //                   ),
-                            //     //                 ),
-                            //     //               ),
-                            //     //               placeholder: (context, url) =>
-                            //     //                   const Padding(
-                            //     //                 padding: EdgeInsets.all(5.0),
-                            //     //                 child: Image(
-                            //     //                   image: AssetImage(
-                            //     //                     'assets/images/jayga_logo.png',
-                            //     //                   ),
-                            //     //                 ),
-                            //     //               ),
-                            //     //               errorWidget:
-                            //     //                   (context, url, error) =>
-                            //     //                       const Padding(
-                            //     //                 padding: EdgeInsets.all(5.0),
-                            //     //                 child: Image(
-                            //     //                   image: AssetImage(
-                            //     //                     'assets/images/jayga_logo.png',
-                            //     //                   ),
-                            //     //                 ),
-                            //     //               ),
-                            //     //             ),
-                            //     //           ),
-                            //     child: Container(),
-                            //   ),
-                            //   title: Text(
-                            //       controller.profileData.value.userData![0].name),
-                            //   subtitle: Text("Edit Profile"),
-                            //   trailing: InkWell(
-                            //       onTap: () {
-                            //         Get.toNamed(Routes.PROFILEDETAIL);
-                            //       },
-                            //       child: Icon(Icons.navigate_next)),
-                            // ),
                             Divider(),
                             InkWell(
                               onTap: () {
@@ -168,12 +233,11 @@ class ProfileView extends GetView<HomeController> {
                                 ),
                               ),
                             ),
-
                             SizedBox(
                               height: 20,
                             ),
                             SizedBox(
-                              height: MediaQuery.of(context).size.height * .45,
+                              height: MediaQuery.of(context).size.height * .3,
                               child: ListView(
                                 children: [
                                   Text(
@@ -208,7 +272,8 @@ class ProfileView extends GetView<HomeController> {
                                       height: 40,
                                       child: ListTile(
                                         leading: Icon(Icons.settings),
-                                        title: Text("How many division you visited?"),
+                                        title: Text(
+                                            "How many division you visited?"),
                                         trailing: Icon(Icons.navigate_next),
                                       ),
                                     ),
@@ -222,7 +287,8 @@ class ProfileView extends GetView<HomeController> {
                                       height: 40,
                                       child: ListTile(
                                         leading: Icon(Icons.settings),
-                                        title: Text("How many country you visted?"),
+                                        title: Text(
+                                            "How many country you visted?"),
                                         trailing: Icon(Icons.navigate_next),
                                       ),
                                     ),
@@ -286,15 +352,6 @@ class ProfileView extends GetView<HomeController> {
                                       ),
                                     ),
                                   ),
-                                  // Divider(),
-                                  // Container(
-                                  //   height: 40,
-                                  //   child: ListTile(
-                                  //     leading: Icon(Icons.settings),
-                                  //     title: Text("Privacy and sharing"),
-                                  //     trailing: Icon(Icons.navigate_next),
-                                  //   ),
-                                  // ),
                                   Divider(),
                                   SizedBox(
                                     height: 30,
@@ -336,20 +393,6 @@ class ProfileView extends GetView<HomeController> {
                                       ),
                                     ),
                                   ),
-                                  // Divider(),
-                                  // InkWell(
-                                  //   onTap: () {
-                                  //     controller.appReview();
-                                  //   },
-                                  //   child: Container(
-                                  //     height: 40,
-                                  //     child: ListTile(
-                                  //       leading: Icon(Icons.settings),
-                                  //       title: Text("App Review"),
-                                  //       trailing: Icon(Icons.navigate_next),
-                                  //     ),
-                                  //   ),
-                                  // ),
                                   Divider(),
                                   Text(
                                     "Legal",
@@ -406,7 +449,7 @@ class ProfileView extends GetView<HomeController> {
                                       "Log out",
                                       style: TextStyle(
                                           fontSize: 20,
-                                          color: AppColors.textColorGreen,
+                                          color: AppColors.textColorRed,
                                           fontWeight: FontWeight.bold),
                                     ),
                                   ),
@@ -441,28 +484,17 @@ class ProfileView extends GetView<HomeController> {
               ),
               child: Wrap(
                 children: <Widget>[
-                  // ListTile(
-                  //     leading: const Icon(Icons.photo_library),
-                  //     title: Text('Photo Library'.tr),
-                  //     onTap: () {
-                  //       controller.getImage(ImageSource.gallery, type);
-                  //       Get.back();
-                  //     }),
                   ListTile(
                     leading: const Icon(Icons.photo_camera),
-                    title: Text('Camera'.tr),
+                    title: Text('Gallary'.tr),
                     onTap: () {
-                      controller.getImage(ImageSource.camera, type, "2");
+                      controller.getImage(ImageSource.gallery, type, "2");
                       Get.back();
                     },
                   ),
                 ],
               ),
-            )
-            // actions: <Widget>[
-
-            // ],
-            );
+            ));
       },
     );
   }

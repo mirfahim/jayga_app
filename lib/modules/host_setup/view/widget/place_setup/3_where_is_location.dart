@@ -51,10 +51,16 @@ class WhereIsPlace extends GetView<HostController> {
                       color: Colors.black54),
                 ),
                 SizedBox(
-                  height: 20,
+                  height: 10,
                 ),
 
-
+                Text(
+                  "****Use two hand finger for map swipping.",
+                  style: TextStyle(
+                      fontWeight: FontWeight.normal,
+                      fontSize: 12,
+                      color: Colors.black54),
+                ),
 
               ],
             ),

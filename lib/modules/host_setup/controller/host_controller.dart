@@ -185,6 +185,10 @@ class HostController extends GetxController {
     pageIndex.value = 1;
     term.value = false;
     listingImages.clear();
+    nidPic.value = "";
+    nid_back.value = "";
+    lister_image.value ="";
+    utility_image.value = "";
     nidImageList.clear();
     houseTitle.value.clear();
     listingPrice.value.clear();

@@ -113,7 +113,7 @@ class AuthController extends GetxController {
         visibleForLogin.value = 0;
         //print("hlw bro ++++++++++ ${Get.find<AuthService>().isAuth.toString()}");
 
-        if(data.messege! == "User already exist") {
+        if(data.user!.name != null || data.user!.email != null) {
           Get.offAllNamed(Routes.BASE);
         } else {
         // registerToken.value = e['user']["bearer_token"];
